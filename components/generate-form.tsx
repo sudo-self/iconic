@@ -64,7 +64,7 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
 
   return (
     <div className="flex-1 bg-white rounded-lg p-5 shadow-sm">
-      <h3 className="font-semibold text-gray-800 mb-4">Create Icons</h3>
+      <h3 className="font-semibold text-gray-800 mb-4">Add Text</h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="promptInput" className="block text-sm font-medium text-gray-700 mb-1">
