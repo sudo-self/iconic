@@ -233,8 +233,8 @@ iconic.JesseJesse.xyz
           <div className="flex justify-center">
             <TabsList className="bg-white shadow-sm">
               <TabsTrigger value="generate" className="flex items-center gap-2">
-               AI&nbsp;<Wand2 className="h-4 w-4" />
-                Stable-Diffusion
+               AI<Wand2 className="h-4 w-4" />
+                stable-diffusion-xl-base
               </TabsTrigger>
             </TabsList>
           </div>
