@@ -91,7 +91,7 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
             ) : (
               <>
                 <Wand2 className="mr-2 h-4 w-4" />
-                Icon
+               Generate Icon
               </>
             )}
           </Button>
