@@ -82,7 +82,7 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
         </div>
 
         <div className="flex gap-3">
-          <Button type="submit" className="flex-1 bg-purple-600 hover:bg-purple-700" disabled={isGenerating}>
+          <Button type="submit" className="flex-1 bg-indigo-600 hover:bg-pink-700" disabled={isGenerating}>
             {isGenerating ? (
               <>
                 <Spinner className="mr-2 h-4 w-4 animate-spin" />
