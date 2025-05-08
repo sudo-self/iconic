@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import { Wand2, LoaderPinwheelIcon as Spinner } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -18,21 +17,11 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
   const [isGenerating, setIsGenerating] = useState(false)
   const { toast } = useToast()
 
-
   useEffect(() => {
     if (initialPrompt) {
       setPrompt(initialPrompt)
     }
   }, [initialPrompt])
-
-  const examplePrompts = [
-    "Minimal mountain icon, flat design, blue and white",
-    "Cartoon rocket ship, colorful, on transparent background",
-    "Abstract geometric shape, modern, gradient colors",
-    "Vintage camera icon, line art style, black and white",
-    "Coffee cup with steam, flat design, brown and cream",
-    "Heart with wings, minimal outline, pink color",
-  ]
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -41,28 +30,20 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
     setIsGenerating(true)
 
     try {
-      // Call the worker API to generate the image
       const response = await fetch("https://text-to-image.jessejesse.workers.dev", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          prompt: prompt,
-        }),
+        body: JSON.stringify({ prompt }),
       })
 
       if (!response.ok) {
         throw new Error(`API responded with status: ${response.status}`)
       }
 
-      // Get the image blob from the response
       const blob = await response.blob()
-
-      // Create a URL for the blob
       const imageUrl = URL.createObjectURL(blob)
-
-      // Set the generated image URL
       setGeneratedImageUrl(imageUrl)
 
       toast({
@@ -81,13 +62,9 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
     }
   }
 
-  const handleExamplePromptClick = (examplePrompt: string) => {
-    setPrompt(examplePrompt)
-  }
-
   return (
     <div className="flex-1 bg-white rounded-lg p-5 shadow-sm">
-      <h3 className="font-semibold text-gray-800 mb-4">Generate Icon with AI</h3>
+      <h3 className="font-semibold text-gray-800 mb-4">Generate Iconic</h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="promptInput" className="block text-sm font-medium text-gray-700 mb-1">
@@ -120,21 +97,7 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
           </Button>
         </div>
       </form>
-
-      <div className="mt-6">
-        <h4 className="font-semibold text-gray-800 mb-3">Example Prompts</h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {examplePrompts.map((examplePrompt) => (
-            <button
-              key={examplePrompt}
-              onClick={() => handleExamplePromptClick(examplePrompt)}
-              className="text-left p-3 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm transition"
-            >
-              "{examplePrompt}"
-            </button>
-          ))}
-        </div>
-      </div>
     </div>
   )
 }
+
