@@ -215,7 +215,7 @@ iconic.JesseJesse.xyz
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen flex flex-col items-center py-8 px-4 md:px-8">
+    <div className="bg-gray-100 min-h-screen flex flex-col items-center py-8 px-4 md:px-8">
       <div className="w-full max-w-6xl space-y-8">
         {/* Header */}
         <div className="flex flex-col items-center">
@@ -231,9 +231,9 @@ iconic.JesseJesse.xyz
         {/* Tabs */}
         <Tabs defaultValue="generate" value={activeTab} onValueChange={setActiveTab}>
           <div className="flex justify-center">
-            <TabsList className="bg-white shadow-sm">
+            <TabsList className="bg-indigo-400 shadow-sm">
               <TabsTrigger value="generate" className="flex items-center gap-2">
-               AI<Wand2 className="h-4 w-4" />
+               <Wand2 className="h-4 w-4" />
                 stable-diffusion-xl-base
               </TabsTrigger>
             </TabsList>
