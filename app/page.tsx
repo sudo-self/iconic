@@ -150,27 +150,25 @@ export default function IconicApp() {
             // Wait for all size conversions to complete
             Promise.all(promises).then(() => {
               // Add README
-              const readmeContent = `# Icon Pack Generated with Iconic
+              const readmeContent = `# iconic.JesseJesse.xyz
               
 This zip contains your icon in multiple sizes for various use cases:
 
-- favicon.ico - For website favicon (32x32)
-- apple-touch-icon.png - For iOS home screen (180x180)
-- icon-16x16.png to icon-512x512.png - Various sizes for different uses
+- favicon.ico
+- apple-touch-icon.png
+- icon-16x16.png to icon-512x512.png
 
 ## How to use
 
-1. For websites, place these files in your root directory
+1. Place the icon files in your root directory
 2. Add this to your HTML <head> section:
 
-\`\`\`html
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">
-\`\`\`
 
-3. For apps, use the appropriate size for your platform requirements
+iconic.JesseJesse.xyz
 `
 
               zip.file("README.txt", readmeContent)
@@ -235,8 +233,8 @@ This zip contains your icon in multiple sizes for various use cases:
           <div className="flex justify-center">
             <TabsList className="bg-white shadow-sm">
               <TabsTrigger value="generate" className="flex items-center gap-2">
-                <Wand2 className="h-4 w-4" />
-                Stable Diffusion
+               AI&nbsp;<Wand2 className="h-4 w-4" />
+                Stable-Diffusion
               </TabsTrigger>
             </TabsList>
           </div>
