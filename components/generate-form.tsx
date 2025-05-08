@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
 
-
 interface GenerateFormProps {
   setGeneratedImageUrl: (url: string | null) => void
   initialPrompt?: string
@@ -16,6 +15,7 @@ interface GenerateFormProps {
 export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" }: GenerateFormProps) {
   const [prompt, setPrompt] = useState(initialPrompt)
   const [isGenerating, setIsGenerating] = useState(false)
+  const [theme, setTheme] = useState<"metal" | "cartoon" | null>(null)
   const { toast } = useToast()
 
   useEffect(() => {
@@ -30,13 +30,20 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
 
     setIsGenerating(true)
 
+    const themedPrompt =
+      theme === "metal"
+        ? `${prompt}, in a metal style`
+        : theme === "cartoon"
+        ? `${prompt}, in a cartoon style`
+        : prompt
+
     try {
       const response = await fetch("https://text-to-image.jessejesse.workers.dev", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({ prompt: themedPrompt }),
       })
 
       if (!response.ok) {
@@ -82,6 +89,23 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
           <p className="text-xs text-gray-500 mt-1">Be descriptive as possible for best results</p>
         </div>
 
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            variant={theme === "metal" ? "default" : "outline"}
+            onClick={() => setTheme("metal")}
+          >
+            Metal
+          </Button>
+          <Button
+            type="button"
+            variant={theme === "cartoon" ? "default" : "outline"}
+            onClick={() => setTheme("cartoon")}
+          >
+            Cartoon
+          </Button>
+        </div>
+
         <div className="flex gap-3">
           <Button type="submit" className="flex-1 bg-indigo-600 hover:bg-pink-700" disabled={isGenerating}>
             {isGenerating ? (
@@ -92,7 +116,7 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
             ) : (
               <>
                 <Camera className="mr-2 h-4 w-4" />
-               Generate Icon
+                Generate Icon
               </>
             )}
           </Button>
@@ -101,4 +125,5 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
     </div>
   )
 }
+
 
