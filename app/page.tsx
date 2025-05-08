@@ -403,9 +403,17 @@ iconic.JesseJesse.xyz
         </Tabs>
 
         {/* Footer */}
-        <div className="text-center text-sm text-green-600 mt-12">
-          <p>iconic.JesseJesse.xyz</p>
-        </div>
+        <div className="text-center text-sm text-gray-500 mt-12">
+  <a
+    href="https://iconic.jessejesse.xyz"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:text-indigo-500 transition-colors"
+  >
+    iconic.JesseJesse.xyz
+  </a>
+</div>
+
       </div>
     </div>
   )
