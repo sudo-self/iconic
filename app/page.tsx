@@ -251,7 +251,7 @@ This zip contains your icon in multiple sizes for various use cases:
               <div className="w-full lg:w-96">
                 <div className="bg-white rounded-lg p-5 shadow-sm flex flex-col">
                   <div className="flex justify-between items-center mb-3">
-                    <h3 className="font-semibold text-gray-800">Generated Icon</h3>
+                    <h3 className="font-semibold text-gray-800">iconic icon</h3>
                     {generatedImageUrl && (
                       <Button
                         onClick={toggleTextEditor}
@@ -271,8 +271,7 @@ This zip contains your icon in multiple sizes for various use cases:
                       <canvas ref={previewCanvasRef} width={300} height={300} className="rounded-lg shadow-md" />
                     ) : (
                       <p className="text-gray-500 text-center p-6">
-                        Your generated icon will appear here. <br />
-                        Describe what you want and click "Generate Icon".
+                        Your iconic icon will appear here. <br />
                       </p>
                     )}
                   </div>
