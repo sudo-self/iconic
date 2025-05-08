@@ -74,7 +74,7 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
             id="promptInput"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="A Mountain shape use minimal style"
+            placeholder="A triangle shape with gradient colors"
             required
             className="w-full"
           />
