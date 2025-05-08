@@ -8,20 +8,16 @@ interface TopCarouselProps {
   onSelectPrompt?: (prompt: string) => void
 }
 
+const examples = [
+  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/cyberpunk.svg",
+  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/cyberpunk.svg",
+  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/cyberpunk.svg",
+]
+
 export default function TopCarousel({ onSelectPrompt }: TopCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
 
-  const examples = [
-    "Minimal mountain icon, flat design, blue and white",
-    "Cartoon rocket ship, colorful, on transparent background",
-    "Abstract geometric shape, modern, gradient colors",
-    "Vintage camera icon, line art style, black and white",
-    "Coffee cup with steam, flat design, brown and cream",
-    "Heart with wings, minimal outline, pink color",
-  ]
-
-  // Simpler carousel logic
   useEffect(() => {
     if (isPaused) return
 
@@ -30,7 +26,7 @@ export default function TopCarousel({ onSelectPrompt }: TopCarouselProps) {
     }, 3000)
 
     return () => clearInterval(interval)
-  }, [isPaused, examples.length])
+  }, [isPaused])
 
   const goToNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % examples.length)
@@ -38,12 +34,6 @@ export default function TopCarousel({ onSelectPrompt }: TopCarouselProps) {
 
   const goToPrev = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + examples.length) % examples.length)
-  }
-
-  const handleSelectPrompt = () => {
-    if (onSelectPrompt) {
-      onSelectPrompt(examples[currentIndex])
-    }
   }
 
   return (
@@ -61,27 +51,12 @@ export default function TopCarousel({ onSelectPrompt }: TopCarouselProps) {
           <ChevronLeft className="h-4 w-4" />
         </button>
 
-        <div className="flex justify-center h-20 relative">
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 bg-white rounded-lg shadow-sm flex items-center justify-center overflow-hidden">
-              <img
-                src={`/placeholder.svg?height=64&width=64`}
-                alt={`Example icon ${currentIndex + 1}`}
-                className="w-12 h-12 object-contain"
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-medium text-gray-700">{examples[currentIndex].split(",")[0]}</span>
-              {onSelectPrompt && (
-                <button
-                  onClick={handleSelectPrompt}
-                  className="text-xs text-blue-600 hover:text-blue-800 transition-colors mt-1"
-                >
-                  Use this prompt
-                </button>
-              )}
-            </div>
-          </div>
+        <div className="w-16 h-16 bg-white rounded-lg shadow-sm flex items-center justify-center overflow-hidden">
+          <img
+            src={examples[currentIndex]}
+            alt={`Example icon ${currentIndex + 1}`}
+            className="w-12 h-12 object-contain"
+          />
         </div>
 
         <button
@@ -109,3 +84,4 @@ export default function TopCarousel({ onSelectPrompt }: TopCarouselProps) {
     </div>
   )
 }
+
