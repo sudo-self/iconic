@@ -245,23 +245,26 @@ iconic.JesseJesse.xyz
               {/* AI Generation Form */}
               <GenerateForm setGeneratedImageUrl={setGeneratedImageUrl} initialPrompt={prompt} />
 
-              {/* Generated Image Display with Text Editor */}
-              <div className="w-full lg:w-96">
-                <div className="bg-white rounded-lg p-5 shadow-sm flex flex-col">
-                  <div className="flex justify-between items-center mb-3">
-                    <h3 className="font-semibold text-gray-800">Generated Icon</h3>
-                    {generatedImageUrl && (
-                      <Button
-                        onClick={toggleTextEditor}
-                        variant="outline"
-                        size="sm"
-                        className={showTextEditor ? "bg-blue-100" : ""}
-                      >
-                        {showTextEditor ? <X className="h-4 w-4 mr-1" /> : <Type className="h-4 w-4 mr-1" />}
-                        {showTextEditor ? "Hide Text" : "Add Text"}
-                      </Button>
-                    )}
-                  </div>
+              <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 rounded-lg mb-4 relative p-4">
+  {generatedImageUrl ? (
+    <>
+      <canvas
+        ref={previewCanvasRef}
+        width={300}
+        height={300}
+        className="rounded-lg shadow-md mb-2"
+      />
+      {prompt && (
+        <p className="text-xs text-gray-400 text-center italic max-w-xs break-words">
+          “{prompt}”
+        </p>
+      )}
+    </>
+  ) : (
+    <p className="text-gray-500 text-center">Your generated image will appear here</p>
+  )}
+</div>
+
 
                   {/* Preview Canvas */}
                   <div className="flex-1 flex items-center justify-center bg-gray-50 rounded-lg mb-4 relative">
