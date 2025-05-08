@@ -225,7 +225,7 @@ This zip contains your icon in multiple sizes for various use cases:
             iconic
           </h1>
           <p className="text-gray-600 text-center max-w-lg mb-4">
-            Create beautiful icons with our intuitive tools or generate unique designs with AI
+            Turn those ideas into a unique creative design with iconic
           </p>
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </div>
@@ -406,7 +406,7 @@ This zip contains your icon in multiple sizes for various use cases:
 
         {/* Footer */}
         <div className="text-center text-sm text-gray-500 mt-12">
-          <p>© 2023 Iconic - Create beautiful icons with ease</p>
+          <p>iconic - create beautiful icons with ease</p>
         </div>
       </div>
     </div>

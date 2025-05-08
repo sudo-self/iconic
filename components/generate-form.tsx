@@ -18,7 +18,7 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
   const [isGenerating, setIsGenerating] = useState(false)
   const { toast } = useToast()
 
-  // Update prompt when initialPrompt changes
+
   useEffect(() => {
     if (initialPrompt) {
       setPrompt(initialPrompt)

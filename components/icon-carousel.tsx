@@ -76,7 +76,7 @@ export default function IconCarousel({ items, onSelect }: IconCarouselProps) {
               <div className="flex flex-col items-center gap-2">
                 <div className="w-16 h-16 bg-white rounded-lg shadow-sm flex items-center justify-center overflow-hidden">
                   <img
-                    src={`/placeholder.svg?height=64&width=64`}
+                    src={`https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/prompt1.svg?height=64&width=64`}
                     alt={`Example icon ${index + 1}`}
                     className="w-12 h-12 object-contain"
                   />
