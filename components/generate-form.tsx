@@ -64,7 +64,7 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
 
   return (
     <div className="flex-1 bg-white rounded-lg p-5 shadow-sm">
-      <h3 className="font-semibold text-gray-800 mb-4">Add Text</h3>
+      <h3 className="font-semibold text-gray-800 mb-4">Text</h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="promptInput" className="block text-sm font-medium text-gray-700 mb-1">
@@ -74,11 +74,11 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
             id="promptInput"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="A triangle shape with gradient colors"
+            placeholder="enter prompt..."
             required
             className="w-full"
           />
-          <p className="text-xs text-gray-500 mt-1">descriptive as possible for best results</p>
+          <p className="text-xs text-gray-500 mt-1">Be descriptive as possible for best results</p>
         </div>
 
         <div className="flex gap-3">
@@ -91,7 +91,7 @@ export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" 
             ) : (
               <>
                 <Wand2 className="mr-2 h-4 w-4" />
-                Generate Icon
+                Icon
               </>
             )}
           </Button>
