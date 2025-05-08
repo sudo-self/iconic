@@ -236,7 +236,7 @@ This zip contains your icon in multiple sizes for various use cases:
             <TabsList className="bg-white shadow-sm">
               <TabsTrigger value="generate" className="flex items-center gap-2">
                 <Wand2 className="h-4 w-4" />
-                Generate
+                Cloudflare Workers
               </TabsTrigger>
             </TabsList>
           </div>
@@ -251,7 +251,7 @@ This zip contains your icon in multiple sizes for various use cases:
               <div className="w-full lg:w-96">
                 <div className="bg-white rounded-lg p-5 shadow-sm flex flex-col">
                   <div className="flex justify-between items-center mb-3">
-                    <h3 className="font-semibold text-gray-800">Generated Iconic</h3>
+                    <h3 className="font-semibold text-gray-800">Generated Icon</h3>
                     {generatedImageUrl && (
                       <Button
                         onClick={toggleTextEditor}
