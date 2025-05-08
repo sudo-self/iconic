@@ -281,7 +281,7 @@ This zip contains your icon in multiple sizes for various use cases:
             iconic
           </h1>
           <p className="text-gray-600 text-center max-w-lg mb-4">
-            Create beautiful icons with our intuitive drawing tools or generate unique designs with AI
+           Transform your ideas into beautiful icons
           </p>
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </div>
@@ -321,13 +321,13 @@ This zip contains your icon in multiple sizes for various use cases:
                         />
                         <Button onClick={useGeneratedImage} className="mt-4" variant="outline">
                           <PaintBrush className="mr-2 h-4 w-4" />
-                          Use for Drawing
+                          import Drawing
                         </Button>
                       </div>
                     ) : (
                       <p className="text-gray-500 text-center p-6">
                         Your generated icon will appear here. <br />
-                        Describe what you want and click "Generate Icon".
+                        Add a desciption and select "Generate Icon".
                       </p>
                     )}
                   </div>
@@ -397,7 +397,7 @@ This zip contains your icon in multiple sizes for various use cases:
 
         {/* Footer */}
         <div className="text-center text-sm text-gray-500 mt-12">
-          <p>© 2023 Iconic - Create beautiful icons with ease</p>
+          <p>iconic - powered by cloudflared workeres</p>
         </div>
       </div>
     </div>
