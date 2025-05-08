@@ -236,7 +236,7 @@ This zip contains your icon in multiple sizes for various use cases:
             <TabsList className="bg-white shadow-sm">
               <TabsTrigger value="generate" className="flex items-center gap-2">
                 <Wand2 className="h-4 w-4" />
-                Cloudflare Workers
+                Stable Diffusion
               </TabsTrigger>
             </TabsList>
           </div>
