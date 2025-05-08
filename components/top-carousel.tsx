@@ -1,23 +1,32 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { cn } from "@/lib/utils"
-
-interface TopCarouselProps {
-  onSelectPrompt?: (prompt: string) => void
-}
 
 const examples = [
   "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/cyberpunk.svg",
+  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/prompt1.svg",
+  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image3.svg",
   "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/cyberpunk.svg",
-  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/cyberpunk.svg",
+  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/prompt1.svg",
 ]
 
-export default function TopCarousel({ onSelectPrompt }: TopCarouselProps) {
+export default function TopCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
 
+  // Pause carousel on tab switch
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsPaused(document.hidden)
+    }
+
+    document.addEventListener("visibilitychange", handleVisibilityChange)
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange)
+    }
+  }, [])
+
+  // Auto-play carousel
   useEffect(() => {
     if (isPaused) return
 
@@ -28,60 +37,21 @@ export default function TopCarousel({ onSelectPrompt }: TopCarouselProps) {
     return () => clearInterval(interval)
   }, [isPaused])
 
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % examples.length)
-  }
-
-  const goToPrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + examples.length) % examples.length)
-  }
-
   return (
     <div
-      className="relative w-full max-w-lg mx-auto mb-8 mt-4"
+      className="w-full flex justify-center items-center mt-6 mb-6"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="flex items-center justify-center gap-4">
-        <button
-          onClick={goToPrev}
-          className="p-1 rounded-full bg-white shadow-sm hover:bg-gray-200 transition-colors"
-          aria-label="Previous icon"
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </button>
-
-        <div className="w-16 h-16 bg-white rounded-lg shadow-sm flex items-center justify-center overflow-hidden">
-          <img
-            src={examples[currentIndex]}
-            alt={`Example icon ${currentIndex + 1}`}
-            className="w-12 h-12 object-contain"
-          />
-        </div>
-
-        <button
-          onClick={goToNext}
-          className="p-1 rounded-full bg-white shadow-sm hover:bg-gray-200 transition-colors"
-          aria-label="Next icon"
-        >
-          <ChevronRight className="h-4 w-4" />
-        </button>
-      </div>
-
-      <div className="flex justify-center mt-2 gap-1">
-        {examples.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={cn(
-              "w-2 h-2 rounded-full transition-colors",
-              index === currentIndex ? "bg-blue-600" : "bg-gray-300",
-            )}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
+      <div className="w-40 h-40 rounded-2xl bg-white shadow-lg flex items-center justify-center overflow-hidden transition-all">
+        <img
+          src={examples[currentIndex]}
+          alt={`Carousel item ${currentIndex + 1}`}
+          className="w-36 h-36 object-contain transition-opacity duration-500"
+        />
       </div>
     </div>
   )
 }
+
 
