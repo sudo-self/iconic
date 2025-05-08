@@ -1,30 +1,41 @@
 "use client"
 
-import type React from "react"
-
-import { useState, useRef } from "react"
-import { Download, Trash2, Upload, PaintbrushIcon as PaintBrush, Wand2 } from "lucide-react"
+import { useState, useRef, useEffect } from "react"
+import { Download, Wand2, Type, X } from "lucide-react"
 import JSZip from "jszip"
-import DrawingCanvas, { type DrawingCanvasRef } from "@/components/drawing-canvas"
-import ColorPicker from "@/components/color-picker"
-import BrushSettings from "@/components/brush-settings"
 import GenerateForm from "@/components/generate-form"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
 import TopCarousel from "@/components/top-carousel"
+import { cn } from "@/lib/utils"
 
 export default function IconicApp() {
-  const [brushSize, setBrushSize] = useState(5)
-  const [brushColor, setBrushColor] = useState("#000000")
-  const [brushShape, setBrushShape] = useState<"round" | "square" | "eraser">("round")
   const [generatedImageUrl, setGeneratedImageUrl] = useState<string | null>(null)
   const [prompt, setPrompt] = useState("")
-  const canvasRef = useRef<DrawingCanvasRef>(null)
+  const [activeTab, setActiveTab] = useState("generate")
+  const [showTextEditor, setShowTextEditor] = useState(false)
+  const [text, setText] = useState("Your Text")
+  const [textColor, setTextColor] = useState("#ffffff")
+  const [fontSize, setFontSize] = useState(32)
+  const [fontFamily, setFontFamily] = useState("Arial")
+  const [textPosition, setTextPosition] = useState({ x: 0.5, y: 0.8 }) // Normalized positions (0-1)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const { toast } = useToast()
 
-  // Change the default tab to "generate"
-  const [activeTab, setActiveTab] = useState("generate")
+  const fontOptions = ["Arial", "Helvetica", "Times New Roman", "Courier New", "Georgia", "Verdana", "Impact"]
+
+  const colorOptions = [
+    { name: "White", value: "#ffffff" },
+    { name: "Black", value: "#000000" },
+    { name: "Red", value: "#ff0000" },
+    { name: "Blue", value: "#0000ff" },
+    { name: "Green", value: "#008000" },
+    { name: "Yellow", value: "#ffff00" },
+    { name: "Pink", value: "#ffc0cb" },
+  ]
 
   const handleSelectPrompt = (selectedPrompt: string) => {
     setPrompt(selectedPrompt)
@@ -36,63 +47,49 @@ export default function IconicApp() {
     })
   }
 
-  const clearCanvas = () => {
-    if (window.confirm("Are you sure you want to clear the canvas?")) {
-      canvasRef.current?.clearCanvas()
-      toast({
-        title: "Canvas cleared",
-        description: "Your drawing has been cleared",
-      })
-    }
-  }
+  // Update preview canvas whenever text properties or image changes
+  useEffect(() => {
+    updatePreviewCanvas()
+  }, [text, textColor, fontSize, fontFamily, textPosition, generatedImageUrl, showTextEditor])
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        const img = new Image()
-        img.onload = () => {
-          const canvas = canvasRef.current?.getCanvas()
-          if (canvas) {
-            const ctx = canvas.getContext("2d")
-            if (ctx) {
-              // Get the actual canvas dimensions (not the display dimensions)
-              const canvasWidth = canvas.width
-              const canvasHeight = canvas.height
+  const updatePreviewCanvas = () => {
+    const canvas = previewCanvasRef.current
+    if (!canvas || !generatedImageUrl) return
 
-              // Clear canvas and draw the image centered
-              ctx.fillStyle = "white"
-              ctx.fillRect(0, 0, canvasWidth, canvasHeight)
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
 
-              // Calculate dimensions to maintain aspect ratio
-              const scale = Math.min(canvasWidth / img.width, canvasHeight / img.height) * 0.9 // Scale to 90% of available space for better visibility
+    const img = new Image()
+    img.crossOrigin = "anonymous"
+    img.onload = () => {
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-              const width = img.width * scale
-              const height = img.height * scale
+      // Draw the generated image
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
 
-              // Center the image on the canvas
-              const x = (canvasWidth - width) / 2
-              const y = (canvasHeight - height) / 2
+      // Add text if text editor is shown
+      if (showTextEditor) {
+        // Set text properties
+        ctx.font = `${fontSize}px ${fontFamily}`
+        ctx.fillStyle = textColor
+        ctx.textAlign = "center"
+        ctx.textBaseline = "middle"
 
-              // Draw image
-              ctx.drawImage(img, x, y, width, height)
+        // Calculate position based on normalized coordinates
+        const x = textPosition.x * canvas.width
+        const y = textPosition.y * canvas.height
 
-              toast({
-                title: "Image loaded",
-                description: "Image loaded successfully to canvas",
-              })
-            }
-          }
-        }
-        img.src = event.target?.result as string
+        // Draw text
+        ctx.fillText(text, x, y)
       }
-      reader.readAsDataURL(file)
     }
+    img.src = generatedImageUrl
   }
 
   const saveIconPack = async () => {
-    const canvas = canvasRef.current?.getCanvas()
+    // Use the preview canvas which has both the image and text
+    const canvas = previewCanvasRef.current
     if (!canvas) return
 
     const zip = new JSZip()
@@ -196,63 +193,6 @@ This zip contains your icon in multiple sizes for various use cases:
     }
   }
 
-  const useGeneratedImage = () => {
-    if (!generatedImageUrl) return
-
-    // First switch to the drawing tab
-    setActiveTab("draw")
-
-    // Load the image with a slight delay to ensure tab switch is complete
-    setTimeout(() => {
-      const img = new Image()
-      img.crossOrigin = "anonymous"
-
-      img.onload = () => {
-        const canvas = canvasRef.current?.getCanvas()
-        if (canvas) {
-          const ctx = canvas.getContext("2d")
-          if (ctx) {
-            // Get the actual canvas dimensions (not the display dimensions)
-            const canvasWidth = canvas.width
-            const canvasHeight = canvas.height
-
-            // Clear canvas and draw the image centered
-            ctx.fillStyle = "white"
-            ctx.fillRect(0, 0, canvasWidth, canvasHeight)
-
-            // Calculate dimensions to maintain aspect ratio
-            const scale = Math.min(canvasWidth / img.width, canvasHeight / img.height) * 0.9 // Scale to 90% of available space for better visibility
-
-            const width = img.width * scale
-            const height = img.height * scale
-
-            // Center the image on the canvas
-            const x = (canvasWidth - width) / 2
-            const y = (canvasHeight - height) / 2
-
-            // Draw image
-            ctx.drawImage(img, x, y, width, height)
-
-            toast({
-              title: "Image loaded",
-              description: "Generated image loaded to canvas for editing",
-            })
-          }
-        }
-      }
-
-      img.onerror = () => {
-        toast({
-          title: "Error loading image",
-          description: "Failed to load the generated image to canvas",
-          variant: "destructive",
-        })
-      }
-
-      img.src = generatedImageUrl
-    }, 100)
-  }
-
   const saveFile = (blob: Blob, filename: string) => {
     // Create a temporary anchor element
     const link = document.createElement("a")
@@ -272,6 +212,10 @@ This zip contains your icon in multiple sizes for various use cases:
     URL.revokeObjectURL(url)
   }
 
+  const toggleTextEditor = () => {
+    setShowTextEditor(!showTextEditor)
+  }
+
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col items-center py-8 px-4 md:px-8">
       <div className="w-full max-w-6xl space-y-8">
@@ -281,12 +225,12 @@ This zip contains your icon in multiple sizes for various use cases:
             iconic
           </h1>
           <p className="text-gray-600 text-center max-w-lg mb-4">
-           Transform your ideas into beautiful icons
+            Create beautiful icons with our intuitive tools or generate unique designs with AI
           </p>
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </div>
 
-        {/* Tabs - Change defaultValue to "generate" */}
+        {/* Tabs */}
         <Tabs defaultValue="generate" value={activeTab} onValueChange={setActiveTab}>
           <div className="flex justify-center">
             <TabsList className="bg-white shadow-sm">
@@ -294,101 +238,166 @@ This zip contains your icon in multiple sizes for various use cases:
                 <Wand2 className="h-4 w-4" />
                 Generate
               </TabsTrigger>
-              <TabsTrigger value="draw" className="flex items-center gap-2">
-                <PaintBrush className="h-4 w-4" />
-                Draw
-              </TabsTrigger>
             </TabsList>
           </div>
 
-          {/* Generate Tab Content - Move this before the Draw tab */}
+          {/* Generate Tab Content */}
           <TabsContent value="generate" className="mt-6">
             <div className="flex flex-col lg:flex-row gap-6">
               {/* AI Generation Form */}
               <GenerateForm setGeneratedImageUrl={setGeneratedImageUrl} initialPrompt={prompt} />
 
-              {/* Generated Image Display */}
+              {/* Generated Image Display with Text Editor */}
               <div className="w-full lg:w-96">
-                <div className="bg-white rounded-lg p-5 shadow-sm h-full flex flex-col">
-                  <h3 className="font-semibold text-gray-800 mb-3">Generated Icon</h3>
-                  <div className="flex-1 flex items-center justify-center bg-gray-50 rounded-lg">
+                <div className="bg-white rounded-lg p-5 shadow-sm flex flex-col">
+                  <div className="flex justify-between items-center mb-3">
+                    <h3 className="font-semibold text-gray-800">Generated Icon</h3>
+                    {generatedImageUrl && (
+                      <Button
+                        onClick={toggleTextEditor}
+                        variant="outline"
+                        size="sm"
+                        className={showTextEditor ? "bg-blue-100" : ""}
+                      >
+                        {showTextEditor ? <X className="h-4 w-4 mr-1" /> : <Type className="h-4 w-4 mr-1" />}
+                        {showTextEditor ? "Hide Text" : "Add Text"}
+                      </Button>
+                    )}
+                  </div>
+
+                  {/* Preview Canvas */}
+                  <div className="flex-1 flex items-center justify-center bg-gray-50 rounded-lg mb-4 relative">
                     {generatedImageUrl ? (
-                      <div className="flex flex-col items-center">
-                        <img
-                          src={generatedImageUrl || "/placeholder.svg"}
-                          alt="Generated icon"
-                          className="max-w-full rounded-lg shadow-md hover:scale-[1.02] transition-transform"
-                        />
-                        <Button onClick={useGeneratedImage} className="mt-4" variant="outline">
-                          <PaintBrush className="mr-2 h-4 w-4" />
-                          import Drawing
-                        </Button>
-                      </div>
+                      <canvas ref={previewCanvasRef} width={300} height={300} className="rounded-lg shadow-md" />
                     ) : (
                       <p className="text-gray-500 text-center p-6">
                         Your generated icon will appear here. <br />
-                        Add a desciption and select "Generate Icon".
+                        Describe what you want and click "Generate Icon".
                       </p>
                     )}
                   </div>
-                </div>
-              </div>
-            </div>
-          </TabsContent>
 
-          {/* Drawing Tab Content */}
-          <TabsContent value="draw" className="mt-6">
-            <div className="flex flex-col lg:flex-row gap-6">
-              {/* Canvas */}
-              <div className="flex-1">
-                <DrawingCanvas ref={canvasRef} brushSize={brushSize} brushColor={brushColor} brushShape={brushShape} />
-              </div>
+                  {/* Text Editor Controls */}
+                  {showTextEditor && generatedImageUrl && (
+                    <div className="mb-4 space-y-3 border-t border-gray-200 pt-3">
+                      <div>
+                        <label htmlFor="text-input" className="block text-sm font-medium text-gray-700 mb-1">
+                          Text
+                        </label>
+                        <Input
+                          id="text-input"
+                          value={text}
+                          onChange={(e) => setText(e.target.value)}
+                          className="w-full"
+                          maxLength={20}
+                        />
+                      </div>
 
-              {/* Tools Panel */}
-              <div className="w-full lg:w-96 space-y-6">
-                <div className="bg-white rounded-lg p-5 shadow-sm">
-                  <h3 className="font-semibold text-gray-800 mb-4">Drawing Tools</h3>
-
-                  {/* Brush Settings */}
-                  <div className="mb-6">
-                    <h4 className="font-medium text-gray-700 mb-3">Brush Settings</h4>
-                    <BrushSettings
-                      brushSize={brushSize}
-                      setBrushSize={setBrushSize}
-                      brushShape={brushShape}
-                      setBrushShape={setBrushShape}
-                    />
-                  </div>
-
-                  {/* Color Selection */}
-                  <div className="mb-6">
-                    <h4 className="font-medium text-gray-700 mb-3">Color</h4>
-                    <ColorPicker brushColor={brushColor} setBrushColor={setBrushColor} />
-                  </div>
-
-                  {/* Actions */}
-                  <div>
-                    <h4 className="font-medium text-gray-700 mb-3">Actions</h4>
-                    <div className="flex flex-col gap-3">
-                      <Button onClick={saveIconPack} className="w-full bg-blue-600 hover:bg-blue-700">
-                        <Download className="mr-2 h-4 w-4" />
-                        Save Icon Pack
-                      </Button>
-
-                      <Button onClick={clearCanvas} variant="outline" className="w-full">
-                        <Trash2 className="mr-2 h-4 w-4" />
-                        Clear Canvas
-                      </Button>
-
-                      <label className="w-full">
-                        <div className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-4 py-2 cursor-pointer transition-colors">
-                          <Upload className="h-4 w-4" />
-                          Upload Image
+                      <div>
+                        <label htmlFor="font-size" className="block text-sm font-medium text-gray-700 mb-1">
+                          Font Size
+                        </label>
+                        <div className="flex items-center gap-2">
+                          <Input
+                            id="font-size"
+                            type="range"
+                            min="12"
+                            max="72"
+                            value={fontSize}
+                            onChange={(e) => setFontSize(Number.parseInt(e.target.value))}
+                            className="w-full"
+                          />
+                          <span className="text-sm text-gray-600 w-12">{fontSize}px</span>
                         </div>
-                        <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
-                      </label>
+                      </div>
+
+                      <div>
+                        <label htmlFor="font-family" className="block text-sm font-medium text-gray-700 mb-1">
+                          Font
+                        </label>
+                        <select
+                          id="font-family"
+                          value={fontFamily}
+                          onChange={(e) => setFontFamily(e.target.value)}
+                          className="w-full rounded-md border border-gray-300 p-2"
+                        >
+                          {fontOptions.map((font) => (
+                            <option key={font} value={font} style={{ fontFamily: font }}>
+                              {font}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Text Color</label>
+                        <div className="grid grid-cols-4 gap-2">
+                          {colorOptions.map((color) => (
+                            <button
+                              key={color.value}
+                              onClick={() => setTextColor(color.value)}
+                              className={cn(
+                                "h-8 rounded-md border-2",
+                                textColor === color.value ? "border-blue-500" : "border-gray-200",
+                              )}
+                              style={{ backgroundColor: color.value }}
+                              title={color.name}
+                              aria-label={`Set text color to ${color.name}`}
+                            />
+                          ))}
+                          <div className="flex items-center">
+                            <input
+                              type="color"
+                              value={textColor}
+                              onChange={(e) => setTextColor(e.target.value)}
+                              className="w-8 h-8 cursor-pointer"
+                              title="Custom color"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Text Position</label>
+                        <div className="grid grid-cols-3 gap-2">
+                          <button
+                            onClick={() => setTextPosition({ x: 0.5, y: 0.2 })}
+                            className={cn(
+                              "p-1 border rounded-md",
+                              textPosition.y === 0.2 ? "bg-blue-100 border-blue-500" : "border-gray-200",
+                            )}
+                          >
+                            Top
+                          </button>
+                          <button
+                            onClick={() => setTextPosition({ x: 0.5, y: 0.5 })}
+                            className={cn(
+                              "p-1 border rounded-md",
+                              textPosition.y === 0.5 ? "bg-blue-100 border-blue-500" : "border-gray-200",
+                            )}
+                          >
+                            Middle
+                          </button>
+                          <button
+                            onClick={() => setTextPosition({ x: 0.5, y: 0.8 })}
+                            className={cn(
+                              "p-1 border rounded-md",
+                              textPosition.y === 0.8 ? "bg-blue-100 border-blue-500" : "border-gray-200",
+                            )}
+                          >
+                            Bottom
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  )}
+
+                  {generatedImageUrl && (
+                    <Button onClick={saveIconPack} className="w-full bg-blue-600 hover:bg-blue-700">
+                      <Download className="mr-2 h-4 w-4" />
+                      Save Icon Pack
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
@@ -397,7 +406,7 @@ This zip contains your icon in multiple sizes for various use cases:
 
         {/* Footer */}
         <div className="text-center text-sm text-gray-500 mt-12">
-          <p>iconic - powered by cloudflared workeres</p>
+          <p>© 2023 Iconic - Create beautiful icons with ease</p>
         </div>
       </div>
     </div>
