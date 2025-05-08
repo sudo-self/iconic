@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 
 const examples = [
   "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/cyberpunk.svg",
@@ -11,10 +11,8 @@ const examples = [
 ]
 
 export default function TopCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
 
-  // Pause carousel on tab switch
   useEffect(() => {
     const handleVisibilityChange = () => {
       setIsPaused(document.hidden)
@@ -26,32 +24,43 @@ export default function TopCarousel() {
     }
   }, [])
 
-  // Auto-play carousel
-  useEffect(() => {
-    if (isPaused) return
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % examples.length)
-    }, 3000)
-
-    return () => clearInterval(interval)
-  }, [isPaused])
-
   return (
     <div
-      className="w-full flex justify-center items-center mt-6 mb-6"
+      className="w-full overflow-hidden py-6"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="w-40 h-40 rounded-2xl bg-white shadow-lg flex items-center justify-center overflow-hidden transition-all">
-        <img
-          src={examples[currentIndex]}
-          alt={`Carousel item ${currentIndex + 1}`}
-          className="w-36 h-36 object-contain transition-opacity duration-500"
-        />
+      <div
+        className={`flex gap-8 w-max animate-marquee whitespace-nowrap ${isPaused ? "pause" : ""}`}
+      >
+        {[...examples, ...examples].map((src, i) => (
+          <div key={i} className="w-32 h-32 flex items-center justify-center bg-white rounded-xl shadow-md">
+            <img src={src} alt={`item-${i}`} className="w-24 h-24 object-contain" />
+          </div>
+        ))}
       </div>
+
+      <style jsx>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0%);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        .animate-marquee {
+          animation: marquee 30s linear infinite;
+        }
+
+        .pause {
+          animation-play-state: paused;
+        }
+      `}</style>
     </div>
   )
 }
+
 
 
