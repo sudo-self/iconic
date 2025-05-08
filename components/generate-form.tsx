@@ -2,21 +2,28 @@
 
 import type React from "react"
 
-import { useState, useCallback } from "react"
+import { useState, useEffect } from "react"
 import { Wand2, LoaderPinwheelIcon as Spinner } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
-import IconCarousel from "./icon-carousel"
 
 interface GenerateFormProps {
   setGeneratedImageUrl: (url: string | null) => void
+  initialPrompt?: string
 }
 
-export default function GenerateForm({ setGeneratedImageUrl }: GenerateFormProps) {
-  const [prompt, setPrompt] = useState("")
+export default function GenerateForm({ setGeneratedImageUrl, initialPrompt = "" }: GenerateFormProps) {
+  const [prompt, setPrompt] = useState(initialPrompt)
   const [isGenerating, setIsGenerating] = useState(false)
   const { toast } = useToast()
+
+  // Update prompt when initialPrompt changes
+  useEffect(() => {
+    if (initialPrompt) {
+      setPrompt(initialPrompt)
+    }
+  }, [initialPrompt])
 
   const examplePrompts = [
     "Minimal mountain icon, flat design, blue and white",
@@ -74,13 +81,6 @@ export default function GenerateForm({ setGeneratedImageUrl }: GenerateFormProps
     }
   }
 
-  const useExamplePrompt = useCallback(
-    (examplePrompt: string) => {
-      setPrompt(examplePrompt)
-    },
-    [setPrompt],
-  )
-
   const handleExamplePromptClick = (examplePrompt: string) => {
     setPrompt(examplePrompt)
   }
@@ -122,8 +122,18 @@ export default function GenerateForm({ setGeneratedImageUrl }: GenerateFormProps
       </form>
 
       <div className="mt-6">
-        <h4 className="font-semibold text-gray-800 mb-3">Example Icons</h4>
-        <IconCarousel items={examplePrompts} onSelect={handleExamplePromptClick} />
+        <h4 className="font-semibold text-gray-800 mb-3">Example Prompts</h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          {examplePrompts.map((examplePrompt) => (
+            <button
+              key={examplePrompt}
+              onClick={() => handleExamplePromptClick(examplePrompt)}
+              className="text-left p-3 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm transition"
+            >
+              "{examplePrompt}"
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   )

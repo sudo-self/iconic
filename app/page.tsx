@@ -12,17 +12,29 @@ import GenerateForm from "@/components/generate-form"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
+import TopCarousel from "@/components/top-carousel"
 
 export default function IconicApp() {
   const [brushSize, setBrushSize] = useState(5)
   const [brushColor, setBrushColor] = useState("#000000")
   const [brushShape, setBrushShape] = useState<"round" | "square" | "eraser">("round")
   const [generatedImageUrl, setGeneratedImageUrl] = useState<string | null>(null)
+  const [prompt, setPrompt] = useState("")
   const canvasRef = useRef<DrawingCanvasRef>(null)
   const { toast } = useToast()
 
-  // Add a new state for active tab
-  const [activeTab, setActiveTab] = useState("draw")
+  // Change the default tab to "generate"
+  const [activeTab, setActiveTab] = useState("generate")
+
+  const handleSelectPrompt = (selectedPrompt: string) => {
+    setPrompt(selectedPrompt)
+    setActiveTab("generate")
+
+    toast({
+      title: "Prompt selected",
+      description: "The prompt has been added to the generator",
+    })
+  }
 
   const clearCanvas = () => {
     if (window.confirm("Are you sure you want to clear the canvas?")) {
@@ -35,43 +47,49 @@ export default function IconicApp() {
   }
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const file = e.target.files?.[0]
-  if (file) {
-    const reader = new FileReader()
-    reader.onload = (event) => {
-      const img = new Image()
-      img.onload = () => {
-        const canvas = canvasRef.current?.getCanvas()
-        if (canvas) {
-          const ctx = canvas.getContext("2d")
-          if (ctx) {
-            // Clear canvas and draw the image centered
-            ctx.fillStyle = "white"
-            ctx.fillRect(0, 0, canvas.width, canvas.height)
+    const file = e.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (event) => {
+        const img = new Image()
+        img.onload = () => {
+          const canvas = canvasRef.current?.getCanvas()
+          if (canvas) {
+            const ctx = canvas.getContext("2d")
+            if (ctx) {
+              // Get the actual canvas dimensions (not the display dimensions)
+              const canvasWidth = canvas.width
+              const canvasHeight = canvas.height
 
-            // Calculate dimensions to maintain aspect ratio
-            const scale = Math.min(canvas.width / img.width, canvas.height / img.height)
-            const width = img.width * scale
-            const height = img.height * scale
-            const x = (canvas.width - width) / 2
-            const y = (canvas.height - height) / 2
+              // Clear canvas and draw the image centered
+              ctx.fillStyle = "white"
+              ctx.fillRect(0, 0, canvasWidth, canvasHeight)
 
-            // Draw image
-            ctx.drawImage(img, x, y, width, height)
+              // Calculate dimensions to maintain aspect ratio
+              const scale = Math.min(canvasWidth / img.width, canvasHeight / img.height) * 0.9 // Scale to 90% of available space for better visibility
 
-            toast({
-              title: "Image loaded",
-              description: "Image loaded successfully to canvas",
-            })
+              const width = img.width * scale
+              const height = img.height * scale
+
+              // Center the image on the canvas
+              const x = (canvasWidth - width) / 2
+              const y = (canvasHeight - height) / 2
+
+              // Draw image
+              ctx.drawImage(img, x, y, width, height)
+
+              toast({
+                title: "Image loaded",
+                description: "Image loaded successfully to canvas",
+              })
+            }
           }
         }
+        img.src = event.target?.result as string
       }
-      img.src = event.target?.result as string
+      reader.readAsDataURL(file)
     }
-    reader.readAsDataURL(file)
   }
-}
-
 
   const saveIconPack = async () => {
     const canvas = canvasRef.current?.getCanvas()
@@ -194,18 +212,25 @@ This zip contains your icon in multiple sizes for various use cases:
         if (canvas) {
           const ctx = canvas.getContext("2d")
           if (ctx) {
+            // Get the actual canvas dimensions (not the display dimensions)
+            const canvasWidth = canvas.width
+            const canvasHeight = canvas.height
+
             // Clear canvas and draw the image centered
             ctx.fillStyle = "white"
-            ctx.fillRect(0, 0, canvas.width, canvas.height)
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight)
 
             // Calculate dimensions to maintain aspect ratio
-            const scale = Math.min(canvas.width / img.width, canvas.height / img.height) * 0.9 // Scale to 90% of available space for better visibility
+            const scale = Math.min(canvasWidth / img.width, canvasHeight / img.height) * 0.9 // Scale to 90% of available space for better visibility
 
             const width = img.width * scale
             const height = img.height * scale
-            const x = (canvas.width - width) / 2
-            const y = (canvas.height - height) / 2
 
+            // Center the image on the canvas
+            const x = (canvasWidth - width) / 2
+            const y = (canvasHeight - height) / 2
+
+            // Draw image
             ctx.drawImage(img, x, y, width, height)
 
             toast({
@@ -255,79 +280,32 @@ This zip contains your icon in multiple sizes for various use cases:
           <h1 className="font-bold text-4xl bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent mb-2">
             iconic
           </h1>
-          <p className="text-gray-600 text-center max-w-lg">
+          <p className="text-gray-600 text-center max-w-lg mb-4">
             Create beautiful icons with our intuitive drawing tools or generate unique designs with AI
           </p>
+          <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </div>
 
-        {/* Tabs */}
-        <Tabs defaultValue="draw" value={activeTab} onValueChange={setActiveTab}>
+        {/* Tabs - Change defaultValue to "generate" */}
+        <Tabs defaultValue="generate" value={activeTab} onValueChange={setActiveTab}>
           <div className="flex justify-center">
             <TabsList className="bg-white shadow-sm">
-              <TabsTrigger value="draw" className="flex items-center gap-2">
-                <PaintBrush className="h-4 w-4" />
-                Draw
-              </TabsTrigger>
               <TabsTrigger value="generate" className="flex items-center gap-2">
                 <Wand2 className="h-4 w-4" />
                 Generate
               </TabsTrigger>
+              <TabsTrigger value="draw" className="flex items-center gap-2">
+                <PaintBrush className="h-4 w-4" />
+                Draw
+              </TabsTrigger>
             </TabsList>
           </div>
 
-          {/* Drawing Tab Content */}
-          <TabsContent value="draw" className="mt-6">
-            <div className="flex flex-col lg:flex-row gap-6">
-              {/* Canvas */}
-              <div className="flex-1">
-                <DrawingCanvas ref={canvasRef} brushSize={brushSize} brushColor={brushColor} brushShape={brushShape} />
-              </div>
-
-              {/* Tools Panel */}
-              <div className="w-full lg:w-64 space-y-6">
-                {/* Brush Settings */}
-                <BrushSettings
-                  brushSize={brushSize}
-                  setBrushSize={setBrushSize}
-                  brushShape={brushShape}
-                  setBrushShape={setBrushShape}
-                />
-
-                {/* Color Selection */}
-                <ColorPicker brushColor={brushColor} setBrushColor={setBrushColor} />
-
-                {/* Actions */}
-                <div className="bg-white rounded-lg p-5 shadow-sm">
-                  <h3 className="font-semibold text-gray-800 mb-3">Actions</h3>
-                  <div className="flex flex-col gap-3">
-                    <Button onClick={saveIconPack} className="w-full bg-blue-600 hover:bg-blue-700">
-                      <Download className="mr-2 h-4 w-4" />
-                      Save Icon Pack
-                    </Button>
-
-                    <Button onClick={clearCanvas} variant="outline" className="w-full">
-                      <Trash2 className="mr-2 h-4 w-4" />
-                      Clear Canvas
-                    </Button>
-
-                    <label className="w-full">
-                      <div className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-4 py-2 cursor-pointer transition-colors">
-                        <Upload className="h-4 w-4" />
-                        Upload Image
-                      </div>
-                      <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </TabsContent>
-
-          {/* Generate Tab Content */}
+          {/* Generate Tab Content - Move this before the Draw tab */}
           <TabsContent value="generate" className="mt-6">
             <div className="flex flex-col lg:flex-row gap-6">
               {/* AI Generation Form */}
-              <GenerateForm setGeneratedImageUrl={setGeneratedImageUrl} />
+              <GenerateForm setGeneratedImageUrl={setGeneratedImageUrl} initialPrompt={prompt} />
 
               {/* Generated Image Display */}
               <div className="w-full lg:w-96">
@@ -352,6 +330,64 @@ This zip contains your icon in multiple sizes for various use cases:
                         Describe what you want and click "Generate Icon".
                       </p>
                     )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Drawing Tab Content */}
+          <TabsContent value="draw" className="mt-6">
+            <div className="flex flex-col lg:flex-row gap-6">
+              {/* Canvas */}
+              <div className="flex-1">
+                <DrawingCanvas ref={canvasRef} brushSize={brushSize} brushColor={brushColor} brushShape={brushShape} />
+              </div>
+
+              {/* Tools Panel */}
+              <div className="w-full lg:w-96 space-y-6">
+                <div className="bg-white rounded-lg p-5 shadow-sm">
+                  <h3 className="font-semibold text-gray-800 mb-4">Drawing Tools</h3>
+
+                  {/* Brush Settings */}
+                  <div className="mb-6">
+                    <h4 className="font-medium text-gray-700 mb-3">Brush Settings</h4>
+                    <BrushSettings
+                      brushSize={brushSize}
+                      setBrushSize={setBrushSize}
+                      brushShape={brushShape}
+                      setBrushShape={setBrushShape}
+                    />
+                  </div>
+
+                  {/* Color Selection */}
+                  <div className="mb-6">
+                    <h4 className="font-medium text-gray-700 mb-3">Color</h4>
+                    <ColorPicker brushColor={brushColor} setBrushColor={setBrushColor} />
+                  </div>
+
+                  {/* Actions */}
+                  <div>
+                    <h4 className="font-medium text-gray-700 mb-3">Actions</h4>
+                    <div className="flex flex-col gap-3">
+                      <Button onClick={saveIconPack} className="w-full bg-blue-600 hover:bg-blue-700">
+                        <Download className="mr-2 h-4 w-4" />
+                        Save Icon Pack
+                      </Button>
+
+                      <Button onClick={clearCanvas} variant="outline" className="w-full">
+                        <Trash2 className="mr-2 h-4 w-4" />
+                        Clear Canvas
+                      </Button>
+
+                      <label className="w-full">
+                        <div className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-4 py-2 cursor-pointer transition-colors">
+                          <Upload className="h-4 w-4" />
+                          Upload Image
+                        </div>
+                        <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>

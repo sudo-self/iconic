@@ -1,3 +1,5 @@
+"use client"
+
 import { forwardRef, useEffect, useRef, useImperativeHandle } from "react"
 
 // Define the interface for the ref that will be exposed
@@ -39,10 +41,6 @@ const DrawingCanvas = forwardRef<DrawingCanvasRef, DrawingCanvasProps>(({ brushS
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    // Set canvas background to white initially
-    ctx.fillStyle = "white"
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
-
     // Resize the canvas
     const resizeCanvas = () => {
       if (!canvas) return
@@ -51,16 +49,17 @@ const DrawingCanvas = forwardRef<DrawingCanvasRef, DrawingCanvasProps>(({ brushS
       const width = canvas.offsetWidth
       const height = canvas.offsetHeight
 
+      // Set the canvas dimensions to match the display size
       canvas.width = width * ratio
       canvas.height = height * ratio
 
-      // Reset transform before scaling
+      // Scale the context to account for the device pixel ratio
       ctx.setTransform(1, 0, 0, 1, 0, 0)
       ctx.scale(ratio, ratio)
 
-      // Optionally fill white after resize
+      // Fill with white background
       ctx.fillStyle = "white"
-      ctx.fillRect(0, 0, canvas.width / ratio, canvas.height / ratio)
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
     }
 
     // Initial resize
