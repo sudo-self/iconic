@@ -225,7 +225,7 @@ This zip contains your icon in multiple sizes for various use cases:
             iconic
           </h1>
           <p className="text-gray-600 text-center max-w-lg mb-4">
-            Turn those ideas into a unique creative design with iconic
+            turn your ideas into beautiful iconics
           </p>
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </div>
@@ -251,7 +251,7 @@ This zip contains your icon in multiple sizes for various use cases:
               <div className="w-full lg:w-96">
                 <div className="bg-white rounded-lg p-5 shadow-sm flex flex-col">
                   <div className="flex justify-between items-center mb-3">
-                    <h3 className="font-semibold text-gray-800">iconic icon</h3>
+                    <h3 className="font-semibold text-gray-800">Generated Iconic</h3>
                     {generatedImageUrl && (
                       <Button
                         onClick={toggleTextEditor}
