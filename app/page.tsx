@@ -271,7 +271,8 @@ This zip contains your icon in multiple sizes for various use cases:
                       <canvas ref={previewCanvasRef} width={300} height={300} className="rounded-lg shadow-md" />
                     ) : (
                       <p className="text-gray-500 text-center p-6">
-                        Your iconic icon will appear here. <br />
+                        Generated icon will Arrive Here. <br />
+                        Add Optional Custom Text
                       </p>
                     )}
                   </div>
@@ -394,7 +395,7 @@ This zip contains your icon in multiple sizes for various use cases:
                   {generatedImageUrl && (
                     <Button onClick={saveIconPack} className="w-full bg-blue-600 hover:bg-blue-700">
                       <Download className="mr-2 h-4 w-4" />
-                      Save Icon Pack
+                      Download Icon Pack
                     </Button>
                   )}
                 </div>
@@ -404,8 +405,8 @@ This zip contains your icon in multiple sizes for various use cases:
         </Tabs>
 
         {/* Footer */}
-        <div className="text-center text-sm text-gray-500 mt-12">
-          <p>iconic - create beautiful icons with ease</p>
+        <div className="text-center text-sm text-green-600 mt-12">
+          <p>iconic.JesseJesse.xyz</p>
         </div>
       </div>
     </div>
