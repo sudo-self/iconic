@@ -78,7 +78,7 @@ export default function IconCarousel({ items, onSelect }: IconCarouselProps) {
                   <img
                     src={`https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/prompt1.svg?height=64&width=64`}
                     alt={`Example icon ${index + 1}`}
-                    className="w-12 h-12 object-contain"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <button
