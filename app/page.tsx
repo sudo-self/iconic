@@ -223,7 +223,7 @@ iconic.JesseJesse.xyz
             iconic
           </h1>
           <p className="text-gray-600 text-center max-w-lg mb-4">
-            turn your ideas into beautiful iconics
+            turn your ideas into beautiful icons
           </p>
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </div>
@@ -231,7 +231,7 @@ iconic.JesseJesse.xyz
         {/* Tabs */}
         <Tabs defaultValue="generate" value={activeTab} onValueChange={setActiveTab}>
           <div className="flex justify-center">
-            <TabsList className="bg-indigo-400 shadow-sm">
+            <TabsList className="bg-gray-400 shadow-sm">
               <TabsTrigger value="generate" className="flex items-center gap-2">
                <Wand2 className="h-4 w-4" />
                 stable-diffusion-xl-base
@@ -269,8 +269,8 @@ iconic.JesseJesse.xyz
                       <canvas ref={previewCanvasRef} width={300} height={300} className="rounded-lg shadow-md" />
                     ) : (
                       <p className="text-gray-500 text-center p-6">
-                        Generated icon will Arrive Here. <br />
-                        Add Optional Custom Text
+                        icon will arrive here. <br />
+                        add optional custom font
                       </p>
                     )}
                   </div>
