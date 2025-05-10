@@ -228,14 +228,7 @@ iconic.JesseJesse.xyz
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </div>
 
-        {/* Cloudflare Workers Icon */}
-<div className="flex justify-center mb-4">
-  <img
-    src="/cloudflareworkers.svg"
-    alt="Cloudflare Workers"
-    className="h-8 w-auto"
-  />
-</div>
+
 
 {/* Tabs */}
 <Tabs defaultValue="generate" value={activeTab} onValueChange={setActiveTab}>
@@ -289,6 +282,14 @@ iconic.JesseJesse.xyz
                   {/* Text Editor Controls */}
                   {showTextEditor && generatedImageUrl && (
                     <div className="mb-4 space-y-3 border-t border-gray-200 pt-3">
+                              {/* Cloudflare Workers Icon */}
+<div className="flex justify-center mb-4">
+  <img
+    src="/cloudflareworkers.svg"
+    alt="Cloudflare Workers"
+    className="h-8 w-auto"
+  />
+</div>
                       <div>
                         <label htmlFor="text-input" className="block text-sm font-medium text-gray-700 mb-1">
                           Text
