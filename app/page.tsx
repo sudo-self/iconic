@@ -228,8 +228,8 @@ iconic.JesseJesse.xyz
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </div>
 
-
-      <Tabs defaultValue="generate" value={activeTab} onValueChange={setActiveTab}>
+        {/* Tabs */}
+        <Tabs defaultValue="generate" value={activeTab} onValueChange={setActiveTab}>
           <div className="flex justify-center">
             <TabsList className="bg-gray-400 shadow-sm">
               <TabsTrigger value="generate" className="flex items-center gap-2">
@@ -238,7 +238,6 @@ iconic.JesseJesse.xyz
               </TabsTrigger>
             </TabsList>
           </div>
-
 
           {/* Generate Tab Content */}
           <TabsContent value="generate" className="mt-6">
@@ -278,7 +277,7 @@ iconic.JesseJesse.xyz
 
                   {/* Text Editor Controls */}
                   {showTextEditor && generatedImageUrl && (
-                    <div className="mb-4 space-y-3 border-t border-gray-200 pt-3"></div>
+                    <div className="mb-4 space-y-3 border-t border-gray-200 pt-3">
                       <div>
                         <label htmlFor="text-input" className="block text-sm font-medium text-gray-700 mb-1">
                           Text
