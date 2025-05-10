@@ -229,18 +229,15 @@ iconic.JesseJesse.xyz
         </div>
 
 
-
-{/* Tabs */}
-<Tabs defaultValue="generate" value={activeTab} onValueChange={setActiveTab}>
-  <div className="flex justify-center">
-    <TabsList className="bg-gray-400 shadow-sm">
-      <TabsTrigger value="generate" className="flex items-center gap-2">
-        <Wand2 className="h-4 w-4" />
-        stable-diffusion-xl-base
-      </TabsTrigger>
-    </TabsList>
-  </div>
-</Tabs>
+      <Tabs defaultValue="generate" value={activeTab} onValueChange={setActiveTab}>
+          <div className="flex justify-center">
+            <TabsList className="bg-gray-400 shadow-sm">
+              <TabsTrigger value="generate" className="flex items-center gap-2">
+               <Wand2 className="h-4 w-4" />
+                stable-diffusion-xl-base
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
 
           {/* Generate Tab Content */}
@@ -281,15 +278,7 @@ iconic.JesseJesse.xyz
 
                   {/* Text Editor Controls */}
                   {showTextEditor && generatedImageUrl && (
-                    <div className="mb-4 space-y-3 border-t border-gray-200 pt-3">
-                              {/* Cloudflare Workers Icon */}
-<div className="flex justify-center mb-4">
-  <img
-    src="/cloudflareworkers.svg"
-    alt="Cloudflare Workers"
-    className="h-8 w-auto"
-  />
-</div>
+                    <div className="mb-4 space-y-3 border-t border-gray-200 pt-3"></div>
                       <div>
                         <label htmlFor="text-input" className="block text-sm font-medium text-gray-700 mb-1">
                           Text
