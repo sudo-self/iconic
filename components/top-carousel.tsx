@@ -12,10 +12,6 @@ const examples = [
   "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image-8.svg"
 ]
 
-
-
-
-
 export default function TopCarousel() {
   const [isPaused, setIsPaused] = useState(false)
 
@@ -40,8 +36,11 @@ export default function TopCarousel() {
         className={`flex gap-8 w-max animate-marquee whitespace-nowrap ${isPaused ? "pause" : ""}`}
       >
         {[...examples, ...examples].map((src, i) => (
-          <div key={i} className="w-32 h-32 flex items-center justify-center bg-white rounded-xl shadow-md">
-            <img src={src} alt={`item-${i}`} className="w-24 h-24 object-contain" />
+          <div
+            key={i}
+            className="w-32 h-32 bg-white rounded-xl shadow-md overflow-hidden"
+          >
+            <img src={src} alt={`item-${i}`} className="w-full h-full object-cover" />
           </div>
         ))}
       </div>
@@ -67,6 +66,7 @@ export default function TopCarousel() {
     </div>
   )
 }
+
 
 
 
