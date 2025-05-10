@@ -228,16 +228,27 @@ iconic.JesseJesse.xyz
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </div>
 
-        {/* Tabs */}
-        <Tabs defaultValue="generate" value={activeTab} onValueChange={setActiveTab}>
-          <div className="flex justify-center">
-            <TabsList className="bg-gray-400 shadow-sm">
-              <TabsTrigger value="generate" className="flex items-center gap-2">
-               <Wand2 className="h-4 w-4" />
-                stable-diffusion-xl-base
-              </TabsTrigger>
-            </TabsList>
-          </div>
+        {/* Cloudflare Workers Icon */}
+<div className="flex justify-center mb-4">
+  <img
+    src="/cloudflareworkers.svg"
+    alt="Cloudflare Workers"
+    className="h-8 w-auto"
+  />
+</div>
+
+{/* Tabs */}
+<Tabs defaultValue="generate" value={activeTab} onValueChange={setActiveTab}>
+  <div className="flex justify-center">
+    <TabsList className="bg-gray-400 shadow-sm">
+      <TabsTrigger value="generate" className="flex items-center gap-2">
+        <Wand2 className="h-4 w-4" />
+        stable-diffusion-xl-base
+      </TabsTrigger>
+    </TabsList>
+  </div>
+</Tabs>
+
 
           {/* Generate Tab Content */}
           <TabsContent value="generate" className="mt-6">
