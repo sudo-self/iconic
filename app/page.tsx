@@ -269,15 +269,22 @@ iconic.JesseJesse.xyz
 
        
                   <div className="flex-1 flex items-center justify-center bg-gray-50 rounded-lg mb-4 relative">
-                    {generatedImageUrl ? (
-                      <canvas ref={previewCanvasRef} width={300} height={300} className="rounded-lg shadow-md" />
-                    ) : (
-                      <p className="text-gray-500 text-center p-6">
-                        Generated icon will arrive here.<br />
-                        powered by Cloudflared Workers
-                      </p>
-                    )}
-                  </div>
+  {isGenerating && (
+    <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 rounded-lg">
+      <Spinner className="h-8 w-8 text-indigo-600 animate-spin" />
+    </div>
+  )}
+  
+  {generatedImageUrl ? (
+    <canvas ref={previewCanvasRef} width={300} height={300} className="rounded-lg shadow-md" />
+  ) : (
+    <p className="text-gray-500 text-center p-6 z-0">
+      Generated icon will arrive here.<br />
+      powered by Stability AI
+    </p>
+  )}
+</div>
+
 
           
                   {showTextEditor && generatedImageUrl && (
