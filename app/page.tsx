@@ -20,7 +20,7 @@ export default function IconicApp() {
   const [textColor, setTextColor] = useState("#ffffff")
   const [fontSize, setFontSize] = useState(32)
   const [fontFamily, setFontFamily] = useState("Arial")
-  const [textPosition, setTextPosition] = useState({ x: 0.5, y: 0.8 }) // Normalized positions (0-1)
+  const [textPosition, setTextPosition] = useState({ x: 0.5, y: 0.8 }) 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const { toast } = useToast()
@@ -47,7 +47,7 @@ export default function IconicApp() {
     })
   }
 
-  // Update preview canvas whenever text properties or image changes
+
   useEffect(() => {
     updatePreviewCanvas()
   }, [text, textColor, fontSize, fontFamily, textPosition, generatedImageUrl, showTextEditor])
@@ -62,21 +62,21 @@ export default function IconicApp() {
     const img = new Image()
     img.crossOrigin = "anonymous"
     img.onload = () => {
-      // Clear canvas
+
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Draw the generated image
+  
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
 
-      // Add text if text editor is shown
+  
       if (showTextEditor) {
-        // Set text properties
+     
         ctx.font = `${fontSize}px ${fontFamily}`
         ctx.fillStyle = textColor
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
 
-        // Calculate position based on normalized coordinates
+     
         const x = textPosition.x * canvas.width
         const y = textPosition.y * canvas.height
 
@@ -88,13 +88,13 @@ export default function IconicApp() {
   }
 
   const saveIconPack = async () => {
-    // Use the preview canvas which has both the image and text
+ 
     const canvas = previewCanvasRef.current
     if (!canvas) return
 
     const zip = new JSZip()
 
-    // Create different sizes
+
     const sizes = [16, 32, 48, 64, 128, 256, 512]
     const promises = sizes.map((size) => {
       return new Promise<void>((resolve) => {
@@ -108,10 +108,10 @@ export default function IconicApp() {
         tempCanvas.width = size
         tempCanvas.height = size
 
-        // Draw original canvas content scaled to new size
+
         tempCtx.drawImage(canvas, 0, 0, size, size)
 
-        // Convert to blob
+    
         tempCanvas.toBlob((blob) => {
           if (blob) {
             zip.file(`icon-${size}x${size}.png`, blob)
@@ -121,7 +121,7 @@ export default function IconicApp() {
       })
     })
 
-    // Create favicon.ico (special handling)
+    
     const icoCanvas = document.createElement("canvas")
     icoCanvas.width = 32
     icoCanvas.height = 32
@@ -134,7 +134,7 @@ export default function IconicApp() {
           zip.file("favicon.ico", blob)
         }
 
-        // Create apple-touch-icon.png (180x180)
+       
         const appleCanvas = document.createElement("canvas")
         appleCanvas.width = 180
         appleCanvas.height = 180
@@ -147,9 +147,9 @@ export default function IconicApp() {
               zip.file("apple-touch-icon.png", appleBlob)
             }
 
-            // Wait for all size conversions to complete
+           
             Promise.all(promises).then(() => {
-              // Add README
+   
               const readmeContent = `# iconic.JesseJesse.xyz
               
 This zip contains your icon in multiple sizes for various use cases:
@@ -158,7 +158,7 @@ This zip contains your icon in multiple sizes for various use cases:
 - apple-touch-icon.png
 - icon-16x16.png to icon-512x512.png
 
-## How to use
+## How to use them in project
 
 1. Place the icon files in the project root directory
 2. Add the links to the HTML <head> section
@@ -173,12 +173,12 @@ iconic.JesseJesse.xyz
 
               zip.file("README.txt", readmeContent)
 
-              // Generate the zip file
+         
               zip.generateAsync({ type: "blob" }).then((content) => {
-                // Save the zip file
+        
                 saveFile(content, "iconic-pack.zip")
 
-                // Show download complete notification
+             
                 toast({
                   title: "Download complete",
                   description: "Icon pack downloaded successfully!",
@@ -192,21 +192,21 @@ iconic.JesseJesse.xyz
   }
 
   const saveFile = (blob: Blob, filename: string) => {
-    // Create a temporary anchor element
+
     const link = document.createElement("a")
-    // Create a URL for the blob
+
     const url = URL.createObjectURL(blob)
 
-    // Set link properties
+
     link.href = url
     link.download = filename
 
-    // Append to the document, click it, and remove it
+
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
 
-    // Clean up the URL
+
     URL.revokeObjectURL(url)
   }
 
@@ -217,18 +217,18 @@ iconic.JesseJesse.xyz
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center py-8 px-4 md:px-8">
       <div className="w-full max-w-6xl space-y-8">
-        {/* Header */}
+
         <div className="flex flex-col items-center">
           <h1 className="font-bold text-4xl bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent mb-2">
             iconic
           </h1>
           <p className="text-gray-600 text-center max-w-lg mb-4">
-            turn your ideas into beautiful icons
+            turn your ideas into beautiful unique icons
           </p>
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </div>
 
-        {/* Tabs */}
+     
         <Tabs defaultValue="generate" value={activeTab} onValueChange={setActiveTab}>
           <div className="flex justify-center">
             <TabsList className="bg-gray-400 shadow-sm">
@@ -269,8 +269,8 @@ iconic.JesseJesse.xyz
                       <canvas ref={previewCanvasRef} width={300} height={300} className="rounded-lg shadow-md" />
                     ) : (
                       <p className="text-gray-500 text-center p-6">
-                        icon will arrive here. <br />
-                        add optional custom font
+                        Generated icon will arrive here.<br />
+                        powered by Cloudflared Workers
                       </p>
                     )}
                   </div>
