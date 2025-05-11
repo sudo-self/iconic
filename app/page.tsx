@@ -176,7 +176,7 @@ iconic.JesseJesse.xyz
          
               zip.generateAsync({ type: "blob" }).then((content) => {
         
-                saveFile(content, "iconic-pack.zip")
+                saveFile(content, "iconic.JesseJesse.zip")
 
              
                 toast({
@@ -215,7 +215,7 @@ iconic.JesseJesse.xyz
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col items-center py-8 px-4 md:px-8">
+    <div className="bg-gray-200 min-h-screen flex flex-col items-center py-8 px-4 md:px-8">
       <div className="w-full max-w-6xl space-y-8">
 
         <div className="flex flex-col items-center">
