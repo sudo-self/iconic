@@ -160,8 +160,8 @@ This zip contains your icon in multiple sizes for various use cases:
 
 ## How to use
 
-1. Place the icon files in your root directory
-2. Add this to your HTML <head> section:
+1. Place the icon files in the project root directory
+2. Add the links to the HTML <head> section
 
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -397,6 +397,7 @@ iconic.JesseJesse.xyz
                     </Button>
                   )}
                 </div>
+                <p>${prompt}</p>
               </div>
             </div>
           </TabsContent>
