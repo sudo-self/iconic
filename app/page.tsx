@@ -215,7 +215,8 @@ iconic.JesseJesse.xyz
   }
 
   return (
-    <div className="bg-gray-200 min-h-screen flex flex-col items-center py-8 px-4 md:px-8">
+    <div className="bg-gradient-to-b from-gray-100 to-gray-300 min-h-screen flex flex-col items-center py-8 px-4 md:px-8">
+
       <div className="w-full max-w-6xl space-y-8">
 
         <div className="flex flex-col items-center">
