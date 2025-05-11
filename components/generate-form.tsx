@@ -11,7 +11,7 @@ import {
   LoaderPinwheelIcon as Spinner,
   Contrast,
   Zap,
-} from "lucide-react" // ✅ Added Contrast (for B&W) and Zap (for Neon)
+} from "lucide-react" 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
@@ -29,7 +29,7 @@ export default function GenerateForm({
   const [isGenerating, setIsGenerating] = useState(false)
   const [theme, setTheme] = useState<
     "metal" | "cartoon" | "realistic" | "anime" | "bw" | "neon" | null
-  >(null) // ✅ Added "bw" and "neon"
+  >(null)
   const { toast } = useToast()
 
   useEffect(() => {
@@ -108,7 +108,7 @@ export default function GenerateForm({
             required
             className="w-full"
           />
-          <p className="text-xs text-gray-500 mt-1">Be descriptive as possible for best results</p>
+          <p className="text-xs text-gray-500 mt-1">select a theme for different results (optional)</p>
         </div>
 
         <div className="flex flex-wrap gap-2">
