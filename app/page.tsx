@@ -397,7 +397,6 @@ iconic.JesseJesse.xyz
                     </Button>
                   )}
                 </div>
-                <p>${prompt}</p>
               </div>
             </div>
           </TabsContent>
