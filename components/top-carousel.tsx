@@ -6,7 +6,7 @@ const examples = [
   "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/cyberpunk.svg",
   "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image3.svg",
   "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image-11.svg",
-  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/prompt1.svg",
+  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image-13.svg",
   "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image-10.svg",
   "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image%20(2).svg",
   "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image-12.svg"
