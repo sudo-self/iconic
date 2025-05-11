@@ -96,7 +96,6 @@ export default function GenerateForm({
     <div className="flex-1 bg-white rounded-lg p-5 shadow-sm">
       <h3 className="font-semibold text-gray-800 flex items-center">
   <img src="./MaterialSymbolsTextFields.svg" alt="Text Fields" className="w-5 h-5 mr-2" />
-  Text
 </h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
