@@ -9,7 +9,9 @@ import {
   Image,
   Camera as CameraIcon,
   LoaderPinwheelIcon as Spinner,
-} from "lucide-react"
+  Contrast,
+  Zap,
+} from "lucide-react" // ✅ Added Contrast (for B&W) and Zap (for Neon)
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
@@ -25,7 +27,9 @@ export default function GenerateForm({
 }: GenerateFormProps) {
   const [prompt, setPrompt] = useState(initialPrompt)
   const [isGenerating, setIsGenerating] = useState(false)
-  const [theme, setTheme] = useState<"metal" | "cartoon" | "realistic" | "anime" | null>(null)
+  const [theme, setTheme] = useState<
+    "metal" | "cartoon" | "realistic" | "anime" | "bw" | "neon" | null
+  >(null) // ✅ Added "bw" and "neon"
   const { toast } = useToast()
 
   useEffect(() => {
@@ -49,6 +53,10 @@ export default function GenerateForm({
         ? `${prompt}, in a realistic style`
         : theme === "anime"
         ? `${prompt}, in an anime style`
+        : theme === "bw"
+        ? `${prompt}, black and white, monochrome`
+        : theme === "neon"
+        ? `${prompt}, glowing neon colors, vivid lighting`
         : prompt
 
     try {
@@ -136,6 +144,22 @@ export default function GenerateForm({
             <Image className="w-4 h-4 mr-1" />
             Anime
           </Button>
+          <Button
+            type="button"
+            variant={theme === "bw" ? "default" : "outline"}
+            onClick={() => setTheme("bw")}
+          >
+            <Contrast className="w-4 h-4 mr-1" />
+            B&amp;W
+          </Button>
+          <Button
+            type="button"
+            variant={theme === "neon" ? "default" : "outline"}
+            onClick={() => setTheme("neon")}
+          >
+            <Zap className="w-4 h-4 mr-1" />
+            Neon
+          </Button>
         </div>
 
         <div className="flex gap-3">
@@ -157,6 +181,7 @@ export default function GenerateForm({
     </div>
   )
 }
+
 
 
 
