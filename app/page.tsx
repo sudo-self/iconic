@@ -80,7 +80,7 @@ export default function IconicApp() {
         const x = textPosition.x * canvas.width
         const y = textPosition.y * canvas.height
 
-        // Draw text
+ 
         ctx.fillText(text, x, y)
       }
     }
@@ -152,11 +152,10 @@ export default function IconicApp() {
    
               const readmeContent = `# iconic.JesseJesse.xyz
               
-This zip contains your icon in multiple sizes for various use cases:
 
 - favicon.ico
 - apple-touch-icon.png
-- icon-16x16.png to icon-512x512.png
+- icon-16x16.png thru icon-512x512.png
 
 ## How to use them in project
 
@@ -240,13 +239,13 @@ iconic.JesseJesse.xyz
             </TabsList>
           </div>
 
-          {/* Generate Tab Content */}
+        
           <TabsContent value="generate" className="mt-6">
             <div className="flex flex-col lg:flex-row gap-6">
-              {/* AI Generation Form */}
+           
               <GenerateForm setGeneratedImageUrl={setGeneratedImageUrl} initialPrompt={prompt} />
 
-              {/* Generated Image Display with Text Editor */}
+        
               <div className="w-full lg:w-96">
                 <div className="bg-white rounded-lg p-5 shadow-sm flex flex-col">
                   <div className="flex justify-between items-center mb-3">
@@ -264,7 +263,7 @@ iconic.JesseJesse.xyz
                     )}
                   </div>
 
-                  {/* Preview Canvas */}
+       
                   <div className="flex-1 flex items-center justify-center bg-gray-50 rounded-lg mb-4 relative">
                     {generatedImageUrl ? (
                       <canvas ref={previewCanvasRef} width={300} height={300} className="rounded-lg shadow-md" />
@@ -276,7 +275,7 @@ iconic.JesseJesse.xyz
                     )}
                   </div>
 
-                  {/* Text Editor Controls */}
+          
                   {showTextEditor && generatedImageUrl && (
                     <div className="mb-4 space-y-3 border-t border-gray-200 pt-3">
                       <div>
@@ -403,15 +402,15 @@ iconic.JesseJesse.xyz
           </TabsContent>
         </Tabs>
 
-        {/* Footer */}
-        <div className="text-center text-sm text-gray-500 mt-12">
+
+    <div className="text-center text-sm text-gray-500 mt-12">
   <a
     href="https://iconic.jessejesse.xyz"
     target="_blank"
     rel="noopener noreferrer"
     className="hover:text-indigo-500 transition-colors"
   >
-    iconic.JesseJesse.xyz
+    JesseJesse.xyz
   </a>
 </div>
 
