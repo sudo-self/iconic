@@ -77,8 +77,8 @@ export default function GenerateForm({
       setGeneratedImageUrl(imageUrl)
 
       toast({
-        title: "Icon generated",
-        description: "Your icon has been generated successfully!",
+        title: "iconic.JesseJesse.xyz",
+        description: "iconic has been generated!",
       })
     } catch (error) {
       console.error("Error generating image:", error)
