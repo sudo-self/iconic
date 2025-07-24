@@ -89,15 +89,6 @@ export default function IconicApp() {
     }
   }
 
-  const drawCleanCanvas = (canvas: HTMLCanvasElement, img: HTMLImageElement) => {
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
-    canvas.width = img.naturalWidth
-    canvas.height = img.naturalHeight
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-  }
-
   const createSVG = (
     canvas: HTMLCanvasElement,
     {
@@ -236,111 +227,108 @@ Add these tags in your <head>:
 
   const toggleTextEditor = () => setShowTextEditor(!showTextEditor)
 
-return (
-  <div className="bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen px-4 py-12 flex flex-col items-center font-sans">
-    <div className="max-w-6xl w-full space-y-14">
-      {/* Hero */}
-      <div className="text-center space-y-3 animate-fade-in">
-        <h1 className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 text-transparent bg-clip-text animate-gradient">
-          iconic
-        </h1>
-        <p className="text-indigo-600 md:text-xl">
-          Turn your ideas into beautiful, unique icons — instantly.
-        </p>
-        <TopCarousel onSelectPrompt={handleSelectPrompt} />
-      </div>
+  return (
+    <div className="bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen px-4 py-12 flex flex-col items-center font-sans">
+      <div className="max-w-6xl w-full space-y-14">
+        {/* Hero */}
+        <div className="text-center space-y-3 animate-fade-in">
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 text-transparent bg-clip-text animate-gradient">
+            iconic
+          </h1>
+          <p className="text-indigo-600 md:text-xl">
+            Turn your ideas into beautiful, unique icons — instantly.
+          </p>
+          <TopCarousel onSelectPrompt={handleSelectPrompt} />
+        </div>
 
-      <div className="flex flex-col lg:flex-row gap-10">
-        <div className="w-full lg:w-1/2 space-y-6">
-          <GenerateForm
-            setGeneratedImageUrl={setGeneratedImageUrl}
-            initialPrompt={prompt}
-          />
-          {generatedImageUrl && (
-            <div className="grid sm:grid-cols-2 gap-6 mt-6 items-start">
-              <div className="space-y-3">
-                <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
-                  Download 10+ HQ icons and SVG
-                </div>
+        <div className="flex flex-col lg:flex-row gap-10">
+          <div className="w-full lg:w-1/2 space-y-6">
+            <GenerateForm
+              setGeneratedImageUrl={setGeneratedImageUrl}
+              initialPrompt={prompt}
+            />
+            {generatedImageUrl && (
+              <div className="grid sm:grid-cols-2 gap-6 mt-6 items-start">
+                <div className="space-y-3">
+                  <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
+                    Download 10+ HQ icons and SVG
+                  </div>
 
-                {/* Wrap previews side-by-side */}
-                <div className="flex items-start gap-8 mt-4">
-                  {/* Left block: Browser tab + App icon + sizes */}
-                  <div className="flex flex-col items-center gap-6">
-                    {/* Browser tab preview */}
-                    <div className="flex flex-col items-center gap-1">
-                      <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
-                        <img
-                          src={generatedImageUrl}
-                          width={16}
-                          height={16}
-                          alt="Favicon"
-                        />
-                        <span className="text-sm text-gray-600">https://your.site</span>
+                  {/* Wrap previews side-by-side */}
+                  <div className="flex items-start gap-8 mt-4">
+                    {/* Left block: Browser tab + App icon + sizes */}
+                    <div className="flex flex-col items-center gap-6">
+                      {/* Browser tab preview */}
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
+                          <img
+                            src={generatedImageUrl}
+                            width={16}
+                            height={16}
+                            alt="Favicon"
+                          />
+                          <span className="text-sm text-gray-600">https://your.site</span>
+                        </div>
+                        <div className="text-center text-xs text-gray-500">browser tab</div>
                       </div>
-                      <div className="text-center text-xs text-gray-500">browser tab</div>
+
+                      {/* App icon preview + sizes */}
+                      <div className="flex flex-col items-center space-y-2">
+                        <div className="w-24 h-24 bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
+                          <img
+                            src={generatedImageUrl}
+                            width={180}
+                            height={180}
+                            className="object-contain"
+                            alt="App Icon"
+                          />
+                        </div>
+                        <div className="text-xs text-gray-500">mobile app</div>
+
+                        <div className="flex justify-center gap-4 mt-2">
+                          <div className="flex flex-col items-center space-y-1">
+                            <img
+                              src={generatedImageUrl}
+                              width={48}
+                              height={48}
+                              alt="48px Icon"
+                              className="object-contain border rounded"
+                            />
+                            <div className="text-[10px] text-gray-400">48px</div>
+                          </div>
+                          <div className="flex flex-col items-center space-y-1">
+                            <img
+                              src={generatedImageUrl}
+                              width={64}
+                              height={64}
+                              alt="64px Icon"
+                              className="object-contain border rounded"
+                            />
+                            <div className="text-[10px] text-gray-400">64px</div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* App icon preview + sizes */}
-                    <div className="flex flex-col items-center space-y-2">
-                      <div className="w-24 h-24 bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
-                        <img
-                          src={generatedImageUrl}
-                          width={180}
-                          height={180}
-                          className="object-contain"
-                          alt="App Icon"
-                        />
-                      </div>
-                      <div className="text-xs text-gray-500">mobile app</div>
-
-                      <div className="flex justify-center gap-4 mt-2">
-                        <div className="flex flex-col items-center space-y-1">
-                          <img
-                            src={generatedImageUrl}
-                            width={48}
-                            height={48}
-                            alt="48px Icon"
-                            className="object-contain border rounded"
-                          />
-                          <div className="text-[10px] text-gray-400">48px</div>
-                        </div>
-                        <div className="flex flex-col items-center space-y-1">
-                          <img
-                            src={generatedImageUrl}
-                            width={64}
-                            height={64}
-                            alt="64px Icon"
-                            className="object-contain border rounded"
-                          />
-                          <div className="text-[10px] text-gray-400">64px</div>
-                        </div>
-                      </div>
+                    {/* Right block: Phone preview */}
+                    <div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative overflow-hidden flex-shrink-0">
+                      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-12 h-1.5 bg-gray-800 rounded-full" />
+                      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gray-800 rounded-full border-2 border-white" />
+                      <img
+                        src={generatedImageUrl}
+                        alt="Mobile App"
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                   </div>
 
-                  {/* Right block: Phone preview */}
-                  <div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative overflow-hidden flex-shrink-0">
-                    <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-12 h-1.5 bg-gray-800 rounded-full" />
-                    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gray-800 rounded-full border-2 border-white" />
-                    <img
-                      src={generatedImageUrl}
-                      alt="Mobile App"
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="text-center text-[10px] text-gray-400 mt-1">
+                    Scalable Vector Graphic
                   </div>
-                </div>
-
-                <div className="text-center text-[10px] text-gray-400 mt-1">
-                  Scalable Vector Graphic
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Other divs can continue here */}
+            )}
+          </div>
 
           <div className="w-full lg:w-1/2 bg-white rounded-lg shadow p-6 space-y-4">
             <div className="flex justify-between items-center">
