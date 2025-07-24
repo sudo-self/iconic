@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 const examples = [
   // Neon
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-512x512.png?alt=media&token=1eccfbcc-d2f7-4a51-b3ad-c4d443b7e245", // neon Tokyo
-  "https://images.unsplash.com/photo-1626096894003-7fa3bb1b5dd5", // neon alley
+  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2FTablerBrandThreejs.svg?alt=media&token=f1573d23-e521-4c21-bab5-184fe2cf4b74", // neon alley
 
   // Black and White
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2FCover.jpg?alt=media&token=c20c92e1-3aea-414b-995c-4c40206dec80", // BW portrait
