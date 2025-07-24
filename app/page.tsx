@@ -227,7 +227,7 @@ iconic.JesseJesse.xyz
                     &lt;title&gt;Your Project&lt;/title&gt;
                   </div>
                   <div
-                    className="w-20 h-20 border rounded-md flex items-center justify-center bg-white shadow"
+                    className="w-35 h-15 border rounded-md flex items-center justify-center bg-white shadow"
                     style={{ imageRendering: "pixelated" }}
                   >
                     <img
@@ -238,7 +238,7 @@ iconic.JesseJesse.xyz
                       className="max-w-full max-h-full"
                     />
                   </div>
-                  <div className="mt-1 text-xs text-gray-500">Web Tab Preview</div>
+                  <div className="mt-1 text-xs text-gray-500">Browser tab preview</div>
                 </div>
 
                 {/* Mobile App Preview */}
