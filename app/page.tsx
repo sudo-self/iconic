@@ -412,9 +412,9 @@ iconic.JesseJesse.xyz
     href="https://iconic.jessejesse.xyz"
     target="_blank"
     rel="noopener noreferrer"
-    className="hover:text-indigo-500 transition-colors"
+    className="text-indigo-500 hover:text-pink-500 transition-colors"
   >
-    JesseJesse.xyz
+    iconic.JesseJesse.xyz
   </a>
 </div>
 
