@@ -323,7 +323,7 @@ const saveFile = (blob: Blob, filename: string) => {
   </div>
 </div>
 
-<div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative mx-auto overflow-hidden">
+<div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative mx-auto overflow-hidden mt-6">
   <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-12 h-1.5 bg-gray-800 rounded-full" />
   <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gray-800 rounded-full border-2 border-white" />
   <img
@@ -332,6 +332,7 @@ const saveFile = (blob: Blob, filename: string) => {
     className="w-full h-full object-cover"
   />
 </div>
+<div className="text-center text-[10px] text-gray-400 mt-1">Scalable Vector Graphic</div>
 
 
       
