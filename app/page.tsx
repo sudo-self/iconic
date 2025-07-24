@@ -232,7 +232,7 @@ Thank you for visiting iconic.JesseJesse.xyz!
 {/* Web Tab Preview */}
 <div className="flex flex-col items-center text-gray-700">
   <div className="mb-2 font-mono text-xs select-all bg-gray-100 rounded px-2 py-1 border border-gray-300">
-    &lt;html&gt;add icon tags&lt;/html&gt;
+   icon pack includes 9 icons
   </div>
   <div
     className="w-72 h-16 border border-gray-800 rounded-t-[10px] flex items-center px-4 bg-white shadow-sm"
@@ -270,7 +270,6 @@ Thank you for visiting iconic.JesseJesse.xyz!
       />
     </div>
     <div className="mt-1 text-xs text-gray-500">mobile app</div><br /><br />
-    <div className="mt-1 text-xs text-gray-500">screensaver</div>
   </div>
 </div>
 
