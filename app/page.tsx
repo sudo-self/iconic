@@ -394,12 +394,40 @@ iconic.JesseJesse.xyz
                     </div>
                   )}
 
-                  {generatedImageUrl && (
-                    <Button onClick={saveIconPack} className="w-full bg-blue-600 hover:bg-blue-700">
-                      <Download className="mr-2 h-4 w-4" />
-                      Download Icon Pack
-                    </Button>
-                  )}
+                 {generatedImageUrl && (
+  <>
+    <Button onClick={saveIconPack} className="w-full bg-blue-600 hover:bg-blue-700 mb-4">
+      <Download className="mr-2 h-4 w-4" />
+      Download Icon Pack
+    </Button>
+
+    {/* Terminal-style display of link tags */}
+    <div className="bg-black text-green-400 font-mono text-sm p-4 rounded-lg shadow-inner relative">
+      <pre className="whitespace-pre-wrap">
+{`<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">`}
+      </pre>
+      <button
+        onClick={() => {
+          navigator.clipboard.writeText(`<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">`)
+          toast({
+            title: "Copied to clipboard",
+            description: "Link tags copied successfully!",
+          })
+        }}
+        className="absolute top-2 right-2 bg-gray-800 text-white text-xs px-2 py-1 rounded hover:bg-gray-700"
+      >
+        Copy
+      </button>
+    </div>
+  </>
+)}
+
                 </div>
               </div>
             </div>
