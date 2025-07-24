@@ -256,7 +256,8 @@ Add these tags in your <head>:
 
                   <div className="flex items-start gap-8 mt-4">
                  
-                    <div className="flex flex-col items-center gap-6">
+                   <div className="flex flex-col items-center gap-6 w-full max-w-[44rem]">
+
               
                       <div className="flex flex-col items-center gap-1">
                         <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
@@ -268,7 +269,7 @@ Add these tags in your <head>:
                           />
                           <span className="text-sm text-gray-600">https://</span>
                         </div>
-                        <div className="text-center text-xs text-gray-500">browser tab</div>
+                        <div className="text-center text-xs text-gray-600">browser tab</div>
                       </div>
 
                
@@ -282,7 +283,7 @@ Add these tags in your <head>:
                             alt="App Icon"
                           />
                         </div>
-                        <div className="text-xs text-gray-500">mobile app</div>
+                        <div className="text-xs text-gray-600">mobile app</div>
 
                         <div className="flex justify-center gap-4 mt-2">
                           <div className="flex flex-col items-center space-y-1">
@@ -293,7 +294,7 @@ Add these tags in your <head>:
                               alt="48px Icon"
                               className="object-contain border rounded"
                             />
-                            <div className="text-[10px] text-gray-400">48px</div>
+                            <div className="text-[10px] text-gray-600">48px</div>
                           </div>
                           <div className="flex flex-col items-center space-y-1">
                             <img
@@ -303,7 +304,7 @@ Add these tags in your <head>:
                               alt="64px Icon"
                               className="object-contain border rounded"
                             />
-                            <div className="text-[10px] text-gray-400">64px</div>
+                            <div className="text-[10px] text-gray-600">64px</div>
                           </div>
                         </div>
                       </div>
@@ -321,7 +322,7 @@ Add these tags in your <head>:
                     </div>
                   </div>
 
-                  <div className="text-center text-[10px] text-gray-400 mt-1">
+                  <div className="text-center text-[10px] text-gray-600 mt-1">
                     Scalable Vector Graphic (SVG)
                   </div>
                 </div>
