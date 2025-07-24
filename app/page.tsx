@@ -232,7 +232,7 @@ Thank you for visiting iconic.JesseJesse.xyz!
 {/* Web Tab Preview */}
 <div className="flex flex-col items-center text-gray-700">
   <div className="mb-2 font-mono text-xs select-all bg-gray-100 rounded px-2 py-1 border border-gray-300">
-    &lt;html&gt;icon tags&lt;/html&gt;
+    &lt;html&gt;add icon tags&lt;/html&gt;
   </div>
   <div
     className="w-72 h-16 border border-gray-300 rounded-t-[10px] flex items-center px-4 bg-white shadow-sm"
@@ -250,10 +250,10 @@ Thank you for visiting iconic.JesseJesse.xyz!
       height={16}
       className="mr-2"
     />
-    <div className="text-sm text-gray-600 truncate">iconic.jessejesse.xyz</div>
+    <div className="text-sm text-gray-600 truncate">https://&nbsp;&nbsp;&nbsp;</div>
   </div>
   <div className="w-72 h-3 bg-gray-100 border border-gray-300 border-t-0 rounded-b-md"></div>
-  <div className="mt-1 text-xs text-gray-500">Web Browser Preview</div>
+  <div className="mt-1 text-xs text-gray-500">Web Browser</div>
 
   {/* Mobile App Preview */}
   <div className="mt-6 flex flex-col items-center">
@@ -269,7 +269,7 @@ Thank you for visiting iconic.JesseJesse.xyz!
         className="object-contain"
       />
     </div>
-    <div className="mt-1 text-xs text-gray-500">Mobile App Preview</div>
+    <div className="mt-1 text-xs text-gray-500">Mobile App</div>
   </div>
 </div>
 
