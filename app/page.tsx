@@ -313,7 +313,7 @@ Add the icons to your project head:
               )}
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-4 flex justify-center items-center min-h-[300px]">
+            <div className="bg-white/20 dark:bg-black/30 backdrop-blur-md rounded-xl shadow-xl p-6 border border-white/10 flex justify-center items-center min-h-[300px]">
               {generatedImageUrl ? (
                 <canvas
                   ref={bigPreviewCanvasRef}
