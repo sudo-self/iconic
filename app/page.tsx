@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Download, Wand2, Type, X } from "lucide-react";
+import { Download, Wand2, Type, X, Plus } from "lucide-react";
 import JSZip from "jszip";
 import GenerateForm from "@/components/generate-form";
 import { Button } from "@/components/ui/button";
@@ -70,27 +70,37 @@ export default function IconicApp() {
     showTextEditor,
   ]);
 
-  const drawPreviewCanvas = (
-    canvas: HTMLCanvasElement | null,
-    img: HTMLImageElement,
-    width: number,
-    height: number,
-  ) => {
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+ const drawPreviewCanvas = (
+  canvas: HTMLCanvasElement | null,
+  img: HTMLImageElement,
+  width: number,
+  height: number,
+) => {
+  if (!canvas || !img.complete) return;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+  
+  try {
     canvas.width = width;
     canvas.height = height;
     ctx.clearRect(0, 0, width, height);
     ctx.drawImage(img, 0, 0, width, height);
-    if (showTextEditor) {
+    
+    if (showTextEditor && text) {
       ctx.font = `${fontSize}px ${fontFamily}`;
       ctx.fillStyle = textColor;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText(text, textPosition.x * width, textPosition.y * height);
+      ctx.fillText(
+        text, 
+        textPosition.x * width, 
+        textPosition.y * height
+      );
     }
-  };
+  } catch (error) {
+    console.error("Error drawing canvas:", error);
+  }
+};
 
   const createSVG = (
     canvas: HTMLCanvasElement,
@@ -228,7 +238,18 @@ Add these tags in your <head>:
     URL.revokeObjectURL(link.href);
   };
 
-  const toggleTextEditor = () => setShowTextEditor(!showTextEditor);
+ const toggleTextEditor = () => {
+  if (generatedImageUrl) {
+    setShowTextEditor(!showTextEditor);
+  } else {
+    toast({
+      title: "No image generated",
+      description: "Please generate an icon first before adding text",
+      variant: "destructive",
+    });
+  }
+};
+  
   return (
     <div className="bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen px-4 py-12 flex flex-col items-center font-sans">
       <div className="max-w-6xl w-full space-y-12">
@@ -370,24 +391,25 @@ Add these tags in your <head>:
                   Icon Customization
                 </h2>
                 {generatedImageUrl && (
-                  <Button
-                    onClick={toggleTextEditor}
-                    variant="outline"
-                    size="sm"
-                    className="flex items-center gap-1"
-                  >
-                    {showTextEditor ? (
-                      <>
-                        <X className="w-4 h-4" />
-                        <span>Hide Text</span>
-                      </>
-                    ) : (
-                      <>
-                        <Type className="w-4 h-4" />
-                        <span>Add Text</span>
-                      </>
-                    )}
-                  </Button>
+                  <Button 
+  onClick={toggleTextEditor} 
+  variant="outline" 
+  size="sm"
+  className="flex items-center gap-1"
+  disabled={!generatedImageUrl}
+>
+  {showTextEditor ? (
+    <>
+      <X className="w-4 h-4" />
+      <span>Hide Text</span>
+    </>
+  ) : (
+    <>
+      <Type className="w-4 h-4" />
+      <span>Add Text</span>
+    </>
+  )}
+</Button>
                 )}
               </div>
 
