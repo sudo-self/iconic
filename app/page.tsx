@@ -59,7 +59,7 @@ export default function IconicApp() {
     }
   }, [generatedImageUrl, text, textColor, fontSize, fontFamily, textPosition, showTextEditor])
 
-  // Draw image + optional text on big preview canvas
+
   const drawOnCanvas = (
     canvas: HTMLCanvasElement | null,
     img: HTMLImageElement,
@@ -146,11 +146,11 @@ export default function IconicApp() {
               
 1. Add the icons to your project
                           
-- favicon.ico  (place this file in the project root or public folder)
+favicon.ico  <-- place this file in the project root
 
-- apple-touch-icon.png (public folder)
+apple-touch-icon.png  
 
-- icon-16x16.png thru icon-512x512.png (public folder)
+icon-16x16.png thru icon-512x512.png
 
 2. Map them by adding the html tags inside the <head> section
 
@@ -166,7 +166,7 @@ export default function IconicApp() {
 
 </head>
 
-Thank you for visitng iconic.JesseJesse.xyz!
+Thank you for visiting iconic.JesseJesse.xyz!
 `
 
               zip.file("README.txt", readmeContent)
@@ -216,23 +216,23 @@ Thank you for visitng iconic.JesseJesse.xyz!
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </div>
 
-        {/* Main content */}
+     
         <div className="flex flex-col lg:flex-row gap-8 justify-center">
 
-          {/* Left panel: generate form + previews */}
+        
           <div className="w-full max-w-lg flex flex-col space-y-6">
 
-            {/* Generate Form */}
+      
             <GenerateForm setGeneratedImageUrl={setGeneratedImageUrl} initialPrompt={prompt} />
 
-            {/* Previews side by side */}
+      
             {generatedImageUrl && (
               <div className="flex gap-6 mt-6 items-start">
 
                 {/* Web Tab Preview */}
                 <div className="flex flex-col items-center text-gray-700">
                   <div className="mb-2 font-mono text-xs select-all bg-gray-100 rounded px-2 py-1 border border-gray-300">
-                    &lt;head&gt;add icon tags&lt;/head&gt;
+                    &lt;html&gt;icon tags&lt;/html&gt;
                   </div>
                   <div
                     className="w-20 h-20 border rounded-md flex items-center justify-center bg-gray-300 shadow"
@@ -249,7 +249,7 @@ Thank you for visitng iconic.JesseJesse.xyz!
                   <div className="mt-1 text-xs text-gray-500">Web Browser Preview</div>
                 </div>
 
-                {/* Mobile App Preview */}
+           
                 <div
                   className="w-[200px] h-[400px] rounded-3xl bg-black shadow-lg relative flex items-center justify-center"
                   aria-label="Mobile App Preview"
@@ -257,7 +257,7 @@ Thank you for visitng iconic.JesseJesse.xyz!
                   <div className="absolute top-4 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-gray-800 rounded-full" />
                   <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-14 h-14 bg-gray-800 rounded-full" />
 
-                  {/* Full screen icon fill */}
+            
                   <img
                     src={generatedImageUrl}
                     alt="Mobile App Icon Preview"
@@ -273,7 +273,7 @@ Thank you for visitng iconic.JesseJesse.xyz!
 
           </div>
 
-          {/* Right panel: big preview + editor + download */}
+       
           <div className="w-full max-w-md bg-white rounded-lg p-5 shadow-sm flex flex-col">
 
             <div className="flex justify-between items-center mb-3">
@@ -320,9 +320,9 @@ Thank you for visitng iconic.JesseJesse.xyz!
     <path d="M3 9h18" />
     <path d="M9 21V9" />
   </svg>
-  Generated icon will arrive here.
+  icon will arrive here
   <br />
-  powered by CF Workers & NextJS
+  powered by JesseJesse.com
 </p>
 
               )}
