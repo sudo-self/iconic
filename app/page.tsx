@@ -272,34 +272,58 @@ const saveFile = (blob: Blob, filename: string) => {
             {generatedImageUrl && (
               <div className="grid sm:grid-cols-2 gap-6 mt-6 items-start">
              
-                <div className="space-y-3">
-                  <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
-                    Download 10+ HQ icons and SVG
-                  </div>
-                  <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
-                    <img
-                      src={generatedImageUrl}
-                      width={16}
-                      height={16}
-                      alt="Favicon"
-                    />
-                    <span className="text-sm text-gray-600">https://your.site</span>
-                  </div>
-                  <div className="text-center text-xs text-gray-500">browser tab</div>
+             <div className="space-y-3">
+  <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
+    Download 10+ HQ icons and SVG
+  </div>
+  <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
+    <img
+      src={generatedImageUrl}
+      width={16}
+      height={16}
+      alt="Favicon"
+    />
+    <span className="text-sm text-gray-600">https://your.site</span>
+  </div>
+  <div className="text-center text-xs text-gray-500">browser tab</div>
 
-                  <div className="mt-6 text-center space-y-2">
-                    <div className="w-24 h-24 mx-auto bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
-                      <img
-                        src={generatedImageUrl}
-                        width={180}
-                        height={180}
-                        className="object-contain"
-                        alt="App Icon"
-                      />
-                    </div>
-                    <div className="text-xs text-gray-500">mobile app</div>
-                  </div>
-                </div>
+  <div className="mt-6 text-center space-y-2">
+    <div className="w-24 h-24 mx-auto bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
+      <img
+        src={generatedImageUrl}
+        width={180}
+        height={180}
+        className="object-contain"
+        alt="App Icon"
+      />
+    </div>
+    <div className="text-xs text-gray-500">mobile app</div>
+
+    <div className="flex justify-center gap-4 mt-2">
+      <div className="flex flex-col items-center space-y-1">
+        <img
+          src={generatedImageUrl}
+          width={48}
+          height={48}
+          alt="48px Icon"
+          className="object-contain border rounded"
+        />
+        <div className="text-[10px] text-gray-400">48px</div>
+      </div>
+      <div className="flex flex-col items-center space-y-1">
+        <img
+          src={generatedImageUrl}
+          width={64}
+          height={64}
+          alt="64px Icon"
+          className="object-contain border rounded"
+        />
+        <div className="text-[10px] text-gray-400">64px</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
        
                 <div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative mx-auto overflow-hidden">
