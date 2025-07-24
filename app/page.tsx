@@ -269,7 +269,8 @@ Thank you for visiting iconic.JesseJesse.xyz!
         className="object-contain"
       />
     </div>
-    <div className="mt-1 text-xs text-gray-500">mobile device preview</div>
+    <div className="mt-1 text-xs text-gray-500">mobile device preview</div><br /><br />
+    <div className="mt-1 text-xs text-gray-500">Fullscreen Preview</div>
   </div>
 </div>
 
@@ -291,7 +292,6 @@ Thank you for visiting iconic.JesseJesse.xyz!
                     loading="lazy"
                   />
                 </div>
-                 <div className="mt-1 text-xs text-gray-500">Fullscreen</div>
               </div>
             )}
 
