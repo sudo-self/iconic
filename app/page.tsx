@@ -229,13 +229,13 @@ Thank you for visiting iconic.JesseJesse.xyz!
             {generatedImageUrl && (
               <div className="flex gap-6 mt-6 items-start">
 
-               {/* Web Tab Preview */}
+{/* Web Tab Preview */}
 <div className="flex flex-col items-center text-gray-700">
   <div className="mb-2 font-mono text-xs select-all bg-gray-100 rounded px-2 py-1 border border-gray-300">
     &lt;html&gt;icon tags&lt;/html&gt;
   </div>
   <div
-    className="w-20 h-20 border rounded-md flex items-center justify-center bg-gray-300 shadow"
+    className="w-36 h-12 border rounded-t-md flex items-center px-2 bg-white shadow-inner border-gray-300"
     style={{ imageRendering: "pixelated" }}
   >
     <img
@@ -243,10 +243,13 @@ Thank you for visiting iconic.JesseJesse.xyz!
       alt="16x16 Icon Preview"
       width={16}
       height={16}
-      className="max-w-full max-h-full"
+      className="mr-2"
     />
+    <div className="text-xs text-gray-600 truncate">iconic.jessejesse.xyz</div>
   </div>
   <div className="mt-1 text-xs text-gray-500">Web Browser Preview</div>
+</div>
+
 
   {/* Mobile App Preview */}
   <div className="mt-6 flex flex-col items-center">
