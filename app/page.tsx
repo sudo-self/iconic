@@ -255,7 +255,7 @@ const saveFile = (blob: Blob, filename: string) => {
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 text-transparent bg-clip-text animate-gradient">
             iconic
           </h1>
-          <p className="text-gray-600 md:text-xl">
+          <p className="text-indigo-600 md:text-xl">
             Turn your ideas into beautiful, unique icons — instantly.
           </p>
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
@@ -274,7 +274,7 @@ const saveFile = (blob: Blob, filename: string) => {
              
                 <div className="space-y-3">
                   <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
-                    10+ High Quality icons and SVG
+                    Download 10+ HQ icons and SVG
                   </div>
                   <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
                     <img
@@ -324,7 +324,7 @@ const saveFile = (blob: Blob, filename: string) => {
                   alt="Text Fields"
                   className="w-5 h-5 mr-2"
                 />
-                Generated icon(s)
+                Generated iconic
               </h3>
               {generatedImageUrl && (
                 <Button onClick={toggleTextEditor} variant="outline" size="sm">
@@ -353,8 +353,8 @@ const saveFile = (blob: Blob, filename: string) => {
                 />
               ) : (
                 <div className="text-gray-400 text-center">
-                  <p>icon will arrive here</p>
-                  <p className="text-xs mt-1">powered by JesseJesse.com</p>
+                  <p>icon preview will arrive here</p>
+                  <p className="text-xs mt-1">stabilityai/stable-diffusion-xl-base-1.0</p>
                 </div>
               )}
             </div>
@@ -455,7 +455,7 @@ const saveFile = (blob: Blob, filename: string) => {
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                 >
                   <Download className="w-4 h-4 mr-2" />
-                  download HQ icons
+                  Download icon pack
                 </Button>
 
                 <div className="bg-black text-pink-400 font-mono text-xs p-4 rounded-lg shadow-inner relative mt-4">
