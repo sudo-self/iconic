@@ -23,7 +23,15 @@ export default function IconicApp() {
   const bigPreviewCanvasRef = useRef<HTMLCanvasElement>(null)
   const { toast } = useToast()
 
-  const fontOptions = ["Arial", "Helvetica", "Times New Roman", "Courier New", "Georgia", "Verdana", "Impact"]
+  const fontOptions = [
+    "Arial",
+    "Helvetica",
+    "Times New Roman",
+    "Courier New",
+    "Georgia",
+    "Verdana",
+    "Impact",
+  ]
   const colorOptions = [
     { name: "White", value: "#ffffff" },
     { name: "Black", value: "#000000" },
@@ -49,9 +57,22 @@ export default function IconicApp() {
     img.crossOrigin = "anonymous"
     img.src = generatedImageUrl
     img.onload = () => drawOnCanvas(bigPreviewCanvasRef.current, img, 300, 300)
-  }, [generatedImageUrl, text, textColor, fontSize, fontFamily, textPosition, showTextEditor])
+  }, [
+    generatedImageUrl,
+    text,
+    textColor,
+    fontSize,
+    fontFamily,
+    textPosition,
+    showTextEditor,
+  ])
 
-  const drawOnCanvas = (canvas: HTMLCanvasElement | null, img: HTMLImageElement, width: number, height: number) => {
+  const drawOnCanvas = (
+    canvas: HTMLCanvasElement | null,
+    img: HTMLImageElement,
+    width: number,
+    height: number
+  ) => {
     if (!canvas) return
     const ctx = canvas.getContext("2d")
     if (!ctx) return
@@ -66,6 +87,42 @@ export default function IconicApp() {
       ctx.textBaseline = "middle"
       ctx.fillText(text, textPosition.x * width, textPosition.y * height)
     }
+  }
+
+  // SVG generation helper
+  const createSVG = (
+    canvas: HTMLCanvasElement,
+    {
+      text,
+      fontSize,
+      fontFamily,
+      textColor,
+      showTextEditor,
+      textPosition,
+    }: {
+      text: string
+      fontSize: number
+      fontFamily: string
+      textColor: string
+      showTextEditor: boolean
+      textPosition: { x: number; y: number }
+    }
+  ) => {
+    const width = canvas.width
+    const height = canvas.height
+    const dataUrl = canvas.toDataURL("image/png")
+
+    return `
+<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+  <image href="${dataUrl}" x="0" y="0" width="${width}" height="${height}" />
+  ${
+    showTextEditor
+      ? `<text x="${textPosition.x * width}" y="${
+          textPosition.y * height
+        }" font-size="${fontSize}" font-family="${fontFamily}" fill="${textColor}" text-anchor="middle" dominant-baseline="middle">${text}</text>`
+      : ""
+  }
+</svg>`.trim()
   }
 
   const saveIconPack = async () => {
@@ -89,6 +146,7 @@ export default function IconicApp() {
       })
     })
 
+    // favicon.ico
     const icoCanvas = document.createElement("canvas")
     icoCanvas.width = 32
     icoCanvas.height = 32
@@ -97,6 +155,8 @@ export default function IconicApp() {
       icoCtx.drawImage(canvas, 0, 0, 32, 32)
       icoCanvas.toBlob((blob) => {
         if (blob) zip.file("favicon.ico", blob)
+
+        // apple-touch-icon.png
         const appleCanvas = document.createElement("canvas")
         appleCanvas.width = 180
         appleCanvas.height = 180
@@ -105,8 +165,32 @@ export default function IconicApp() {
           appleCtx.drawImage(canvas, 0, 0, 180, 180)
           appleCanvas.toBlob((appleBlob) => {
             if (appleBlob) zip.file("apple-touch-icon.png", appleBlob)
+
+            // Add SVG icon
+            const svg = createSVG(canvas, {
+              text,
+              fontSize,
+              fontFamily,
+              textColor,
+              showTextEditor,
+              textPosition,
+            })
+            zip.file("icon.svg", svg)
+
             Promise.all(promises).then(() => {
-              zip.file("README.txt", `# iconic.JesseJesse.xyz\n\nAdd the icons to your project head:\n\n<link rel="icon" href="/favicon.ico" sizes="any">\n<link rel="apple-touch-icon" href="/apple-touch-icon.png">\n<link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">\n<link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">\n`)
+              zip.file(
+                "README.txt",
+                `# iconic.JesseJesse.xyz
+
+Add the icons to your project head:
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+`
+              )
               zip.generateAsync({ type: "blob" }).then((content) => {
                 saveFile(content, "iconic.JesseJesse.zip")
                 toast({
@@ -136,7 +220,6 @@ export default function IconicApp() {
   return (
     <div className="bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen px-4 py-12 flex flex-col items-center font-sans">
       <div className="max-w-6xl w-full space-y-14">
-
         {/* Hero */}
         <div className="text-center space-y-3 animate-fade-in">
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 text-transparent bg-clip-text animate-gradient">
@@ -150,27 +233,39 @@ export default function IconicApp() {
 
         {/* Main Layout */}
         <div className="flex flex-col lg:flex-row gap-10">
-          
           {/* Left Side */}
           <div className="w-full lg:w-1/2 space-y-6">
-            <GenerateForm setGeneratedImageUrl={setGeneratedImageUrl} initialPrompt={prompt} />
+            <GenerateForm
+              setGeneratedImageUrl={setGeneratedImageUrl}
+              initialPrompt={prompt}
+            />
             {generatedImageUrl && (
               <div className="grid sm:grid-cols-2 gap-6 mt-6 items-start">
-
                 {/* Preview Section */}
                 <div className="space-y-3">
                   <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
                     icon pack includes 9 icons
                   </div>
                   <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
-                    <img src={generatedImageUrl} width={16} height={16} alt="Favicon" />
+                    <img
+                      src={generatedImageUrl}
+                      width={16}
+                      height={16}
+                      alt="Favicon"
+                    />
                     <span className="text-sm text-gray-600">https://your.site</span>
                   </div>
                   <div className="text-center text-xs text-gray-500">browser tab</div>
 
                   <div className="mt-6 text-center space-y-2">
                     <div className="w-24 h-24 mx-auto bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
-                      <img src={generatedImageUrl} width={180} height={180} className="object-contain" alt="App Icon" />
+                      <img
+                        src={generatedImageUrl}
+                        width={180}
+                        height={180}
+                        className="object-contain"
+                        alt="App Icon"
+                      />
                     </div>
                     <div className="text-xs text-gray-500">mobile app</div>
                   </div>
@@ -180,9 +275,12 @@ export default function IconicApp() {
                 <div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative mx-auto overflow-hidden">
                   <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-12 h-1.5 bg-gray-800 rounded-full" />
                   <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gray-800 rounded-full" />
-                  <img src={generatedImageUrl} alt="Mobile App" className="w-full h-full object-cover" />
+                  <img
+                    src={generatedImageUrl}
+                    alt="Mobile App"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-
               </div>
             )}
           </div>
@@ -193,15 +291,29 @@ export default function IconicApp() {
               <h3 className="text-lg font-semibold text-gray-800">Generated Icon</h3>
               {generatedImageUrl && (
                 <Button onClick={toggleTextEditor} variant="outline" size="sm">
-                  {showTextEditor ? <X className="w-4 h-4 mr-1" /> : <Type className="w-4 h-4 mr-1" />}
-                  {showTextEditor ? "Hide Text" : "Add Text"}
+                  {showTextEditor ? (
+                    <>
+                      <X className="w-4 h-4 mr-1" />
+                      Hide Text
+                    </>
+                  ) : (
+                    <>
+                      <Type className="w-4 h-4 mr-1" />
+                      Add Text
+                    </>
+                  )}
                 </Button>
               )}
             </div>
 
             <div className="bg-gray-50 rounded-lg p-4 flex justify-center items-center min-h-[300px]">
               {generatedImageUrl ? (
-                <canvas ref={bigPreviewCanvasRef} width={300} height={300} className="shadow-md rounded-lg" />
+                <canvas
+                  ref={bigPreviewCanvasRef}
+                  width={300}
+                  height={300}
+                  className="shadow-md rounded-lg"
+                />
               ) : (
                 <div className="text-gray-400 text-center">
                   <p>icon will arrive here</p>
@@ -214,20 +326,38 @@ export default function IconicApp() {
               <div className="space-y-3 border-t pt-4">
                 <div>
                   <label className="text-sm font-medium">Text</label>
-                  <Input value={text} onChange={(e) => setText(e.target.value)} maxLength={20} />
+                  <Input
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                    maxLength={20}
+                  />
                 </div>
                 <div>
                   <label className="text-sm font-medium">Font Size</label>
                   <div className="flex gap-3 items-center">
-                    <Input type="range" min="12" max="72" value={fontSize} onChange={(e) => setFontSize(+e.target.value)} />
+                    <Input
+                      type="range"
+                      min="12"
+                      max="72"
+                      value={fontSize}
+                      onChange={(e) => setFontSize(+e.target.value)}
+                    />
                     <span className="text-sm text-gray-600">{fontSize}px</span>
                   </div>
                 </div>
                 <div>
                   <label className="text-sm font-medium">Font</label>
-                  <select className="w-full border rounded p-2" value={fontFamily} onChange={(e) => setFontFamily(e.target.value)}>
-                    {fontOptions.map(font => (
-                      <option key={font} value={font} style={{ fontFamily: font }}>
+                  <select
+                    className="w-full border rounded p-2"
+                    value={fontFamily}
+                    onChange={(e) => setFontFamily(e.target.value)}
+                  >
+                    {fontOptions.map((font) => (
+                      <option
+                        key={font}
+                        value={font}
+                        style={{ fontFamily: font }}
+                      >
                         {font}
                       </option>
                     ))}
@@ -236,12 +366,17 @@ export default function IconicApp() {
                 <div>
                   <label className="text-sm font-medium">Text Color</label>
                   <div className="grid grid-cols-4 gap-2 mt-2">
-                    {colorOptions.map(color => (
+                    {colorOptions.map((color) => (
                       <button
                         key={color.value}
                         onClick={() => setTextColor(color.value)}
                         style={{ backgroundColor: color.value }}
-                        className={cn("w-8 h-8 rounded border", textColor === color.value ? "border-blue-600" : "border-gray-300")}
+                        className={cn(
+                          "w-8 h-8 rounded border",
+                          textColor === color.value
+                            ? "border-blue-600"
+                            : "border-gray-300"
+                        )}
                       />
                     ))}
                     <input
@@ -258,12 +393,14 @@ export default function IconicApp() {
                     {[
                       { label: "Top", y: 0.2 },
                       { label: "Middle", y: 0.5 },
-                      { label: "Bottom", y: 0.8 }
-                    ].map(pos => (
+                      { label: "Bottom", y: 0.8 },
+                    ].map((pos) => (
                       <Button
                         key={pos.label}
                         size="sm"
-                        variant={textPosition.y === pos.y ? "default" : "outline"}
+                        variant={
+                          textPosition.y === pos.y ? "default" : "outline"
+                        }
                         onClick={() => setTextPosition({ x: 0.5, y: pos.y })}
                       >
                         {pos.label}
@@ -276,7 +413,10 @@ export default function IconicApp() {
 
             {generatedImageUrl && (
               <>
-                <Button onClick={saveIconPack} className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                <Button
+                  onClick={saveIconPack}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                >
                   <Download className="w-4 h-4 mr-2" />
                   Download Icon Pack
                 </Button>
@@ -285,14 +425,19 @@ export default function IconicApp() {
                   <pre className="whitespace-pre-wrap select-all">{`<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">`}</pre>
+<link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">`}</pre>
                   <button
                     onClick={() => {
                       navigator.clipboard.writeText(`<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">`)
-                      toast({ title: "Copied!", description: "HTML tags copied to clipboard" })
+<link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">`)
+                      toast({
+                        title: "Copied!",
+                        description: "HTML tags copied to clipboard",
+                      })
                     }}
                     className="absolute top-2 right-2 bg-gray-800 hover:bg-gray-700 text-white px-2 py-1 rounded text-xs"
                   >
@@ -305,7 +450,12 @@ export default function IconicApp() {
         </div>
 
         <footer className="text-center pt-12 text-sm text-gray-500">
-          <a href="https://iconic.jessejesse.xyz" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-500">
+          <a
+            href="https://iconic.jessejesse.xyz"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-indigo-500"
+          >
             iconic.JesseJesse.xyz
           </a>
         </footer>
@@ -313,6 +463,7 @@ export default function IconicApp() {
     </div>
   )
 }
+
 
 
 
