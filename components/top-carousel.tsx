@@ -13,7 +13,7 @@ const examples = [
 
   // Cartoon / Anime
   "https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/45.png",
-  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2FLogosGithubOctocat.svg?alt=media&token=8a359564-5b2f-4173-a83b-8f1c45d27e37",
+  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2FIconParkApple.svg?alt=media&token=f197b3f9-0620-44ab-9f88-86ebf5710f45",
 
   // Bonus examples
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-512x512.png?alt=media&token=3839cd7a-ff65-4d0a-80ab-7cf5ce7c3784", // surreal
