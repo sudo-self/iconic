@@ -251,7 +251,7 @@ Add these tags in your <head>:
               <div className="grid sm:grid-cols-2 gap-6 mt-6 items-start">
                 <div className="space-y-3">
                   <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
-                    icon pack includes 10+ HQ icons & SVG
+                  10+ HQ icons & SVG
                   </div>
 
                   <div className="flex items-start gap-8 mt-4">
@@ -266,7 +266,7 @@ Add these tags in your <head>:
                             height={16}
                             alt="Favicon"
                           />
-                          <span className="text-sm text-gray-600">https://your.site</span>
+                          <span className="text-sm text-gray-600">https://</span>
                         </div>
                         <div className="text-center text-xs text-gray-500">browser tab</div>
                       </div>
