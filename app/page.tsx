@@ -20,9 +20,12 @@ export default function IconicApp() {
   const [textColor, setTextColor] = useState("#ffffff")
   const [fontSize, setFontSize] = useState(32)
   const [fontFamily, setFontFamily] = useState("Arial")
-  const [textPosition, setTextPosition] = useState({ x: 0.5, y: 0.8 }) 
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const previewCanvasRef = useRef<HTMLCanvasElement>(null)
+  const [textPosition, setTextPosition] = useState({ x: 0.5, y: 0.8 })
+
+  const bigPreviewCanvasRef = useRef<HTMLCanvasElement>(null)       // big preview on right panel
+  const webTabCanvasRef = useRef<HTMLCanvasElement>(null)           // web tab preview (300x50)
+  const mobilePreviewCanvasRef = useRef<HTMLCanvasElement>(null)    // mobile preview (180x180)
+
   const { toast } = useToast()
 
   const fontOptions = ["Arial", "Helvetica", "Times New Roman", "Courier New", "Georgia", "Verdana", "Impact"]
@@ -37,7 +40,6 @@ export default function IconicApp() {
     { name: "Pink", value: "#ffc0cb" },
   ]
 
-  // *** MISSING FUNCTION ADDED HERE ***
   const handleSelectPrompt = (selectedPrompt: string) => {
     setPrompt(selectedPrompt)
     setActiveTab("generate")
@@ -49,37 +51,51 @@ export default function IconicApp() {
   }
 
   useEffect(() => {
-    updatePreviewCanvas()
-  }, [text, textColor, fontSize, fontFamily, textPosition, generatedImageUrl, showTextEditor])
-
-  const updatePreviewCanvas = () => {
-    const canvas = previewCanvasRef.current
-    if (!canvas || !generatedImageUrl) return
-
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
+    if (!generatedImageUrl) return
 
     const img = new Image()
     img.crossOrigin = "anonymous"
-    img.onload = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-
-      if (showTextEditor) {
-        ctx.font = `${fontSize}px ${fontFamily}`
-        ctx.fillStyle = textColor
-        ctx.textAlign = "center"
-        ctx.textBaseline = "middle"
-        const x = textPosition.x * canvas.width
-        const y = textPosition.y * canvas.height
-        ctx.fillText(text, x, y)
-      }
-    }
     img.src = generatedImageUrl
+    img.onload = () => {
+      // Update big preview canvas
+      drawOnCanvas(bigPreviewCanvasRef.current, img, 300, 300)
+      // Update web tab preview canvas
+      drawOnCanvas(webTabCanvasRef.current, img, 300, 50)
+      // Update mobile preview canvas
+      drawOnCanvas(mobilePreviewCanvasRef.current, img, 180, 180)
+    }
+  }, [generatedImageUrl, text, textColor, fontSize, fontFamily, textPosition, showTextEditor])
+
+  // Draw image + optional text on given canvas element and size
+  const drawOnCanvas = (
+    canvas: HTMLCanvasElement | null,
+    img: HTMLImageElement,
+    width: number,
+    height: number
+  ) => {
+    if (!canvas) return
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    canvas.width = width
+    canvas.height = height
+
+    ctx.clearRect(0, 0, width, height)
+    ctx.drawImage(img, 0, 0, width, height)
+
+    if (showTextEditor) {
+      ctx.font = `${fontSize}px ${fontFamily}`
+      ctx.fillStyle = textColor
+      ctx.textAlign = "center"
+      ctx.textBaseline = "middle"
+      const x = textPosition.x * width
+      const y = textPosition.y * height
+      ctx.fillText(text, x, y)
+    }
   }
 
   const saveIconPack = async () => {
-    const canvas = previewCanvasRef.current
+    const canvas = bigPreviewCanvasRef.current
     if (!canvas) return
 
     const zip = new JSZip()
@@ -210,10 +226,10 @@ iconic.JesseJesse.xyz
           <TabsContent value="generate" className="mt-6">
             <div className="flex flex-col lg:flex-row gap-6">
 
+              {/* Left panel: generate form + preview tabs */}
               <div className="w-full lg:w-96 space-y-6">
                 <GenerateForm setGeneratedImageUrl={setGeneratedImageUrl} initialPrompt={prompt} />
 
-                {/* Web tab and mobile app preview under generate form */}
                 {generatedImageUrl && (
                   <Tabs defaultValue="web" className="mt-6">
                     <TabsList className="w-full grid grid-cols-2 mb-4 bg-gray-200 rounded-md">
@@ -223,7 +239,7 @@ iconic.JesseJesse.xyz
 
                     <TabsContent value="web" className="flex justify-center">
                       <canvas
-                        ref={previewCanvasRef}
+                        ref={webTabCanvasRef}
                         width={300}
                         height={50}
                         className="rounded-lg shadow-md border"
@@ -232,7 +248,7 @@ iconic.JesseJesse.xyz
 
                     <TabsContent value="mobile" className="flex justify-center">
                       <canvas
-                        ref={canvasRef}
+                        ref={mobilePreviewCanvasRef}
                         width={180}
                         height={180}
                         className="rounded-lg shadow-md border"
@@ -242,6 +258,7 @@ iconic.JesseJesse.xyz
                 )}
               </div>
 
+              {/* Right panel: big preview + text editor + download */}
               <div className="w-full lg:w-96">
                 <div className="bg-white rounded-lg p-5 shadow-sm flex flex-col">
                   <div className="flex justify-between items-center mb-3">
@@ -265,7 +282,7 @@ iconic.JesseJesse.xyz
 
                   <div className="flex-1 flex items-center justify-center bg-gray-50 rounded-lg mb-4 relative">
                     {generatedImageUrl ? (
-                      <canvas ref={previewCanvasRef} width={300} height={300} className="rounded-lg shadow-md" />
+                      <canvas ref={bigPreviewCanvasRef} width={300} height={300} className="rounded-lg shadow-md" />
                     ) : (
                       <p className="text-gray-500 text-center p-6">
                         Generated icon will arrive here.<br />
@@ -422,6 +439,7 @@ iconic.JesseJesse.xyz
                   )}
                 </div>
               </div>
+
             </div>
           </TabsContent>
         </Tabs>
@@ -440,6 +458,7 @@ iconic.JesseJesse.xyz
     </div>
   )
 }
+
 
 
 
