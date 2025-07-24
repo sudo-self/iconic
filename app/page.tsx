@@ -229,25 +229,43 @@ Thank you for visiting iconic.JesseJesse.xyz!
             {generatedImageUrl && (
               <div className="flex gap-6 mt-6 items-start">
 
-                {/* Web Tab Preview */}
-                <div className="flex flex-col items-center text-gray-700">
-                  <div className="mb-2 font-mono text-xs select-all bg-gray-100 rounded px-2 py-1 border border-gray-300">
-                    &lt;html&gt;icon tags&lt;/html&gt;
-                  </div>
-                  <div
-                    className="w-20 h-20 border rounded-md flex items-center justify-center bg-gray-300 shadow"
-                    style={{ imageRendering: "pixelated" }}
-                  >
-                    <img
-                      src={generatedImageUrl}
-                      alt="16x16 Icon Preview"
-                      width={16}
-                      height={16}
-                      className="max-w-full max-h-full"
-                    />
-                  </div>
-                  <div className="mt-1 text-xs text-gray-500">Web Browser Preview</div>
-                </div>
+               {/* Web Tab Preview */}
+<div className="flex flex-col items-center text-gray-700">
+  <div className="mb-2 font-mono text-xs select-all bg-gray-100 rounded px-2 py-1 border border-gray-300">
+    &lt;html&gt;icon tags&lt;/html&gt;
+  </div>
+  <div
+    className="w-20 h-20 border rounded-md flex items-center justify-center bg-gray-300 shadow"
+    style={{ imageRendering: "pixelated" }}
+  >
+    <img
+      src={generatedImageUrl}
+      alt="16x16 Icon Preview"
+      width={16}
+      height={16}
+      className="max-w-full max-h-full"
+    />
+  </div>
+  <div className="mt-1 text-xs text-gray-500">Web Browser Preview</div>
+
+  {/* Mobile App Preview */}
+  <div className="mt-6 flex flex-col items-center">
+    <div
+      className="w-24 h-24 rounded-2xl shadow-lg border border-gray-300 bg-white overflow-hidden flex items-center justify-center"
+      style={{ imageRendering: "pixelated" }}
+    >
+      <img
+        src={generatedImageUrl}
+        alt="180x180 Mobile Icon Preview"
+        width={180}
+        height={180}
+        className="object-contain"
+      />
+    </div>
+    <div className="mt-1 text-xs text-gray-500">Mobile App Preview</div>
+  </div>
+</div>
+
 
            
                 <div
