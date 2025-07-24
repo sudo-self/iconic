@@ -50,13 +50,14 @@ export default function IconicApp() {
     })
   }
 
+  
   useEffect(() => {
     if (!generatedImageUrl) return
 
     const img = new Image()
     img.crossOrigin = "anonymous"
     img.src = generatedImageUrl
-    img.onload = () => drawOnCanvas(bigPreviewCanvasRef.current, img, 300, 300)
+    img.onload = () => drawPreviewCanvas(bigPreviewCanvasRef.current, img, 300, 300)
   }, [
     generatedImageUrl,
     text,
@@ -67,7 +68,8 @@ export default function IconicApp() {
     showTextEditor,
   ])
 
-  const drawOnCanvas = (
+
+  const drawPreviewCanvas = (
     canvas: HTMLCanvasElement | null,
     img: HTMLImageElement,
     width: number,
@@ -89,6 +91,15 @@ export default function IconicApp() {
     }
   }
 
+ 
+  const drawCleanCanvas = (canvas: HTMLCanvasElement, img: HTMLImageElement) => {
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+    canvas.width = img.width
+    canvas.height = img.height
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+  }
 
   const createSVG = (
     canvas: HTMLCanvasElement,
@@ -125,62 +136,74 @@ export default function IconicApp() {
 </svg>`.trim()
   }
 
+ 
   const saveIconPack = async () => {
-    const canvas = bigPreviewCanvasRef.current
-    if (!canvas) return
-    const zip = new JSZip()
-    const sizes = [16, 32, 48, 64, 128, 256, 512]
+    const previewCanvas = bigPreviewCanvasRef.current
+    if (!previewCanvas || !generatedImageUrl) return
 
-    const promises = sizes.map((size) => {
-      return new Promise<void>((resolve) => {
-        const tempCanvas = document.createElement("canvas")
-        const tempCtx = tempCanvas.getContext("2d")
-        if (!tempCtx) return resolve()
-        tempCanvas.width = size
-        tempCanvas.height = size
-        tempCtx.drawImage(canvas, 0, 0, size, size)
-        tempCanvas.toBlob((blob) => {
-          if (blob) zip.file(`icon-${size}x${size}.png`, blob)
-          resolve()
-        }, "image/png")
+
+    const img = new Image()
+    img.crossOrigin = "anonymous"
+    img.src = generatedImageUrl
+    img.onload = async () => {
+      const zip = new JSZip()
+      const sizes = [16, 32, 48, 64, 128, 256, 512]
+
+  
+      const promises = sizes.map((size) => {
+        return new Promise<void>((resolve) => {
+          const tempCanvas = document.createElement("canvas")
+          const tempCtx = tempCanvas.getContext("2d")
+          if (!tempCtx) return resolve()
+          tempCanvas.width = size
+          tempCanvas.height = size
+     
+          tempCtx.clearRect(0, 0, size, size)
+          tempCtx.drawImage(img, 0, 0, size, size)
+          tempCanvas.toBlob((blob) => {
+            if (blob) zip.file(`icon-${size}x${size}.png`, blob)
+            resolve()
+          }, "image/png")
+        })
       })
-    })
 
-    // favicon.ico
-    const icoCanvas = document.createElement("canvas")
-    icoCanvas.width = 32
-    icoCanvas.height = 32
-    const icoCtx = icoCanvas.getContext("2d")
-    if (icoCtx) {
-      icoCtx.drawImage(canvas, 0, 0, 32, 32)
-      icoCanvas.toBlob((blob) => {
-        if (blob) zip.file("favicon.ico", blob)
+ 
+      const icoCanvas = document.createElement("canvas")
+      icoCanvas.width = 32
+      icoCanvas.height = 32
+      const icoCtx = icoCanvas.getContext("2d")
+      if (icoCtx) {
+        icoCtx.clearRect(0, 0, 32, 32)
+        icoCtx.drawImage(img, 0, 0, 32, 32)
+        icoCanvas.toBlob((blob) => {
+          if (blob) zip.file("favicon.ico", blob)
 
-        // apple-touch-icon.png
-        const appleCanvas = document.createElement("canvas")
-        appleCanvas.width = 180
-        appleCanvas.height = 180
-        const appleCtx = appleCanvas.getContext("2d")
-        if (appleCtx) {
-          appleCtx.drawImage(canvas, 0, 0, 180, 180)
-          appleCanvas.toBlob((appleBlob) => {
-            if (appleBlob) zip.file("apple-touch-icon.png", appleBlob)
+   
+          const appleCanvas = document.createElement("canvas")
+          appleCanvas.width = 180
+          appleCanvas.height = 180
+          const appleCtx = appleCanvas.getContext("2d")
+          if (appleCtx) {
+            appleCtx.clearRect(0, 0, 180, 180)
+            appleCtx.drawImage(img, 0, 0, 180, 180)
+            appleCanvas.toBlob((appleBlob) => {
+              if (appleBlob) zip.file("apple-touch-icon.png", appleBlob)
 
-            // Add SVG icon
-            const svg = createSVG(canvas, {
-              text,
-              fontSize,
-              fontFamily,
-              textColor,
-              showTextEditor,
-              textPosition,
-            })
-            zip.file("icon.svg", svg)
+             
+              const svg = createSVG(previewCanvas, {
+                text,
+                fontSize,
+                fontFamily,
+                textColor,
+                showTextEditor,
+                textPosition,
+              })
+              zip.file("icon.svg", svg)
 
-            Promise.all(promises).then(() => {
-              zip.file(
-                "README.txt",
-                `# iconic.JesseJesse.xyz
+              Promise.all(promises).then(() => {
+                zip.file(
+                  "README.txt",
+                  `# iconic.JesseJesse.xyz
 
 Add the icons to your project head:
 
@@ -190,18 +213,19 @@ Add the icons to your project head:
 <link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
 `
-              )
-              zip.generateAsync({ type: "blob" }).then((content) => {
-                saveFile(content, "iconic.JesseJesse.zip")
-                toast({
-                  title: "Download complete",
-                  description: "Icon pack downloaded successfully!",
+                )
+                zip.generateAsync({ type: "blob" }).then((content) => {
+                  saveFile(content, "iconic.JesseJesse.zip")
+                  toast({
+                    title: "Download complete",
+                    description: "Icon pack downloaded successfully!",
+                  })
                 })
               })
-            })
-          }, "image/png")
-        }
-      }, "image/x-icon")
+            }, "image/png")
+          }
+        }, "image/x-icon")
+      }
     }
   }
 
@@ -231,9 +255,9 @@ Add the icons to your project head:
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </div>
 
-        {/* Main Layout */}
+  
         <div className="flex flex-col lg:flex-row gap-10">
-          {/* Left Side */}
+        
           <div className="w-full lg:w-1/2 space-y-6">
             <GenerateForm
               setGeneratedImageUrl={setGeneratedImageUrl}
@@ -241,7 +265,7 @@ Add the icons to your project head:
             />
             {generatedImageUrl && (
               <div className="grid sm:grid-cols-2 gap-6 mt-6 items-start">
-                {/* Preview Section */}
+             
                 <div className="space-y-3">
                   <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
                     icon pack includes 10 icons
@@ -271,7 +295,7 @@ Add the icons to your project head:
                   </div>
                 </div>
 
-                {/* Mobile App View */}
+       
                 <div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative mx-auto overflow-hidden">
                   <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-12 h-1.5 bg-gray-800 rounded-full" />
                   <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gray-800 rounded-full" />
@@ -285,17 +309,17 @@ Add the icons to your project head:
             )}
           </div>
 
-          {/* Right Side - Canvas & Editor */}
+      
           <div className="w-full lg:w-1/2 bg-white rounded-lg shadow p-6 space-y-4">
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center">
-        <img
-          src="./cloudflareworkers.svg"
-          alt="Text Fields"
-          className="w-5 h-5 mr-2"
-        />
-       Generated icon
-      </h3>
+                <img
+                  src="./cloudflareworkers.svg"
+                  alt="Text Fields"
+                  className="w-5 h-5 mr-2"
+                />
+                Generated icon
+              </h3>
               {generatedImageUrl && (
                 <Button onClick={toggleTextEditor} variant="outline" size="sm">
                   {showTextEditor ? (
@@ -470,6 +494,7 @@ Add the icons to your project head:
     </div>
   )
 }
+
 
 
 
