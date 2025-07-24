@@ -16,7 +16,7 @@ const examples = [
   "https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/44.png",
 
   // Bonus examples
-  "https://images.unsplash.com/photo-1617036881680-bc2dc01670c4", // surreal
+  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-512x512.png?alt=media&token=3839cd7a-ff65-4d0a-80ab-7cf5ce7c3784", // surreal
   "https://images.unsplash.com/photo-1600852471121-98fe5b6ca1f8"  // neon portrait
 ]
 
