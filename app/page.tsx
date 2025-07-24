@@ -238,7 +238,7 @@ iconic.JesseJesse.xyz
                       className="max-w-full max-h-full"
                     />
                   </div>
-                  <div className="mt-1 text-xs text-gray-500">Browser tab preview</div>
+                  <div className="mt-1 text-xs text-gray-500">Web Browser Preview</div>
                 </div>
 
                 {/* Mobile App Preview */}
@@ -296,10 +296,27 @@ iconic.JesseJesse.xyz
                   className="rounded-lg shadow-md"
                 />
               ) : (
-                <p className="text-gray-500 text-center p-6">
-                  Generated icon will arrive here.<br />
-                  powered by CF Workers & NextJS
-                </p>
+               <p className="text-gray-500 text-center p-6">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="mx-auto mb-2"
+    height="64"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+    <path d="M3 9h18" />
+    <path d="M9 21V9" />
+  </svg>
+  Generated icon will arrive here.
+  <br />
+  powered by CF Workers & NextJS
+</p>
+
               )}
             </div>
 
