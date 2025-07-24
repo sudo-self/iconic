@@ -224,10 +224,10 @@ iconic.JesseJesse.xyz
                 {/* Web Tab Preview */}
                 <div className="flex flex-col items-center text-gray-700">
                   <div className="mb-2 font-mono text-xs select-all bg-gray-100 rounded px-2 py-1 border border-gray-300">
-                    &lt;title&gt;Your Project&lt;/title&gt;
+                    &lt;head&gt;add icon tags&lt;/head&gt;
                   </div>
                   <div
-                    className="w-35 h-15 border rounded-md flex items-center justify-center bg-white shadow"
+                    className="w-20 h-20 border rounded-md flex items-center justify-center bg-gray-300 shadow"
                     style={{ imageRendering: "pixelated" }}
                   >
                     <img
@@ -298,7 +298,7 @@ iconic.JesseJesse.xyz
               ) : (
                 <p className="text-gray-500 text-center p-6">
                   Generated icon will arrive here.<br />
-                  powered by Cloudflared Workers
+                  powered by CF Workers & NextJS
                 </p>
               )}
             </div>
