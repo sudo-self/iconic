@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 
 const examples = [
   // Neon
-  "https://images.unsplash.com/photo-1604079628048-9439f16849d4", // neon Tokyo
+  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-512x512.png?alt=media&token=1eccfbcc-d2f7-4a51-b3ad-c4d443b7e245", // neon Tokyo
   "https://images.unsplash.com/photo-1626096894003-7fa3bb1b5dd5", // neon alley
 
   // Black and White
