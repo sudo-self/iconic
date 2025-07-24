@@ -9,11 +9,11 @@ const examples = [
 
   // Black and White
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2FCover.jpg?alt=media&token=c20c92e1-3aea-414b-995c-4c40206dec80", // BW portrait
-  "https://images.unsplash.com/photo-1483794344563-d27a8d18014e", // BW man
+  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2F2d.png?alt=media&token=7c74fc88-de9c-444c-90d1-2bd42cae358a", // BW man
 
   // Cartoon / Anime
   "https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/45.png",
-  "https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/44.png",
+  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2FLogosGithubOctocat.svg?alt=media&token=8a359564-5b2f-4173-a83b-8f1c45d27e37",
 
   // Bonus examples
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-512x512.png?alt=media&token=3839cd7a-ff65-4d0a-80ab-7cf5ce7c3784", // surreal
