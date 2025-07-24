@@ -17,7 +17,7 @@ const examples = [
 
   // Bonus examples
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-512x512.png?alt=media&token=3839cd7a-ff65-4d0a-80ab-7cf5ce7c3784", // surreal
-  "https://images.unsplash.com/photo-1600852471121-98fe5b6ca1f8"  // neon portrait
+  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2FIMG_0494.png?alt=media&token=e8a3b3dd-b240-46ee-b63c-2d1f58ac23d8"  // neon portrait
 ]
 
 export default function TopCarousel() {
