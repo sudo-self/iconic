@@ -89,7 +89,7 @@ export default function IconicApp() {
     }
   }
 
-  // SVG generation helper
+
   const createSVG = (
     canvas: HTMLCanvasElement,
     {
@@ -244,7 +244,7 @@ Add the icons to your project head:
                 {/* Preview Section */}
                 <div className="space-y-3">
                   <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
-                    icon pack includes 9 icons
+                    icon pack includes 10 icons
                   </div>
                   <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
                     <img
