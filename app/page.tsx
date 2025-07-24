@@ -253,7 +253,7 @@ Thank you for visiting iconic.JesseJesse.xyz!
     <div className="text-sm text-gray-600 truncate">https://&nbsp;&nbsp;&nbsp;</div>
   </div>
   <div className="w-72 h-3 bg-gray-100 border border-gray-300 border-t-0 rounded-b-md"></div>
-  <div className="mt-1 text-xs text-gray-500">Web Browser</div>
+  <div className="mt-1 text-xs text-gray-500">web browser preview</div>
 
   {/* Mobile App Preview */}
   <div className="mt-6 flex flex-col items-center">
@@ -269,7 +269,7 @@ Thank you for visiting iconic.JesseJesse.xyz!
         className="object-contain"
       />
     </div>
-    <div className="mt-1 text-xs text-gray-500">Mobile App</div>
+    <div className="mt-1 text-xs text-gray-500">mobile device preview</div>
   </div>
 </div>
 
@@ -291,7 +291,7 @@ Thank you for visiting iconic.JesseJesse.xyz!
                     loading="lazy"
                   />
                 </div>
-
+                 <div className="mt-1 text-xs text-gray-500">Fullscreen</div>
               </div>
             )}
 
