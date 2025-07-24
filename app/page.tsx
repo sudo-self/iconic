@@ -69,27 +69,28 @@ export default function IconicApp() {
   ])
 
 
-  const drawPreviewCanvas = (
-    canvas: HTMLCanvasElement | null,
-    img: HTMLImageElement,
-    width: number,
-    height: number
-  ) => {
-    if (!canvas) return
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
-    canvas.width = width
-    canvas.height = height
-    ctx.clearRect(0, 0, width, height)
-    ctx.drawImage(img, 0, 0, width, height)
-    if (showTextEditor) {
-      ctx.font = ${fontSize}px ${fontFamily}
-      ctx.fillStyle = textColor
-      ctx.textAlign = "center"
-      ctx.textBaseline = "middle"
-      ctx.fillText(text, textPosition.x * width, textPosition.y * height)
-    }
+ const drawPreviewCanvas = (
+  canvas: HTMLCanvasElement | null,
+  img: HTMLImageElement,
+  width: number,
+  height: number
+) => {
+  if (!canvas) return
+  const ctx = canvas.getContext("2d")
+  if (!ctx) return
+  canvas.width = width
+  canvas.height = height
+  ctx.clearRect(0, 0, width, height)
+  ctx.drawImage(img, 0, 0, width, height)
+  if (showTextEditor) {
+    ctx.font = `${fontSize}px ${fontFamily}`
+    ctx.fillStyle = textColor
+    ctx.textAlign = "center"
+    ctx.textBaseline = "middle"
+    ctx.fillText(text, textPosition.x * width, textPosition.y * height)
   }
+}
+
 
  
  const drawCleanCanvas = (canvas: HTMLCanvasElement, img: HTMLImageElement) => {
