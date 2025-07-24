@@ -254,7 +254,7 @@ Add these tags in your <head>:
                   10+ HQ icons & SVG
                   </div>
 
-         <div className="flex items-start gap-8 mt-4">
+<div className="flex items-start gap-8 mt-4">
   <div className="flex flex-col items-center gap-6 w-[360px]">
 
     <div className="flex flex-col items-center gap-1">
@@ -271,7 +271,7 @@ Add these tags in your <head>:
     </div>
 
     <div className="flex flex-col items-center space-y-2">
-      <div className="w-24 h-24 bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
+      <div className="w-[180px] h-[180px] bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
         <img
           src={generatedImageUrl}
           width={180}
@@ -282,7 +282,7 @@ Add these tags in your <head>:
       </div>
       <div className="text-xs text-gray-600">mobile app</div>
 
-      <div className="flex justify-center gap-4 mt-2">
+      <div className="flex justify-center gap-4 mt-2 items-end">
         <div className="flex flex-col items-center space-y-1">
           <img
             src={generatedImageUrl}
@@ -331,6 +331,7 @@ Add these tags in your <head>:
 <div className="text-center text-[10px] text-gray-600 mt-1">
   Scalable Vector Graphic (SVG)
 </div>
+
 
                 </div>
               </div>
