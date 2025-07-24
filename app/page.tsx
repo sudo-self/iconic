@@ -235,8 +235,13 @@ Thank you for visiting iconic.JesseJesse.xyz!
     &lt;html&gt;icon tags&lt;/html&gt;
   </div>
   <div
-    className="w-36 h-12 border rounded-t-md flex items-center px-2 bg-white shadow-inner border-gray-300"
-    style={{ imageRendering: "pixelated" }}
+    className="w-60 h-14 border border-gray-300 rounded-t-[10px] flex items-center px-3 bg-white shadow-sm"
+    style={{
+      imageRendering: "pixelated",
+      borderBottom: "none",
+      borderTopLeftRadius: "8px",
+      borderTopRightRadius: "8px",
+    }}
   >
     <img
       src={generatedImageUrl}
@@ -247,10 +252,10 @@ Thank you for visiting iconic.JesseJesse.xyz!
     />
     <div className="text-xs text-gray-600 truncate">iconic.jessejesse.xyz</div>
   </div>
+  <div className="w-60 h-2 bg-gray-100 border border-gray-300 border-t-0 rounded-b-md"></div>
   <div className="mt-1 text-xs text-gray-500">Web Browser Preview</div>
 </div>
-
-
+                
   {/* Mobile App Preview */}
   <div className="mt-6 flex flex-col items-center">
     <div
@@ -267,10 +272,7 @@ Thank you for visiting iconic.JesseJesse.xyz!
     </div>
     <div className="mt-1 text-xs text-gray-500">Mobile App Preview</div>
   </div>
-</div>
 
-
-           
                 <div
                   className="w-[200px] h-[400px] rounded-3xl bg-black shadow-lg relative flex items-center justify-center"
                   aria-label="Mobile App Preview"
