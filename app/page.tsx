@@ -230,7 +230,7 @@ Add these tags in your <head>:
   return (
     <div className="bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen px-4 py-12 flex flex-col items-center font-sans">
       <div className="max-w-6xl w-full space-y-14">
-        {/* Hero */}
+   
         <div className="text-center space-y-3 animate-fade-in">
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 text-transparent bg-clip-text animate-gradient">
             iconic
@@ -256,11 +256,12 @@ Add these tags in your <head>:
 
                   <div className="flex items-start gap-8 mt-4">
                  
-                 <div className="flex flex-col items-center gap-6 flex-grow">
+              <div className="flex flex-col items-center gap-6 w-[360px]">
+
 
 
               
-                      <div className="flex flex-col items-center gap-1">
+                    <div className="flex flex-col items-center gap-1">
                         <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
                           <img
                             src={generatedImageUrl}
