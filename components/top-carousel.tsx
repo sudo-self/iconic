@@ -8,7 +8,7 @@ const examples = [
   "https://images.unsplash.com/photo-1626096894003-7fa3bb1b5dd5", // neon alley
 
   // Black and White
-  "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70", // BW portrait
+  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2FCover.jpg?alt=media&token=c20c92e1-3aea-414b-995c-4c40206dec80", // BW portrait
   "https://images.unsplash.com/photo-1483794344563-d27a8d18014e", // BW man
 
   // Cartoon / Anime
