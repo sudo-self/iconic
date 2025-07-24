@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { Download, Type, X } from "lucide-react"
+import { Download, Wand2, Type, X } from "lucide-react"
 import JSZip from "jszip"
 import GenerateForm from "@/components/generate-form"
 import { Button } from "@/components/ui/button"
@@ -56,9 +56,16 @@ export default function IconicApp() {
     const img = new Image()
     img.crossOrigin = "anonymous"
     img.src = generatedImageUrl
-    img.onload = () =>
-      drawPreviewCanvas(bigPreviewCanvasRef.current, img, 300, 300)
-  }, [generatedImageUrl, text, textColor, fontSize, fontFamily, textPosition, showTextEditor])
+    img.onload = () => drawPreviewCanvas(bigPreviewCanvasRef.current, img, 300, 300)
+  }, [
+    generatedImageUrl,
+    text,
+    textColor,
+    fontSize,
+    fontFamily,
+    textPosition,
+    showTextEditor,
+  ])
 
   const drawPreviewCanvas = (
     canvas: HTMLCanvasElement | null,
@@ -80,6 +87,15 @@ export default function IconicApp() {
       ctx.textBaseline = "middle"
       ctx.fillText(text, textPosition.x * width, textPosition.y * height)
     }
+  }
+
+  const drawCleanCanvas = (canvas: HTMLCanvasElement, img: HTMLImageElement) => {
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+    canvas.width = img.naturalWidth
+    canvas.height = img.naturalHeight
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
   }
 
   const createSVG = (
@@ -243,252 +259,237 @@ Add these tags in your <head>:
             {generatedImageUrl && (
               <div className="grid sm:grid-cols-2 gap-6 mt-6 items-start">
                 <div className="space-y-3">
-                  <div className="flex flex-col gap-4">
-                    {/* Header Text */}
-                    <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
-                      Download 10+ HQ icons and SVG
+                                  <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
+                    Download 10+ HQ icons and SVG
+                  </div>
+                  <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
+                    <img
+                      src={generatedImageUrl}
+                      width={16}
+                      height={16}
+                      alt="Favicon"
+                    />
+                    <span className="text-sm text-gray-600">https://your.site</span>
+                  </div>
+                  <div className="text-center text-xs text-gray-500">browser tab</div>
+
+                  <div className="mt-6 text-center space-y-2">
+                    <div className="w-24 h-24 mx-auto bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
+                      <img
+                        src={generatedImageUrl}
+                        width={180}
+                        height={180}
+                        className="object-contain"
+                        alt="App Icon"
+                      />
                     </div>
+                    <div className="text-xs text-gray-500">mobile app</div>
 
-                    {/* Horizontal Previews Section */}
-                    <div className="flex flex-wrap lg:flex-nowrap gap-6 justify-center items-start">
-                      {/* Left Column: Tab + App Icon + Sizes */}
-                      <div className="flex flex-col items-center gap-4">
-                        {/* Browser Tab Preview */}
-                        <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
-                          <img
-                            src={generatedImageUrl}
-                            width={16}
-                            height={16}
-                            alt="Favicon"
-                          />
-                          <span className="text-sm text-gray-600">https://your.site</span>
-                        </div>
-                        <div className="text-center text-xs text-gray-500">browser tab</div>
-
-                        {/* App Icon Preview */}
-                        <div className="text-center space-y-2">
-                          <div className="w-24 h-24 bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
-                            <img
-                              src={generatedImageUrl}
-                              width={180}
-                              height={180}
-                              className="object-contain"
-                              alt="App Icon"
-                            />
-                          </div>
-                          <div className="text-xs text-gray-500">mobile app</div>
-
-                          {/* Icon Sizes */}
-                          <div className="flex justify-center gap-4 mt-2">
-                            <div className="flex flex-col items-center space-y-1">
-                              <img
-                                src={generatedImageUrl}
-                                width={48}
-                                height={48}
-                                alt="48px Icon"
-                                className="object-contain border rounded"
-                              />
-                              <div className="text-[10px] text-gray-400">48px</div>
-                            </div>
-                            <div className="flex flex-col items-center space-y-1">
-                              <img
-                                src={generatedImageUrl}
-                                width={64}
-                                height={64}
-                                alt="64px Icon"
-                                className="object-contain border rounded"
-                              />
-                              <div className="text-[10px] text-gray-400">64px</div>
-                            </div>
-                          </div>
-                        </div>
+                    <div className="flex justify-center gap-4 mt-2">
+                      <div className="flex flex-col items-center space-y-1">
+                        <img
+                          src={generatedImageUrl}
+                          width={48}
+                          height={48}
+                          alt="48px Icon"
+                          className="object-contain border rounded"
+                        />
+                        <div className="text-[10px] text-gray-400">48px</div>
                       </div>
-
-                      {/* Right Column: Phone Frame Preview */}
-                      <div className="flex flex-col items-center">
-                        <div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative overflow-hidden">
-                          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-12 h-1.5 bg-gray-800 rounded-full" />
-                          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gray-800 rounded-full border-2 border-white" />
-                          <img
-                            src={generatedImageUrl}
-                            alt="Mobile App"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div className="text-center text-[10px] text-gray-400 mt-1">
-                          Scalable Vector Graphic
-                        </div>
+                      <div className="flex flex-col items-center space-y-1">
+                        <img
+                          src={generatedImageUrl}
+                          width={64}
+                          height={64}
+                          alt="64px Icon"
+                          className="object-contain border rounded"
+                        />
+                        <div className="text-[10px] text-gray-400">64px</div>
                       </div>
                     </div>
+                  </div>
+
+                  <div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative mx-auto overflow-hidden">
+                    <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-12 h-1.5 bg-gray-800 rounded-full" />
+                    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gray-800 rounded-full border-2 border-white" />
+                    <img
+                      src={generatedImageUrl}
+                      alt="Mobile App"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="text-center text-[10px] text-gray-400 mt-1">Scalable Vector Graphic</div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="w-full lg:w-1/2 bg-white rounded-lg shadow p-6 space-y-4">
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center">
+                <img
+                  src="./cloudflareworkers.svg"
+                  alt="Text Fields"
+                  className="w-5 h-5 mr-2"
+                />
+                Generated iconic
+              </h3>
+              {generatedImageUrl && (
+                <Button onClick={toggleTextEditor} variant="outline" size="sm">
+                  {showTextEditor ? (
+                    <>
+                      <X className="w-4 h-4 mr-1" />
+                      Hide Text
+                    </>
+                  ) : (
+                    <>
+                      <Type className="w-4 h-4 mr-1" />
+                      Add Text
+                    </>
+                  )}
+                </Button>
+              )}
+            </div>
+
+            <div className="bg-white/20 dark:bg-black/30 backdrop-blur-md rounded-xl shadow-xl p-6 border border-white/10 flex justify-center items-center min-h-[300px]">
+              {generatedImageUrl ? (
+                <canvas
+                  ref={bigPreviewCanvasRef}
+                  width={300}
+                  height={300}
+                  className="shadow-md rounded-lg"
+                />
+              ) : (
+                <div className="text-gray-400 text-center">
+                  <p>icon preview will arrive here</p>
+                  <p className="text-xs mt-1">stabilityai/stable-diffusion-xl-base-1.0</p>
+                </div>
+              )}
+            </div>
+
+            {showTextEditor && generatedImageUrl && (
+              <div className="space-y-3 border-t pt-4">
+                <div>
+                  <label className="text-sm font-medium">Text</label>
+                  <Input
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                    maxLength={20}
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Font Size</label>
+                  <div className="flex gap-3 items-center">
+                    <Input
+                      type="range"
+                      min="12"
+                      max="72"
+                      value={fontSize}
+                      onChange={(e) => setFontSize(+e.target.value)}
+                    />
+                    <span className="text-sm text-gray-600">{fontSize}px</span>
                   </div>
                 </div>
-
-                {/* Right side panel */}
-                <div className="w-full lg:w-1/2 bg-white rounded-lg shadow p-6 space-y-4">
-                  <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center">
-                      <img
-                        src="./cloudflareworkers.svg"
-                        alt="Text Fields"
-                        className="w-5 h-5 mr-2"
-                      />
-                      Generated iconic
-                    </h3>
-                    {generatedImageUrl && (
-                      <Button onClick={toggleTextEditor} variant="outline" size="sm">
-                        {showTextEditor ? (
-                          <>
-                            <X className="w-4 h-4 mr-1" />
-                            Hide Text
-                          </>
-                        ) : (
-                          <>
-                            <Type className="w-4 h-4 mr-1" />
-                            Add Text
-                          </>
-                        )}
-                      </Button>
-                    )}
-                  </div>
-
-                  <div className="bg-white/20 dark:bg-black/30 backdrop-blur-md rounded-xl shadow-xl p-6 border border-white/10 flex justify-center items-center min-h-[300px]">
-                    {generatedImageUrl ? (
-                      <canvas
-                        ref={bigPreviewCanvasRef}
-                        width={300}
-                        height={300}
-                        className="shadow-md rounded-lg"
-                      />
-                    ) : (
-                      <div className="text-gray-400 text-center">
-                        <p>icon preview will arrive here</p>
-                        <p className="text-xs mt-1">
-                          stabilityai/stable-diffusion-xl-base-1.0
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
-                  {showTextEditor && generatedImageUrl && (
-                    <div className="space-y-3 border-t pt-4">
-                      <div>
-                        <label className="text-sm font-medium">Text</label>
-                        <Input
-                          value={text}
-                          onChange={(e) => setText(e.target.value)}
-                          maxLength={20}
-                        />
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium">Font Size</label>
-                        <div className="flex gap-3 items-center">
-                          <Input
-                            type="range"
-                            min="12"
-                            max="72"
-                            value={fontSize}
-                            onChange={(e) => setFontSize(+e.target.value)}
-                          />
-                          <span className="text-sm text-gray-600">{fontSize}px</span>
-                        </div>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium">Font</label>
-                        <select
-                          className="w-full border rounded p-2"
-                          value={fontFamily}
-                          onChange={(e) => setFontFamily(e.target.value)}
-                        >
-                          {fontOptions.map((font) => (
-                            <option key={font} value={font} style={{ fontFamily: font }}>
-                              {font}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium">Text Color</label>
-                        <div className="grid grid-cols-4 gap-2 mt-2">
-                          {colorOptions.map((color) => (
-                            <button
-                              key={color.value}
-                              onClick={() => setTextColor(color.value)}
-                              style={{ backgroundColor: color.value }}
-                              className={cn(
-                                "w-8 h-8 rounded border",
-                                textColor === color.value
-                                  ? "border-blue-600"
-                                  : "border-gray-300"
-                              )}
-                            />
-                          ))}
-                          <input
-                            type="color"
-                            value={textColor}
-                            onChange={(e) => setTextColor(e.target.value)}
-                            className="w-8 h-8 cursor-pointer"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium">Text Position</label>
-                        <div className="flex gap-3 mt-2">
-                          {[
-                            { label: "Top", y: 0.2 },
-                            { label: "Middle", y: 0.5 },
-                            { label: "Bottom", y: 0.8 },
-                          ].map((pos) => (
-                            <Button
-                              key={pos.label}
-                              size="sm"
-                              variant={textPosition.y === pos.y ? "default" : "outline"}
-                              onClick={() => setTextPosition({ x: 0.5, y: pos.y })}
-                            >
-                              {pos.label}
-                            </Button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {generatedImageUrl && (
-                    <>
-                      <Button
-                        onClick={saveIconPack}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                <div>
+                  <label className="text-sm font-medium">Font</label>
+                  <select
+                    className="w-full border rounded p-2"
+                    value={fontFamily}
+                    onChange={(e) => setFontFamily(e.target.value)}
+                  >
+                    {fontOptions.map((font) => (
+                      <option
+                        key={font}
+                        value={font}
+                        style={{ fontFamily: font }}
                       >
-                        <Download className="w-4 h-4 mr-2" />
-                        Download icon pack
+                        {font}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Text Color</label>
+                  <div className="grid grid-cols-4 gap-2 mt-2">
+                    {colorOptions.map((color) => (
+                      <button
+                        key={color.value}
+                        onClick={() => setTextColor(color.value)}
+                        style={{ backgroundColor: color.value }}
+                        className={cn(
+                          "w-8 h-8 rounded border",
+                          textColor === color.value
+                            ? "border-blue-600"
+                            : "border-gray-300"
+                        )}
+                      />
+                    ))}
+                    <input
+                      type="color"
+                      value={textColor}
+                      onChange={(e) => setTextColor(e.target.value)}
+                      className="w-8 h-8 cursor-pointer"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Text Position</label>
+                  <div className="flex gap-3 mt-2">
+                    {[
+                      { label: "Top", y: 0.2 },
+                      { label: "Middle", y: 0.5 },
+                      { label: "Bottom", y: 0.8 },
+                    ].map((pos) => (
+                      <Button
+                        key={pos.label}
+                        size="sm"
+                        variant={
+                          textPosition.y === pos.y ? "default" : "outline"
+                        }
+                        onClick={() => setTextPosition({ x: 0.5, y: pos.y })}
+                      >
+                        {pos.label}
                       </Button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
 
-                      <div className="bg-black text-pink-400 font-mono text-xs p-4 rounded-lg shadow-inner relative mt-4">
-                        <pre className="whitespace-pre-wrap select-all">{`<link rel="icon" href="/favicon.ico" sizes="any">
+            {generatedImageUrl && (
+              <>
+                <Button
+                  onClick={saveIconPack}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Download icon pack
+                </Button>
+
+                <div className="bg-black text-pink-400 font-mono text-xs p-4 rounded-lg shadow-inner relative mt-4">
+                  <pre className="whitespace-pre-wrap select-all">{`<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">`}</pre>
-                        <button
-                          onClick={() => {
-                            navigator.clipboard.writeText(`<link rel="icon" href="/favicon.ico" sizes="any">
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(`<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">`)
-                            toast({
-                              title: "Copied!",
-                              description: "HTML tags copied to clipboard",
-                            })
-                          }}
-                          className="absolute top-2 right-2 bg-gray-800 hover:bg-gray-700 text-white px-2 py-1 rounded text-xs"
-                        >
-                          Copy
-                        </button>
-                      </div>
-                    </>
-                  )}
+                      toast({
+                        title: "Copied!",
+                        description: "HTML tags copied to clipboard",
+                      })
+                    }}
+                    className="absolute top-2 right-2 bg-gray-800 hover:bg-gray-700 text-white px-2 py-1 rounded text-xs"
+                  >
+                    Copy
+                  </button>
                 </div>
-              </div>
+              </>
             )}
           </div>
         </div>
@@ -507,4 +508,3 @@ Add these tags in your <head>:
     </div>
   )
 }
-
