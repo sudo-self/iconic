@@ -255,6 +255,46 @@ iconic.JesseJesse.xyz
 </h3>
 
                     {generatedImageUrl && (
+  <div className="w-full lg:hidden">
+    <Tabs defaultValue="preview" className="mt-6">
+      <TabsList className="w-full grid grid-cols-2 mb-4 bg-gray-200">
+        <TabsTrigger value="preview">Preview</TabsTrigger>
+        <TabsTrigger value="app">App</TabsTrigger>
+      </TabsList>
+
+      <TabsContent value="preview">
+        <div className="flex justify-center">
+          <canvas
+            ref={previewCanvasRef}
+            width={300}
+            height={300}
+            className="rounded-lg shadow-md border"
+          />
+        </div>
+      </TabsContent>
+
+      <TabsContent value="app">
+        <div className="mx-auto max-w-xs bg-white border rounded-xl shadow-lg p-4">
+          <div className="h-6 bg-gray-100 rounded-t-md mb-2 flex items-center justify-center text-xs text-gray-500">
+            App Preview
+          </div>
+          <div className="w-full h-60 bg-gray-100 rounded-md flex items-center justify-center">
+            <canvas
+              ref={previewCanvasRef}
+              width={180}
+              height={180}
+              className="rounded shadow"
+            />
+          </div>
+          <div className="mt-3 text-center text-sm text-gray-600">iconic mobile preview</div>
+        </div>
+      </TabsContent>
+    </Tabs>
+  </div>
+)}
+
+
+                    {generatedImageUrl && (
                       <Button
                         onClick={toggleTextEditor}
                         variant="outline"
