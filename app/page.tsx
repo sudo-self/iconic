@@ -241,7 +241,8 @@ return (
       </div>
 
       <div className="flex flex-col lg:flex-row gap-10">
-        <div className="w-full lg:w-1/2 space-y-6">
+        {/* Left panel: form + previews */}
+        <div className="w-full lg:flex-[0.6] space-y-6">
           <GenerateForm
             setGeneratedImageUrl={setGeneratedImageUrl}
             initialPrompt={prompt}
@@ -254,7 +255,7 @@ return (
 
               <div className="flex items-start gap-8 mt-4">
                 {/* Left column: tag snippet + icons stacked vertically */}
-                <div className="flex flex-col w-[360px] space-y-6">
+                <div className="flex flex-col flex-shrink-0 min-w-[320px] space-y-6">
                   {/* Tag snippet */}
                   <div className="text-xs font-mono bg-gray-200 p-2 rounded whitespace-pre-wrap">
                     {`<link rel="icon" href="/favicon.ico" sizes="any">
@@ -327,7 +328,7 @@ return (
                         width={512}
                         height={512}
                         alt="512px Icon"
-                        className="object-contain border rounded"
+                        className="object-contain border rounded max-w-full h-auto"
                       />
                       <div className="text-[10px] text-gray-600">512px</div>
                     </div>
@@ -335,7 +336,7 @@ return (
                 </div>
 
                 {/* Right column: phone mockup */}
-                <div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative overflow-hidden flex-shrink-0">
+                <div className="flex-1 max-w-[320px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative overflow-hidden flex-shrink-0">
                   <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-12 h-1.5 bg-gray-800 rounded-full" />
                   <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gray-800 rounded-full border-2 border-white" />
                   <img
@@ -353,7 +354,8 @@ return (
           )}
         </div>
 
-        <div className="w-full lg:w-1/2 bg-white rounded-lg shadow p-6 space-y-4">
+        {/* Right panel: generated preview and controls */}
+        <div className="w-full lg:flex-[0.4] bg-white rounded-lg shadow p-6 space-y-4">
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center">
               <img
@@ -494,30 +496,6 @@ return (
                 <Download className="w-4 h-4 mr-2" />
                 Download icon pack
               </Button>
-
-              <div className="bg-black text-pink-400 font-mono text-xs p-4 rounded-lg shadow-inner relative mt-4">
-                <pre className="whitespace-pre-wrap select-all">{`<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">
-<link rel="icon" type="image/svg+xml" href="/icon.svg">`}</pre>
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText(`<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">
-<link rel="icon" type="image/svg+xml" href="/icon.svg">`)
-                    toast({
-                      title: "Copied!",
-                      description: "HTML tags copied to clipboard",
-                    })
-                  }}
-                  className="absolute top-2 right-2 bg-gray-800 hover:bg-gray-700 text-white px-2 py-1 rounded text-xs"
-                >
-                  Copy
-                </button>
-              </div>
             </>
           )}
         </div>
