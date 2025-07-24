@@ -5,13 +5,13 @@ import { useEffect, useState } from "react"
 const examples = [
 
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-512x512.png?alt=media&token=1eccfbcc-d2f7-4a51-b3ad-c4d443b7e245",
-  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2FTablerBrandThreejs.svg?alt=media&token=f1573d23-e521-4c21-bab5-184fe2cf4b74",
+  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-256x256.png?alt=media&token=be5f2f80-802f-4be3-bc44-f31f02a75435",
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-512x512.png?alt=media&token=3839cd7a-ff65-4d0a-80ab-7cf5ce7c3784",
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Fimage-3.webp?alt=media&token=855cd0c3-8d22-4814-8251-1ca2e1822a6e",
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2FCover.jpg?alt=media&token=c20c92e1-3aea-414b-995c-4c40206dec80",
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2F2d.png?alt=media&token=7c74fc88-de9c-444c-90d1-2bd42cae358a",
-  "https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/45.png",
-  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2FIconParkApple.svg?alt=media&token=f197b3f9-0620-44ab-9f88-86ebf5710f45"
+  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-512x512.png?alt=media&token=6e1cb487-342e-4d47-8df3-a168e3963f94",
+  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-512x512.png?alt=media&token=7551f45c-1968-4efc-bfff-0873ee0388d9"
 ]
 
 export default function TopCarousel() {
