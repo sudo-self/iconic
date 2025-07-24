@@ -235,7 +235,7 @@ Thank you for visiting iconic.JesseJesse.xyz!
     &lt;html&gt;add icon tags&lt;/html&gt;
   </div>
   <div
-    className="w-72 h-16 border border-gray-300 rounded-t-[10px] flex items-center px-4 bg-white shadow-sm"
+    className="w-72 h-16 border border-gray-800 rounded-t-[10px] flex items-center px-4 bg-white shadow-sm"
     style={{
       imageRendering: "pixelated",
       borderBottom: "none",
@@ -253,9 +253,9 @@ Thank you for visiting iconic.JesseJesse.xyz!
     <div className="text-sm text-gray-600 truncate">https://&nbsp;&nbsp;&nbsp;</div>
   </div>
   <div className="w-72 h-3 bg-gray-100 border border-gray-300 border-t-0 rounded-b-md"></div>
-  <div className="mt-1 text-xs text-gray-500">web browser preview</div>
+  <div className="mt-1 text-xs text-gray-500">browser tab</div>
 
-  {/* Mobile App Preview */}
+
   <div className="mt-6 flex flex-col items-center">
     <div
       className="w-24 h-24 rounded-2xl shadow-lg border border-gray-300 bg-white overflow-hidden flex items-center justify-center"
@@ -269,8 +269,8 @@ Thank you for visiting iconic.JesseJesse.xyz!
         className="object-contain"
       />
     </div>
-    <div className="mt-1 text-xs text-gray-500">mobile device preview</div><br /><br />
-    <div className="mt-1 text-xs text-gray-500">Fullscreen Preview</div>
+    <div className="mt-1 text-xs text-gray-500">mobile app</div><br /><br />
+    <div className="mt-1 text-xs text-gray-500">screensaver</div>
   </div>
 </div>
 
