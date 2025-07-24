@@ -401,8 +401,8 @@ iconic.JesseJesse.xyz
       Download Icon Pack
     </Button>
 
-    {/* Terminal-style display of link tags */}
-    <div className="bg-black text-green-400 font-mono text-sm p-4 rounded-lg shadow-inner relative">
+ 
+    <div className="bg-black text-pink-400 font-mono text-sm p-4 rounded-lg shadow-inner relative">
       <pre className="whitespace-pre-wrap">
 {`<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -416,8 +416,8 @@ iconic.JesseJesse.xyz
 <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">`)
           toast({
-            title: "Copied to clipboard",
-            description: "Link tags copied successfully!",
+            title: "icons to clipboard",
+            description: "icon html tags copied!",
           })
         }}
         className="absolute top-2 right-2 bg-gray-800 text-white text-xs px-2 py-1 rounded hover:bg-gray-700"
