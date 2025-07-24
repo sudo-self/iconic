@@ -20,19 +20,12 @@ export default function IconicApp() {
   const [textColor, setTextColor] = useState("#ffffff")
   const [fontSize, setFontSize] = useState(32)
   const [fontFamily, setFontFamily] = useState("Arial")
-  const [textPosition, setTextPosition] = useState({ x: 0.5, y: 0.8 })
+  const [textPosition, setTextPosition] = useState({ x: 0.5, y: 0.8 }) 
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const { toast } = useToast()
 
-  const fontOptions = [
-    "Arial",
-    "Helvetica",
-    "Times New Roman",
-    "Courier New",
-    "Georgia",
-    "Verdana",
-    "Impact",
-  ]
+  const fontOptions = ["Arial", "Helvetica", "Times New Roman", "Courier New", "Georgia", "Verdana", "Impact"]
 
   const colorOptions = [
     { name: "White", value: "#ffffff" },
@@ -43,6 +36,17 @@ export default function IconicApp() {
     { name: "Yellow", value: "#ffff00" },
     { name: "Pink", value: "#ffc0cb" },
   ]
+
+  // *** MISSING FUNCTION ADDED HERE ***
+  const handleSelectPrompt = (selectedPrompt: string) => {
+    setPrompt(selectedPrompt)
+    setActiveTab("generate")
+
+    toast({
+      title: "Prompt selected",
+      description: "The prompt has been added to the generator",
+    })
+  }
 
   useEffect(() => {
     updatePreviewCanvas()
@@ -66,10 +70,8 @@ export default function IconicApp() {
         ctx.fillStyle = textColor
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
-
         const x = textPosition.x * canvas.width
         const y = textPosition.y * canvas.height
-
         ctx.fillText(text, x, y)
       }
     }
@@ -81,6 +83,7 @@ export default function IconicApp() {
     if (!canvas) return
 
     const zip = new JSZip()
+
     const sizes = [16, 32, 48, 64, 128, 256, 512]
     const promises = sizes.map((size) => {
       return new Promise<void>((resolve) => {
@@ -131,7 +134,7 @@ export default function IconicApp() {
 
             Promise.all(promises).then(() => {
               const readmeContent = `# iconic.JesseJesse.xyz
-
+              
 - favicon.ico
 - apple-touch-icon.png
 - icon-16x16.png thru icon-512x512.png
@@ -153,6 +156,7 @@ iconic.JesseJesse.xyz
 
               zip.generateAsync({ type: "blob" }).then((content) => {
                 saveFile(content, "iconic.JesseJesse.zip")
+
                 toast({
                   title: "Download complete",
                   description: "Icon pack downloaded successfully!",
@@ -205,77 +209,44 @@ iconic.JesseJesse.xyz
 
           <TabsContent value="generate" className="mt-6">
             <div className="flex flex-col lg:flex-row gap-6">
-              {/* Left panel */}
-              <div className="flex flex-col flex-1 max-w-xl">
+
+              <div className="w-full lg:w-96 space-y-6">
                 <GenerateForm setGeneratedImageUrl={setGeneratedImageUrl} initialPrompt={prompt} />
 
-                {/* Below the generate button: Web Browser Tab Preview and Mobile App Preview */}
+                {/* Web tab and mobile app preview under generate form */}
                 {generatedImageUrl && (
-                  <div className="mt-6 space-y-6">
+                  <Tabs defaultValue="web" className="mt-6">
+                    <TabsList className="w-full grid grid-cols-2 mb-4 bg-gray-200 rounded-md">
+                      <TabsTrigger value="web">Web Tab Preview</TabsTrigger>
+                      <TabsTrigger value="mobile">Mobile App Preview</TabsTrigger>
+                    </TabsList>
 
-                    {/* Web Browser Tab Preview */}
-                    <div className="w-full max-w-md mx-auto border rounded-lg shadow-md bg-white">
-                      {/* Tab header */}
-                      <div className="flex items-center space-x-2 px-3 py-1 border-b bg-gray-100 rounded-t-lg">
-                        {/* Circles to mimic macOS window buttons */}
-                        <div className="flex space-x-1">
-                          <span className="w-3 h-3 bg-red-500 rounded-full"></span>
-                          <span className="w-3 h-3 bg-yellow-400 rounded-full"></span>
-                          <span className="w-3 h-3 bg-green-500 rounded-full"></span>
-                        </div>
-                        {/* Tab title with icon */}
-                        <div className="flex items-center space-x-1 ml-4">
-                          <img
-                            src={generatedImageUrl}
-                            alt="Icon in tab"
-                            className="w-5 h-5 rounded-sm"
-                          />
-                          <span className="text-sm font-medium text-gray-700 truncate max-w-xs">
-                            iconic.jessejesse.xyz
-                          </span>
-                        </div>
-                      </div>
-                      {/* Tab content area */}
-                      <div className="p-6 flex justify-center items-center bg-white" style={{ height: 120 }}>
-                        <img
-                          src={generatedImageUrl}
-                          alt="Icon preview in browser content"
-                          className="w-20 h-20 rounded-lg shadow-md"
-                        />
-                      </div>
-                    </div>
+                    <TabsContent value="web" className="flex justify-center">
+                      <canvas
+                        ref={previewCanvasRef}
+                        width={300}
+                        height={50}
+                        className="rounded-lg shadow-md border"
+                      />
+                    </TabsContent>
 
-                    {/* Mobile App Icon Preview */}
-                    <div className="w-full max-w-xs mx-auto bg-white border rounded-xl shadow-lg p-6 flex flex-col items-center">
-                      {/* Phone top bar */}
-                      <div className="w-40 h-6 bg-gray-300 rounded-t-xl mb-3"></div>
-                      {/* Screen with icon */}
-                      <div className="w-40 h-80 bg-gray-100 rounded-xl flex flex-col items-center justify-center shadow-inner relative">
-                        <img
-                          src={generatedImageUrl}
-                          alt="Mobile app icon preview"
-                          className="w-24 h-24 rounded-lg shadow-lg"
-                        />
-                        <div className="mt-4 text-gray-700 font-semibold text-center">iconic</div>
-                      </div>
-                      {/* Phone bottom bar */}
-                      <div className="w-28 h-4 bg-gray-300 rounded-b-xl mt-4"></div>
-                    </div>
-
-                  </div>
+                    <TabsContent value="mobile" className="flex justify-center">
+                      <canvas
+                        ref={canvasRef}
+                        width={180}
+                        height={180}
+                        className="rounded-lg shadow-md border"
+                      />
+                    </TabsContent>
+                  </Tabs>
                 )}
               </div>
 
-              {/* Right panel: leave as is */}
               <div className="w-full lg:w-96">
                 <div className="bg-white rounded-lg p-5 shadow-sm flex flex-col">
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="font-semibold text-gray-800 flex items-center">
-                      <img
-                        src="./cloudflareworkers.svg"
-                        alt="Cloudflare Workers"
-                        className="w-5 h-5 mr-2"
-                      />
+                      <img src="./cloudflareworkers.svg" alt="Cloudflare Workers" className="w-5 h-5 mr-2" />
                       Generated Icon
                     </h3>
 
@@ -286,11 +257,7 @@ iconic.JesseJesse.xyz
                         size="sm"
                         className={showTextEditor ? "bg-blue-100" : ""}
                       >
-                        {showTextEditor ? (
-                          <X className="h-4 w-4 mr-1" />
-                        ) : (
-                          <Type className="h-4 w-4 mr-1" />
-                        )}
+                        {showTextEditor ? <X className="h-4 w-4 mr-1" /> : <Type className="h-4 w-4 mr-1" />}
                         {showTextEditor ? "Hide Text" : "Add Text"}
                       </Button>
                     )}
@@ -298,16 +265,10 @@ iconic.JesseJesse.xyz
 
                   <div className="flex-1 flex items-center justify-center bg-gray-50 rounded-lg mb-4 relative">
                     {generatedImageUrl ? (
-                      <canvas
-                        ref={previewCanvasRef}
-                        width={300}
-                        height={300}
-                        className="rounded-lg shadow-md"
-                      />
+                      <canvas ref={previewCanvasRef} width={300} height={300} className="rounded-lg shadow-md" />
                     ) : (
                       <p className="text-gray-500 text-center p-6">
-                        Generated icon will arrive here.
-                        <br />
+                        Generated icon will arrive here.<br />
                         powered by Cloudflared Workers
                       </p>
                     )}
@@ -315,24 +276,128 @@ iconic.JesseJesse.xyz
 
                   {showTextEditor && generatedImageUrl && (
                     <div className="mb-4 space-y-3 border-t border-gray-200 pt-3">
-                      {/* Text editor controls... */}
-                      {/* (existing code for text editing UI omitted for brevity) */}
+                      <div>
+                        <label htmlFor="text-input" className="block text-sm font-medium text-gray-700 mb-1">
+                          Text
+                        </label>
+                        <Input
+                          id="text-input"
+                          value={text}
+                          onChange={(e) => setText(e.target.value)}
+                          className="w-full"
+                          maxLength={20}
+                        />
+                      </div>
+
+                      <div>
+                        <label htmlFor="font-size" className="block text-sm font-medium text-gray-700 mb-1">
+                          Font Size
+                        </label>
+                        <div className="flex items-center gap-2">
+                          <Input
+                            id="font-size"
+                            type="range"
+                            min="12"
+                            max="72"
+                            value={fontSize}
+                            onChange={(e) => setFontSize(Number.parseInt(e.target.value))}
+                            className="w-full"
+                          />
+                          <span className="text-sm text-gray-600 w-12">{fontSize}px</span>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label htmlFor="font-family" className="block text-sm font-medium text-gray-700 mb-1">
+                          Font
+                        </label>
+                        <select
+                          id="font-family"
+                          value={fontFamily}
+                          onChange={(e) => setFontFamily(e.target.value)}
+                          className="w-full rounded-md border border-gray-300 p-2"
+                        >
+                          {fontOptions.map((font) => (
+                            <option key={font} value={font} style={{ fontFamily: font }}>
+                              {font}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Text Color</label>
+                        <div className="grid grid-cols-4 gap-2">
+                          {colorOptions.map((color) => (
+                            <button
+                              key={color.value}
+                              onClick={() => setTextColor(color.value)}
+                              className={cn(
+                                "h-8 rounded-md border-2",
+                                textColor === color.value ? "border-blue-500" : "border-gray-200",
+                              )}
+                              style={{ backgroundColor: color.value }}
+                              title={color.name}
+                              aria-label={`Set text color to ${color.name}`}
+                            />
+                          ))}
+                          <div className="flex items-center">
+                            <input
+                              type="color"
+                              value={textColor}
+                              onChange={(e) => setTextColor(e.target.value)}
+                              className="w-8 h-8 cursor-pointer"
+                              title="Custom color"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Text Position</label>
+                        <div className="grid grid-cols-3 gap-2">
+                          <button
+                            onClick={() => setTextPosition({ x: 0.5, y: 0.2 })}
+                            className={cn(
+                              "p-1 border rounded-md",
+                              textPosition.y === 0.2 ? "bg-blue-100 border-blue-500" : "border-gray-200",
+                            )}
+                          >
+                            Top
+                          </button>
+                          <button
+                            onClick={() => setTextPosition({ x: 0.5, y: 0.5 })}
+                            className={cn(
+                              "p-1 border rounded-md",
+                              textPosition.y === 0.5 ? "bg-blue-100 border-blue-500" : "border-gray-200",
+                            )}
+                          >
+                            Middle
+                          </button>
+                          <button
+                            onClick={() => setTextPosition({ x: 0.5, y: 0.8 })}
+                            className={cn(
+                              "p-1 border rounded-md",
+                              textPosition.y === 0.8 ? "bg-blue-100 border-blue-500" : "border-gray-200",
+                            )}
+                          >
+                            Bottom
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   )}
 
                   {generatedImageUrl && (
                     <>
-                      <Button
-                        onClick={saveIconPack}
-                        className="w-full bg-blue-600 hover:bg-blue-700 mb-4"
-                      >
+                      <Button onClick={saveIconPack} className="w-full bg-blue-600 hover:bg-blue-700 mb-4">
                         <Download className="mr-2 h-4 w-4" />
                         Download Icon Pack
                       </Button>
 
                       <div className="bg-black text-pink-400 font-mono text-sm p-4 rounded-lg shadow-inner relative">
                         <pre className="whitespace-pre-wrap">
-                          {`<link rel="icon" href="/favicon.ico" sizes="any">
+{`<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">`}
@@ -375,6 +440,7 @@ iconic.JesseJesse.xyz
     </div>
   )
 }
+
 
 
  
