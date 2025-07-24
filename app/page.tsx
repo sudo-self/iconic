@@ -202,19 +202,27 @@ Thank you for visiting iconic.JesseJesse.xyz!
   }
 
   return (
-    <div className="bg-gradient-to-b from-gray-100 to-gray-300 min-h-screen flex flex-col items-center py-8 px-4 md:px-8">
-      <div className="w-full max-w-6xl space-y-8">
+  <div className="bg-gradient-to-b from-[#f0f4ff] to-[#e2e8f0] min-h-screen flex flex-col items-center py-12 px-6 md:px-12">
+  <div className="w-full max-w-6xl space-y-12">
 
-        {/* Header */}
-        <div className="flex flex-col items-center">
-          <h1 className="font-bold text-4xl bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent mb-2">
-            iconic
-          </h1>
-          <p className="text-gray-600 text-center max-w-lg mb-4">
-            turn your ideas into beautiful unique icons
-          </p>
-          <TopCarousel onSelectPrompt={handleSelectPrompt} />
-        </div>
+    {/* Header */}
+    <div className="flex flex-col items-center text-center">
+      <h1 className="text-5xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-sm mb-4">
+        iconic
+      </h1>
+      <p className="text-gray-700 text-lg md:text-xl max-w-2xl leading-relaxed mb-6">
+        Create stunning, one-of-a-kind icons from your ideas — fast, fun, and fully online.
+      </p>
+
+      {/* Carousel */}
+      <div className="mt-8 w-full">
+        <TopCarousel onSelectPrompt={handleSelectPrompt} />
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
      
         <div className="flex flex-col lg:flex-row gap-8 justify-center">
