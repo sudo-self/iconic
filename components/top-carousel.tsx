@@ -8,7 +8,7 @@ const examples = [
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-256x256.png?alt=media&token=be5f2f80-802f-4be3-bc44-f31f02a75435",
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2F2.png?alt=media&token=5c1dca2d-6a24-4781-a3b1-d7e471252aac",
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2F111111.png?alt=media&token=a201bafa-7b5c-4546-b187-d53f624fea6e",
-  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2FCover.jpg?alt=media&token=c20c92e1-3aea-414b-995c-4c40206dec80",
+  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2F5555555.png?alt=media&token=1fe2c5f0-dbd2-4199-806a-90f25ce20e16",
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2F789.png?alt=media&token=8fd40bed-2d82-4ed4-b02b-21993f0a05e3",
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-512x512.png?alt=media&token=6e1cb487-342e-4d47-8df3-a168e3963f94",
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2F4.png?alt=media&token=341633d1-447e-4517-acb1-e8969089d79f"
