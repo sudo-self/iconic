@@ -22,7 +22,7 @@ export default function IconicApp() {
   const [fontFamily, setFontFamily] = useState("Arial")
   const [textPosition, setTextPosition] = useState({ x: 0.5, y: 0.8 })
 
-  const bigPreviewCanvasRef = useRef<HTMLCanvasElement>(null) // big preview on right panel
+  const bigPreviewCanvasRef = useRef<HTMLCanvasElement>(null) 
 
   const { toast } = useToast()
 
@@ -144,21 +144,29 @@ export default function IconicApp() {
             Promise.all(promises).then(() => {
               const readmeContent = `# iconic.JesseJesse.xyz
               
-- favicon.ico
-- apple-touch-icon.png
-- icon-16x16.png thru icon-512x512.png
+1. Add the icons to your project
+                          
+- favicon.ico  (place this file in the project root or public folder)
 
-## How to use them in project
+- apple-touch-icon.png (public folder)
 
-1. Place the icon files in the project root directory
-2. Add the links to the HTML <head> section
+- icon-16x16.png thru icon-512x512.png (public folder)
+
+2. Map them by adding the html tags inside the <head> section
+
+
+<head>
+
+< -- icon tags -->
 
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">
 
-iconic.JesseJesse.xyz
+</head>
+
+Thank you for visitng iconic.JesseJesse.xyz!
 `
 
               zip.file("README.txt", readmeContent)
