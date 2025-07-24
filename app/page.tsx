@@ -92,38 +92,39 @@ export default function IconicApp() {
   }
 
  
-  const drawCleanCanvas = (canvas: HTMLCanvasElement, img: HTMLImageElement) => {
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
-    canvas.width = img.width
-    canvas.height = img.height
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+ const drawCleanCanvas = (canvas: HTMLCanvasElement, img: HTMLImageElement) => {
+  const ctx = canvas.getContext("2d")
+  if (!ctx) return
+  canvas.width = img.naturalWidth
+  canvas.height = img.naturalHeight
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+}
+
+
+ const createSVG = (
+  canvas: HTMLCanvasElement,
+  {
+    text,
+    fontSize,
+    fontFamily,
+    textColor,
+    showTextEditor,
+    textPosition,
+  }: {
+    text: string
+    fontSize: number
+    fontFamily: string
+    textColor: string
+    showTextEditor: boolean
+    textPosition: { x: number; y: number }
   }
+) => {
+  const width = canvas.width
+  const height = canvas.height
+  const dataUrl = canvas.toDataURL("image/png")
 
-  const createSVG = (
-    canvas: HTMLCanvasElement,
-    {
-      text,
-      fontSize,
-      fontFamily,
-      textColor,
-      showTextEditor,
-      textPosition,
-    }: {
-      text: string
-      fontSize: number
-      fontFamily: string
-      textColor: string
-      showTextEditor: boolean
-      textPosition: { x: number; y: number }
-    }
-  ) => {
-    const width = canvas.width
-    const height = canvas.height
-    const dataUrl = canvas.toDataURL("image/png")
-
-    return `
+  return `
 <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
   <image href="${dataUrl}" x="0" y="0" width="${width}" height="${height}" />
   ${
@@ -134,78 +135,83 @@ export default function IconicApp() {
       : ""
   }
 </svg>`.trim()
-  }
+}
 
- 
-  const saveIconPack = async () => {
-    const previewCanvas = bigPreviewCanvasRef.current
-    if (!previewCanvas || !generatedImageUrl) return
+const saveIconPack = async () => {
+  const previewCanvas = bigPreviewCanvasRef.current
+  if (!previewCanvas || !generatedImageUrl) return
+
+  const img = new Image()
+  img.crossOrigin = "anonymous"
+  img.src = generatedImageUrl
+  img.onload = async () => {
+    const zip = new JSZip()
+    const sizes = [16, 32, 48, 64, 128, 256, 512]
 
 
-    const img = new Image()
-    img.crossOrigin = "anonymous"
-    img.src = generatedImageUrl
-    img.onload = async () => {
-      const zip = new JSZip()
-      const sizes = [16, 32, 48, 64, 128, 256, 512]
+    const originalCanvas = document.createElement("canvas")
+    const oCtx = originalCanvas.getContext("2d")
+    originalCanvas.width = img.naturalWidth
+    originalCanvas.height = img.naturalHeight
+    oCtx?.drawImage(img, 0, 0)
+    originalCanvas.toBlob((blob) => {
+      if (blob) zip.file("icon-original.png", blob)
+    }, "image/png")
 
-  
-      const promises = sizes.map((size) => {
-        return new Promise<void>((resolve) => {
-          const tempCanvas = document.createElement("canvas")
-          const tempCtx = tempCanvas.getContext("2d")
-          if (!tempCtx) return resolve()
-          tempCanvas.width = size
-          tempCanvas.height = size
-     
-          tempCtx.clearRect(0, 0, size, size)
-          tempCtx.drawImage(img, 0, 0, size, size)
-          tempCanvas.toBlob((blob) => {
-            if (blob) zip.file(`icon-${size}x${size}.png`, blob)
-            resolve()
-          }, "image/png")
-        })
+    const promises = sizes.map((size) => {
+      return new Promise<void>((resolve) => {
+        const tempCanvas = document.createElement("canvas")
+        const tempCtx = tempCanvas.getContext("2d")
+        if (!tempCtx) return resolve()
+        tempCanvas.width = size
+        tempCanvas.height = size
+        tempCtx.imageSmoothingEnabled = false
+        tempCtx.clearRect(0, 0, size, size)
+        tempCtx.drawImage(img, 0, 0, size, size)
+        tempCanvas.toBlob((blob) => {
+          if (blob) zip.file(`icon-${size}x${size}.png`, blob)
+          resolve()
+        }, "image/png")
       })
+    })
 
- 
-      const icoCanvas = document.createElement("canvas")
-      icoCanvas.width = 32
-      icoCanvas.height = 32
-      const icoCtx = icoCanvas.getContext("2d")
-      if (icoCtx) {
-        icoCtx.clearRect(0, 0, 32, 32)
-        icoCtx.drawImage(img, 0, 0, 32, 32)
-        icoCanvas.toBlob((blob) => {
-          if (blob) zip.file("favicon.ico", blob)
+
+    const icoCanvas = document.createElement("canvas")
+    const icoCtx = icoCanvas.getContext("2d")
+    icoCanvas.width = 32
+    icoCanvas.height = 32
+    icoCtx?.clearRect(0, 0, 32, 32)
+    icoCtx?.drawImage(img, 0, 0, 32, 32)
+    icoCanvas.toBlob((blob) => {
+      if (blob) zip.file("favicon.ico", blob)
 
    
-          const appleCanvas = document.createElement("canvas")
-          appleCanvas.width = 180
-          appleCanvas.height = 180
-          const appleCtx = appleCanvas.getContext("2d")
-          if (appleCtx) {
-            appleCtx.clearRect(0, 0, 180, 180)
-            appleCtx.drawImage(img, 0, 0, 180, 180)
-            appleCanvas.toBlob((appleBlob) => {
-              if (appleBlob) zip.file("apple-touch-icon.png", appleBlob)
+      const appleCanvas = document.createElement("canvas")
+      const appleCtx = appleCanvas.getContext("2d")
+      appleCanvas.width = 180
+      appleCanvas.height = 180
+      appleCtx?.clearRect(0, 0, 180, 180)
+      appleCtx?.drawImage(img, 0, 0, 180, 180)
+      appleCanvas.toBlob((appleBlob) => {
+        if (appleBlob) zip.file("apple-touch-icon.png", appleBlob)
 
-             
-              const svg = createSVG(previewCanvas, {
-                text,
-                fontSize,
-                fontFamily,
-                textColor,
-                showTextEditor,
-                textPosition,
-              })
-              zip.file("icon.svg", svg)
+        
+        const svg = createSVG(previewCanvas, {
+          text,
+          fontSize,
+          fontFamily,
+          textColor,
+          showTextEditor,
+          textPosition,
+        })
+        zip.file("icon.svg", svg)
 
-              Promise.all(promises).then(() => {
-                zip.file(
-                  "README.txt",
-                  `# iconic.JesseJesse.xyz
+        Promise.all(promises).then(() => {
+          zip.file(
+            "README.txt",
+            `# iconic.JesseJesse.xyz
 
-Add the icons to your project head:
+Add these tags in your <head>:
 
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -213,31 +219,31 @@ Add the icons to your project head:
 <link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
 `
-                )
-                zip.generateAsync({ type: "blob" }).then((content) => {
-                  saveFile(content, "iconic.JesseJesse.zip")
-                  toast({
-                    title: "Download complete",
-                    description: "Icon pack downloaded successfully!",
-                  })
-                })
-              })
-            }, "image/png")
-          }
-        }, "image/x-icon")
-      }
-    }
-  }
+          )
 
-  const saveFile = (blob: Blob, filename: string) => {
-    const link = document.createElement("a")
-    link.href = URL.createObjectURL(blob)
-    link.download = filename
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-    URL.revokeObjectURL(link.href)
+          zip.generateAsync({ type: "blob" }).then((content) => {
+            saveFile(content, "iconic.JesseJesse.zip")
+            toast({
+              title: "Download complete",
+              description: "Icon pack downloaded successfully!",
+            })
+          })
+        })
+      }, "image/png")
+    }, "image/x-icon")
   }
+}
+
+const saveFile = (blob: Blob, filename: string) => {
+  const link = document.createElement("a")
+  link.href = URL.createObjectURL(blob)
+  link.download = filename
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(link.href)
+}
+
 
   const toggleTextEditor = () => setShowTextEditor(!showTextEditor)
 
