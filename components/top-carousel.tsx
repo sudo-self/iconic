@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react"
 
 const examples = [
-  "https://picsum.photos/id/1015/512/512",
-  "https://picsum.photos/id/1016/512/512",
-  "https://picsum.photos/id/1018/512/512",
-  "https://picsum.photos/id/1020/512/512",
-  "https://picsum.photos/id/1024/512/512",
-  "https://picsum.photos/id/1040/512/512",
-  "https://picsum.photos/id/1035/512/512",
-  "https://picsum.photos/id/1038/512/512"
+  "https://picsum.photos/id/1015/1024/1024",
+  "https://picsum.photos/id/1016/1024/1024",
+  "https://picsum.photos/id/1018/1024/1024",
+  "https://picsum.photos/id/1020/1024/1024",
+  "https://picsum.photos/id/1024/1024/1024",
+  "https://picsum.photos/id/1027/1024/1024",
+  "https://picsum.photos/id/1035/1024/1024",
+  "https://picsum.photos/id/1038/1024/1024"
 ]
 
 export default function TopCarousel() {
@@ -39,7 +39,7 @@ export default function TopCarousel() {
         {[...examples, ...examples].map((src, i) => (
           <div
             key={i}
-            className="w-[200px] h-[200px] bg-white rounded-xl shadow-md overflow-hidden"
+            className="w-[200px] h-[200px] bg-white dark:bg-card rounded-xl shadow-md overflow-hidden"
           >
             <img
               src={src}
@@ -72,6 +72,7 @@ export default function TopCarousel() {
     </div>
   )
 }
+
 
 
 
