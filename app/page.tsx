@@ -259,7 +259,7 @@ Add these tags in your <head>:
             {generatedImageUrl && (
               <div className="grid sm:grid-cols-2 gap-6 mt-6 items-start">
                 <div className="space-y-3">
-                  <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
+                                  <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
                     Download 10+ HQ icons and SVG
                   </div>
                   <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
@@ -309,7 +309,7 @@ Add these tags in your <head>:
                     </div>
                   </div>
 
-                  <div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative mx-auto overflow-hidden mt-6">
+                  <div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative mx-auto overflow-hidden">
                     <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-12 h-1.5 bg-gray-800 rounded-full" />
                     <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gray-800 rounded-full border-2 border-white" />
                     <img
