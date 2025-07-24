@@ -254,79 +254,84 @@ Add these tags in your <head>:
                   10+ HQ icons & SVG
                   </div>
 
-                  <div className="flex items-start gap-8 mt-4">
-                 
-              <div className="flex flex-col items-center gap-6 w-[360px]">
+         <div className="flex items-start gap-8 mt-4">
+  <div className="flex flex-col items-center gap-6 w-[360px]">
 
+    <div className="flex flex-col items-center gap-1">
+      <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
+        <img
+          src={generatedImageUrl}
+          width={16}
+          height={16}
+          alt="Favicon"
+        />
+        <span className="text-sm text-gray-600">https://</span>
+      </div>
+      <div className="text-center text-xs text-gray-600">browser tab</div>
+    </div>
 
+    <div className="flex flex-col items-center space-y-2">
+      <div className="w-24 h-24 bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
+        <img
+          src={generatedImageUrl}
+          width={180}
+          height={180}
+          className="object-contain"
+          alt="App Icon"
+        />
+      </div>
+      <div className="text-xs text-gray-600">mobile app</div>
 
-              
-                    <div className="flex flex-col items-center gap-1">
-                        <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
-                          <img
-                            src={generatedImageUrl}
-                            width={16}
-                            height={16}
-                            alt="Favicon"
-                          />
-                          <span className="text-sm text-gray-600">https://</span>
-                        </div>
-                        <div className="text-center text-xs text-gray-600">browser tab</div>
-                      </div>
+      <div className="flex justify-center gap-4 mt-2">
+        <div className="flex flex-col items-center space-y-1">
+          <img
+            src={generatedImageUrl}
+            width={48}
+            height={48}
+            alt="48px Icon"
+            className="object-contain border rounded"
+          />
+          <div className="text-[10px] text-gray-600">48px</div>
+        </div>
+        <div className="flex flex-col items-center space-y-1">
+          <img
+            src={generatedImageUrl}
+            width={64}
+            height={64}
+            alt="64px Icon"
+            className="object-contain border rounded"
+          />
+          <div className="text-[10px] text-gray-600">64px</div>
+        </div>
+        <div className="flex flex-col items-center space-y-1">
+          <img
+            src={generatedImageUrl}
+            width={512}
+            height={512}
+            alt="512px Icon"
+            className="object-contain border rounded"
+          />
+          <div className="text-[10px] text-gray-600">512px</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-               
-                      <div className="flex flex-col items-center space-y-2">
-                        <div className="w-24 h-24 bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
-                          <img
-                            src={generatedImageUrl}
-                            width={180}
-                            height={180}
-                            className="object-contain"
-                            alt="App Icon"
-                          />
-                        </div>
-                        <div className="text-xs text-gray-600">mobile app</div>
+  <div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative overflow-hidden flex-shrink-0">
+    <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-12 h-1.5 bg-gray-800 rounded-full" />
+    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gray-800 rounded-full border-2 border-white" />
+    <img
+      src={generatedImageUrl}
+      alt="Mobile App"
+      className="w-full h-full object-cover"
+    />
+  </div>
+</div>
 
-                        <div className="flex justify-center gap-4 mt-2">
-                          <div className="flex flex-col items-center space-y-1">
-                            <img
-                              src={generatedImageUrl}
-                              width={48}
-                              height={48}
-                              alt="48px Icon"
-                              className="object-contain border rounded"
-                            />
-                            <div className="text-[10px] text-gray-600">48px</div>
-                          </div>
-                          <div className="flex flex-col items-center space-y-1">
-                            <img
-                              src={generatedImageUrl}
-                              width={64}
-                              height={64}
-                              alt="64px Icon"
-                              className="object-contain border rounded"
-                            />
-                            <div className="text-[10px] text-gray-600">64px</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+<div className="text-center text-[10px] text-gray-600 mt-1">
+  Scalable Vector Graphic (SVG)
+</div>
 
-                 
-                    <div className="w-[200px] h-[400px] bg-black rounded-[2.5rem] shadow-xl relative overflow-hidden flex-shrink-0">
-                      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-12 h-1.5 bg-gray-800 rounded-full" />
-                      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gray-800 rounded-full border-2 border-white" />
-                      <img
-                        src={generatedImageUrl}
-                        alt="Mobile App"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="text-center text-[10px] text-gray-600 mt-1">
-                    Scalable Vector Graphic (SVG)
-                  </div>
                 </div>
               </div>
             )}
