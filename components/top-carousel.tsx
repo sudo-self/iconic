@@ -8,7 +8,7 @@ const examples = [
   "https://picsum.photos/id/1018/512/512",
   "https://picsum.photos/id/1020/512/512",
   "https://picsum.photos/id/1024/512/512",
-  "https://picsum.photos/id/1027/512/512",
+  "https://picsum.photos/id/1040/512/512",
   "https://picsum.photos/id/1035/512/512",
   "https://picsum.photos/id/1038/512/512"
 ]
