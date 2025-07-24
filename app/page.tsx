@@ -278,7 +278,7 @@ Add these tags in your <head>:
               <section className="bg-white rounded-lg shadow-lg p-6 space-y-6">
                 <div className="flex justify-between items-center">
                   <h2 className="text-lg font-semibold text-gray-800">
-                    Icon Preview
+                    iconic icons
                   </h2>
                   <span className="text-xs font-mono bg-gray-100 px-2 py-1 rounded">
                     10+ HQ icons & SVG
@@ -299,10 +299,10 @@ Add these tags in your <head>:
                           className="flex-shrink-0"
                         />
                         <span className="text-sm text-gray-600 truncate">
-                          https://yoursite.com
+                          https://your.site
                         </span>
                       </div>
-                      <span className="text-xs text-gray-500">Browser tab</span>
+                      <span className="text-xs text-gray-500">Web Browser</span>
                     </div>
 
                     {/* Mobile App Preview */}
@@ -317,7 +317,7 @@ Add these tags in your <head>:
                         />
                       </div>
                       <span className="text-xs text-gray-500">
-                        Mobile app icon
+                        Mobile App
                       </span>
                     </div>
 
@@ -345,7 +345,7 @@ Add these tags in your <head>:
                     {/* HTML Snippet */}
                     <div>
                       <h3 className="text-sm font-medium text-gray-700 mb-2">
-                        HTML Head Snippet
+                        HTML Head Tag
                       </h3>
                       <pre className="text-xs font-mono bg-gray-100 p-3 rounded-lg overflow-x-auto">
                         {`<link rel="icon" href="/favicon.ico" sizes="any">
@@ -356,7 +356,7 @@ Add these tags in your <head>:
                       </pre>
                     </div>
 
-                    {/* Phone Mockup */}
+                
                     <div className="flex flex-col items-center">
                       <div className="relative w-48 h-96 bg-black rounded-[2rem] p-2 shadow-xl">
                         <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-1 bg-gray-700 rounded-full"></div>
@@ -369,7 +369,7 @@ Add these tags in your <head>:
                         </div>
                       </div>
                       <span className="text-xs text-gray-500 mt-2">
-                        Home screen
+                        Scalable Vector Graphic (SVG)
                       </span>
                     </div>
                   </div>
@@ -378,7 +378,7 @@ Add these tags in your <head>:
             )}
           </div>
 
-          {/* Preview and Customization Panel */}
+        
           <div className="w-full lg:w-5/12 space-y-6">
             <section className="bg-white rounded-lg shadow-lg p-6 space-y-6">
               <div className="flex justify-between items-center">
@@ -388,7 +388,7 @@ Add these tags in your <head>:
                     alt="Cloudflare Workers"
                     className="w-5 h-5 mr-2"
                   />
-                  Icon Customization
+                  iconic creator
                 </h2>
                 {generatedImageUrl && (
                   <Button 
@@ -413,7 +413,7 @@ Add these tags in your <head>:
                 )}
               </div>
 
-              {/* Preview Canvas */}
+           
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 flex justify-center items-center min-h-[300px]">
                 {generatedImageUrl ? (
                   <canvas
@@ -432,11 +432,11 @@ Add these tags in your <head>:
                 )}
               </div>
 
-              {/* Text Customization */}
+         
               {showTextEditor && generatedImageUrl && (
                 <div className="space-y-4 border-t pt-4">
                   <div className="grid grid-cols-1 gap-4">
-                    {/* Text Input */}
+               
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Text
@@ -449,7 +449,7 @@ Add these tags in your <head>:
                       />
                     </div>
 
-                    {/* Font Size */}
+         
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Font Size: {fontSize}px
@@ -463,7 +463,7 @@ Add these tags in your <head>:
                       />
                     </div>
 
-                    {/* Font Family */}
+        
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Font Family
@@ -485,7 +485,7 @@ Add these tags in your <head>:
                       </select>
                     </div>
 
-                    {/* Text Color */}
+         
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Text Color
@@ -521,7 +521,7 @@ Add these tags in your <head>:
                       </div>
                     </div>
 
-                    {/* Text Position */}
+        
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Text Position
@@ -552,7 +552,7 @@ Add these tags in your <head>:
                 </div>
               )}
 
-              {/* Download Button */}
+           
               {generatedImageUrl && (
                 <Button
                   onClick={saveIconPack}
@@ -566,7 +566,7 @@ Add these tags in your <head>:
           </div>
         </main>
 
-        {/* Footer */}
+       
         <footer className="text-center pt-8 text-sm text-gray-500">
           <a
             href="https://iconic.jessejesse.xyz"
