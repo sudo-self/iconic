@@ -274,7 +274,7 @@ const saveFile = (blob: Blob, filename: string) => {
              
                 <div className="space-y-3">
                   <div className="text-xs font-mono bg-gray-200 p-1 rounded w-fit">
-                    icon pack includes 10 icons
+                    10+ High Quality icons and SVG
                   </div>
                   <div className="rounded-lg border bg-white p-4 flex items-center gap-2 shadow-inner">
                     <img
@@ -324,7 +324,7 @@ const saveFile = (blob: Blob, filename: string) => {
                   alt="Text Fields"
                   className="w-5 h-5 mr-2"
                 />
-                Generated icon
+                Generated icon(s)
               </h3>
               {generatedImageUrl && (
                 <Button onClick={toggleTextEditor} variant="outline" size="sm">
@@ -455,7 +455,7 @@ const saveFile = (blob: Blob, filename: string) => {
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                 >
                   <Download className="w-4 h-4 mr-2" />
-                  Download Icon Pack
+                  download HQ icons
                 </Button>
 
                 <div className="bg-black text-pink-400 font-mono text-xs p-4 rounded-lg shadow-inner relative mt-4">
