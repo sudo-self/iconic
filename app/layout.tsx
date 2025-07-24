@@ -23,6 +23,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Iconic - HQ Icon Generator</title>
+        <meta property="og:site_name" content="iconic.JesseJesse.xyz">
         <meta name="title" content="Iconic - HQ Icon Generator" />
         <meta name="description" content="Create beautiful icons for any size project" />
         <meta name="author" content="Jesse Roper" />
