@@ -54,7 +54,7 @@ export default function TopCarousel() {
               className="w-full h-full object-cover"
               loading="lazy"
               onError={(e) => {
-                (e.target as HTMLImageElement).src = "/fallback.jpg" 
+                (e.target as HTMLImageElement).src = "/apple-touch-icon.png" 
               }}
             />
           </div>
