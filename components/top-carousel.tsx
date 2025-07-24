@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react"
 
 const examples = [
-  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/cyberpunk.svg",
-  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image-14.svg",
-  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image-11.svg",
-  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image-13.svg",
-  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image-10.svg",
-  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image%20(2).svg",
-  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image-12.svg",
-  "https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/image-15.svg"
+  "https://picsum.photos/id/1015/200/200",
+  "https://picsum.photos/id/1016/200/200",
+  "https://picsum.photos/id/1018/200/200",
+  "https://picsum.photos/id/1020/200/200",
+  "https://picsum.photos/id/1024/200/200",
+  "https://picsum.photos/id/1027/200/200",
+  "https://picsum.photos/id/1035/200/200",
+  "https://picsum.photos/id/1038/200/200"
 ]
 
 export default function TopCarousel() {
@@ -67,6 +67,7 @@ export default function TopCarousel() {
     </div>
   )
 }
+
 
 
 
