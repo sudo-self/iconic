@@ -256,7 +256,8 @@ Add these tags in your <head>:
 
                   <div className="flex items-start gap-8 mt-4">
                  
-                   <div className="flex flex-col items-center gap-6 w-full max-w-[44rem]">
+                 <div className="flex flex-col items-center gap-6 flex-grow">
+
 
               
                       <div className="flex flex-col items-center gap-1">
