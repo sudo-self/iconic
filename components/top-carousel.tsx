@@ -6,7 +6,7 @@ const examples = [
 
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2F1.png?alt=media&token=fd7f62de-40c9-4ea5-a63b-2ff917cf6e65",
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Ficon-256x256.png?alt=media&token=be5f2f80-802f-4be3-bc44-f31f02a75435",
-  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2F13131313131.png?alt=media&token=5bec2506-b8b6-4473-8772-034302c0303e",
+  "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2Fgolden.png?alt=media&token=70b26b84-dab8-45f9-8439-e90987539392",
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2F111111.png?alt=media&token=a201bafa-7b5c-4546-b187-d53f624fea6e",
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2F5555555.png?alt=media&token=1fe2c5f0-dbd2-4199-806a-90f25ce20e16",
   "https://firebasestorage.googleapis.com/v0/b/svetle-book.appspot.com/o/iconic%2F789.png?alt=media&token=8fd40bed-2d82-4ed4-b02b-21993f0a05e3",
