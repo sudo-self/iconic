@@ -98,7 +98,7 @@ export default function GenerateForm({
           alt="Text Fields"
           className="w-5 h-5 mr-2"
         />
-        Generate an Icon
+        Enter a text description
       </h3>
 
       <form onSubmit={handleSubmit} className="space-y-5">
