@@ -3,15 +3,23 @@
 import { useEffect, useState } from "react"
 
 const examples = [
-  "https://picsum.photos/id/1015/1024/1024",
-  "https://picsum.photos/id/1016/1024/1024",
-  "https://picsum.photos/id/1018/1024/1024",
-  "https://picsum.photos/id/1020/1024/1024",
-  "https://picsum.photos/id/1024/1024/1024",
-  "https://picsum.photos/id/1027/1024/1024",
-  "https://picsum.photos/id/1035/1024/1024",
-  "https://picsum.photos/id/1038/1024/1024"
+  // Neon
+  "https://cdn.midjourney.com/e1b6c38e-7cbe-4f55-8a7b-bf7e92f10ac2/0_0.png", 
+  "https://cdn.openart.ai/uploads/image_1683943345467.png",
+
+  // Black and White
+  "https://cdn.openart.ai/uploads/image_1683943857157.png",
+  "https://cdn.openart.ai/uploads/image_1683943482356.png",
+
+  // Cartoon / Anime
+  "https://cdn.openart.ai/uploads/image_1683943294224.png", 
+  "https://cdn.openart.ai/uploads/image_1683943381942.png",
+
+  // Bonus examples
+  "https://cdn.openart.ai/uploads/image_1683943573136.png",
+  "https://cdn.openart.ai/uploads/image_1683943627869.png" 
 ]
+
 
 export default function TopCarousel() {
   const [isPaused, setIsPaused] = useState(false)
