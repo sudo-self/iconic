@@ -288,7 +288,14 @@ Add the icons to your project head:
           {/* Right Side - Canvas & Editor */}
           <div className="w-full lg:w-1/2 bg-white rounded-lg shadow p-6 space-y-4">
             <div className="flex justify-between items-center">
-              <h3 className="text-lg font-semibold text-gray-800">Generated Icon</h3>
+              <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center">
+        <img
+          src="./cloudflareworkers.svg"
+          alt="Text Fields"
+          className="w-5 h-5 mr-2"
+        />
+       Generated icon
+      </h3>
               {generatedImageUrl && (
                 <Button onClick={toggleTextEditor} variant="outline" size="sm">
                   {showTextEditor ? (
