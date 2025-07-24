@@ -4,22 +4,21 @@ import { useEffect, useState } from "react"
 
 const examples = [
   // Neon
-  "https://cdn.midjourney.com/e1b6c38e-7cbe-4f55-8a7b-bf7e92f10ac2/0_0.png", 
-  "https://cdn.openart.ai/uploads/image_1683943345467.png",
+  "https://images.unsplash.com/photo-1604079628048-9439f16849d4", // neon Tokyo
+  "https://images.unsplash.com/photo-1626096894003-7fa3bb1b5dd5", // neon alley
 
   // Black and White
-  "https://cdn.openart.ai/uploads/image_1683943857157.png",
-  "https://cdn.openart.ai/uploads/image_1683943482356.png",
+  "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70", // BW portrait
+  "https://images.unsplash.com/photo-1483794344563-d27a8d18014e", // BW man
 
   // Cartoon / Anime
-  "https://cdn.openart.ai/uploads/image_1683943294224.png", 
-  "https://cdn.openart.ai/uploads/image_1683943381942.png",
+  "https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/45.png",
+  "https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/44.png",
 
   // Bonus examples
-  "https://cdn.openart.ai/uploads/image_1683943573136.png",
-  "https://cdn.openart.ai/uploads/image_1683943627869.png" 
+  "https://images.unsplash.com/photo-1617036881680-bc2dc01670c4", // surreal
+  "https://images.unsplash.com/photo-1600852471121-98fe5b6ca1f8"  // neon portrait
 ]
-
 
 export default function TopCarousel() {
   const [isPaused, setIsPaused] = useState(false)
@@ -50,10 +49,13 @@ export default function TopCarousel() {
             className="w-[200px] h-[200px] bg-white dark:bg-card rounded-xl shadow-md overflow-hidden"
           >
             <img
-              src={src}
+              src={`${src}?auto=format&fit=crop&w=400&h=400&q=80`}
               alt={`item-${i}`}
               className="w-full h-full object-cover"
               loading="lazy"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = "/fallback.jpg" 
+              }}
             />
           </div>
         ))}
