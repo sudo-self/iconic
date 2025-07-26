@@ -70,37 +70,33 @@ export default function IconicApp() {
     showTextEditor,
   ]);
 
- const drawPreviewCanvas = (
-  canvas: HTMLCanvasElement | null,
-  img: HTMLImageElement,
-  width: number,
-  height: number,
-) => {
-  if (!canvas || !img.complete) return;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
-  
-  try {
-    canvas.width = width;
-    canvas.height = height;
-    ctx.clearRect(0, 0, width, height);
-    ctx.drawImage(img, 0, 0, width, height);
-    
-    if (showTextEditor && text) {
-      ctx.font = `${fontSize}px ${fontFamily}`;
-      ctx.fillStyle = textColor;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(
-        text, 
-        textPosition.x * width, 
-        textPosition.y * height
-      );
+  const drawPreviewCanvas = (
+    canvas: HTMLCanvasElement | null,
+    img: HTMLImageElement,
+    width: number,
+    height: number,
+  ) => {
+    if (!canvas || !img.complete) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    try {
+      canvas.width = width;
+      canvas.height = height;
+      ctx.clearRect(0, 0, width, height);
+      ctx.drawImage(img, 0, 0, width, height);
+
+      if (showTextEditor && text) {
+        ctx.font = `${fontSize}px ${fontFamily}`;
+        ctx.fillStyle = textColor;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(text, textPosition.x * width, textPosition.y * height);
+      }
+    } catch (error) {
+      console.error("Error drawing canvas:", error);
     }
-  } catch (error) {
-    console.error("Error drawing canvas:", error);
-  }
-};
+  };
 
   const createSVG = (
     canvas: HTMLCanvasElement,
@@ -238,18 +234,18 @@ Add these tags in your <head>:
     URL.revokeObjectURL(link.href);
   };
 
- const toggleTextEditor = () => {
-  if (generatedImageUrl) {
-    setShowTextEditor(!showTextEditor);
-  } else {
-    toast({
-      title: "No image generated",
-      description: "Please generate an icon first before adding text",
-      variant: "destructive",
-    });
-  }
-};
-  
+  const toggleTextEditor = () => {
+    if (generatedImageUrl) {
+      setShowTextEditor(!showTextEditor);
+    } else {
+      toast({
+        title: "No image generated",
+        description: "Please generate an icon first before adding text",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen px-4 py-12 flex flex-col items-center font-sans">
       <div className="max-w-6xl w-full space-y-12">
@@ -264,16 +260,13 @@ Add these tags in your <head>:
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </section>
 
- 
         <main className="flex flex-col lg:flex-row gap-8">
-    
           <div className="w-full lg:w-7/12 space-y-6">
             <GenerateForm
               setGeneratedImageUrl={setGeneratedImageUrl}
               initialPrompt={prompt}
             />
 
-    
             {generatedImageUrl && (
               <section className="bg-white rounded-lg shadow-lg p-6 space-y-6">
                 <div className="flex justify-between items-center">
@@ -286,9 +279,7 @@ Add these tags in your <head>:
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-    
                   <div className="space-y-6">
-           
                     <div className="flex flex-col items-center gap-2">
                       <div className="rounded-lg border bg-white p-3 flex items-center gap-2 shadow-inner w-full max-w-xs">
                         <img
@@ -305,7 +296,6 @@ Add these tags in your <head>:
                       <span className="text-xs text-gray-500">Web Browser</span>
                     </div>
 
-                
                     <div className="flex flex-col items-center gap-2">
                       <div className="w-40 h-40 bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
                         <img
@@ -316,12 +306,9 @@ Add these tags in your <head>:
                           alt="App Icon"
                         />
                       </div>
-                      <span className="text-xs text-gray-500">
-                        Mobile App
-                      </span>
+                      <span className="text-xs text-gray-500">Mobile App</span>
                     </div>
 
-            
                     <div className="flex justify-center gap-4">
                       {[32, 64, 128].map((size) => (
                         <div key={size} className="flex flex-col items-center">
@@ -340,9 +327,7 @@ Add these tags in your <head>:
                     </div>
                   </div>
 
-              
                   <div className="space-y-6">
-           
                     <div>
                       <h3 className="text-sm font-medium text-gray-700 mb-2">
                         HTML Head Tag
@@ -356,7 +341,6 @@ Add these tags in your <head>:
                       </pre>
                     </div>
 
-                
                     <div className="flex flex-col items-center">
                       <div className="relative w-48 h-96 bg-black rounded-[2rem] p-2 shadow-xl">
                         <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-1 bg-gray-700 rounded-full"></div>
@@ -378,7 +362,6 @@ Add these tags in your <head>:
             )}
           </div>
 
-        
           <div className="w-full lg:w-5/12 space-y-6">
             <section className="bg-white rounded-lg shadow-lg p-6 space-y-6">
               <div className="flex justify-between items-center">
@@ -391,29 +374,28 @@ Add these tags in your <head>:
                   iconic creator
                 </h2>
                 {generatedImageUrl && (
-                  <Button 
-  onClick={toggleTextEditor} 
-  variant="outline" 
-  size="sm"
-  className="flex items-center gap-1"
-  disabled={!generatedImageUrl}
->
-  {showTextEditor ? (
-    <>
-      <X className="w-4 h-4" />
-      <span>Hide Text</span>
-    </>
-  ) : (
-    <>
-      <Type className="w-4 h-4" />
-      <span>Add Text</span>
-    </>
-  )}
-</Button>
+                  <Button
+                    onClick={toggleTextEditor}
+                    variant="outline"
+                    size="sm"
+                    className="flex items-center gap-1"
+                    disabled={!generatedImageUrl}
+                  >
+                    {showTextEditor ? (
+                      <>
+                        <X className="w-4 h-4" />
+                        <span>Hide Text</span>
+                      </>
+                    ) : (
+                      <>
+                        <Type className="w-4 h-4" />
+                        <span>Add Text</span>
+                      </>
+                    )}
+                  </Button>
                 )}
               </div>
 
-           
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 flex justify-center items-center min-h-[300px]">
                 {generatedImageUrl ? (
                   <canvas
@@ -432,11 +414,9 @@ Add these tags in your <head>:
                 )}
               </div>
 
-         
               {showTextEditor && generatedImageUrl && (
                 <div className="space-y-4 border-t pt-4">
                   <div className="grid grid-cols-1 gap-4">
-               
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Text
@@ -449,7 +429,6 @@ Add these tags in your <head>:
                       />
                     </div>
 
-         
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Font Size: {fontSize}px
@@ -463,7 +442,6 @@ Add these tags in your <head>:
                       />
                     </div>
 
-        
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Font Family
@@ -485,7 +463,6 @@ Add these tags in your <head>:
                       </select>
                     </div>
 
-         
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Text Color
@@ -521,7 +498,6 @@ Add these tags in your <head>:
                       </div>
                     </div>
 
-        
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Text Position
@@ -552,7 +528,6 @@ Add these tags in your <head>:
                 </div>
               )}
 
-           
               {generatedImageUrl && (
                 <Button
                   onClick={saveIconPack}
@@ -566,7 +541,6 @@ Add these tags in your <head>:
           </div>
         </main>
 
-       
         <footer className="text-center pt-8 text-sm text-gray-500">
           <a
             href="https://iconic.jessejesse.xyz"
@@ -581,3 +555,4 @@ Add these tags in your <head>:
     </div>
   );
 }
+
