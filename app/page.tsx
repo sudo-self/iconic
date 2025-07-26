@@ -264,16 +264,16 @@ Add these tags in your <head>:
           <TopCarousel onSelectPrompt={handleSelectPrompt} />
         </section>
 
-        {/* Main Content Area */}
+ 
         <main className="flex flex-col lg:flex-row gap-8">
-          {/* Generation Panel */}
+    
           <div className="w-full lg:w-7/12 space-y-6">
             <GenerateForm
               setGeneratedImageUrl={setGeneratedImageUrl}
               initialPrompt={prompt}
             />
 
-            {/* Results Display */}
+    
             {generatedImageUrl && (
               <section className="bg-white rounded-lg shadow-lg p-6 space-y-6">
                 <div className="flex justify-between items-center">
@@ -286,9 +286,9 @@ Add these tags in your <head>:
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Icon Previews */}
+    
                   <div className="space-y-6">
-                    {/* Browser Tab Preview */}
+           
                     <div className="flex flex-col items-center gap-2">
                       <div className="rounded-lg border bg-white p-3 flex items-center gap-2 shadow-inner w-full max-w-xs">
                         <img
@@ -305,7 +305,7 @@ Add these tags in your <head>:
                       <span className="text-xs text-gray-500">Web Browser</span>
                     </div>
 
-                    {/* Mobile App Preview */}
+                
                     <div className="flex flex-col items-center gap-2">
                       <div className="w-40 h-40 bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
                         <img
@@ -321,7 +321,7 @@ Add these tags in your <head>:
                       </span>
                     </div>
 
-                    {/* Standard Sizes */}
+            
                     <div className="flex justify-center gap-4">
                       {[32, 64, 128].map((size) => (
                         <div key={size} className="flex flex-col items-center">
@@ -340,9 +340,9 @@ Add these tags in your <head>:
                     </div>
                   </div>
 
-                  {/* Code Snippet and Phone Mockup */}
+              
                   <div className="space-y-6">
-                    {/* HTML Snippet */}
+           
                     <div>
                       <h3 className="text-sm font-medium text-gray-700 mb-2">
                         HTML Head Tag
