@@ -271,10 +271,10 @@ Add these tags in your <head>:
               <section className="bg-white rounded-lg shadow-lg p-6 space-y-6">
                 <div className="flex justify-between items-center">
                   <h2 className="text-lg font-semibold text-gray-800">
-                    iconic icons
+                    icon preview
                   </h2>
                   <span className="text-xs font-mono bg-gray-100 px-2 py-1 rounded">
-                    10+ HQ icons & SVG
+                   Pack includes 10+ HQ icons & SVG
                   </span>
                 </div>
 
@@ -297,7 +297,7 @@ Add these tags in your <head>:
                     </div>
 
                     <div className="flex flex-col items-center gap-2">
-                      <div className="w-40 h-40 bg-white border shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
+                    <div className="w-40 h-40 bg-white shadow-lg rounded-2xl overflow-hidden flex items-center justify-center">
                         <img
                           src={generatedImageUrl}
                           width={180}
